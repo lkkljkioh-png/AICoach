@@ -1,195 +1,415 @@
+/* ==========================================
+   AICoach Home - Refined Desktop Design
+========================================== */
 
-/* 메인 Hero */
+/* 1. HERO */
 .home-hero {
-  width: 100%;
-  background: linear-gradient(120deg, #ffffff, #edf5ff);
+    width: 100%;
+    min-height: calc(100svh - 80px);
+    display: flex;
+    align-items: center;
+    background: #f8fafc;
+    border-bottom: 1px solid #e8edf4;
 }
 
 .home-hero-container {
-  width: 1400px;
-  max-width: calc(100% - 80px);
-  min-height: 650px;
-  margin: 0 auto;
+    width: 100%;
+    max-width: 1480px;
+    min-height: calc(100svh - 80px);
+    margin-inline: auto;
 
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  align-items: center;
-  gap: 80px;
+    padding: clamp(60px, 7vh, 95px) clamp(28px, 4vw, 76px);
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(45px, 5vw, 100px);
 }
 
-/* 왼쪽 */
-.home-badge {
-  display: inline-block;
-  padding: 10px 18px;
-  border-radius: 30px;
-  background: #dbeafe;
-  color: #2563eb;
-  font-size: 13px;
-  font-weight: 700;
+/* 2. LEFT CONTENT */
+.home-hero-left {
+    min-width: 0;
 }
 
 .home-hero-left h1 {
-  margin: 28px 0;
-  color: #142b5b;
-  font-size: 48px;
-  line-height: 1.4;
-  letter-spacing: -1.5px;
+    margin: 0;
+
+    font-size: clamp(34px, 2.75vw, 50px);
+    font-weight: 750;
+    line-height: 1.38;
+    letter-spacing: -0.055em;
+
+    color: #172c56;
+    word-break: keep-all;
 }
 
 .home-hero-left h1 span {
-  color: #2563eb;
+    color: #155eef;
 }
 
-.home-hero-left p {
-  color: #64748b;
-  font-size: 17px;
-  line-height: 2;
+.home-hero-left>p {
+    max-width: 530px;
+    margin-top: 26px;
+
+    color: #66758c;
+    font-size: clamp(14px, 0.95vw, 16px);
+    line-height: 1.95;
+    word-break: keep-all;
 }
 
+/* HERO BUTTONS */
 .home-buttons {
-  display: flex;
-  gap: 14px;
-  margin-top: 38px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
 }
 
 .home-start-btn,
 .home-info-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 25px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
+    min-height: 46px;
+    padding: 0 23px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
 }
 
 .home-start-btn {
-  background: #2563eb;
-  color: white;
+    color: #fff;
+    background: #155eef;
+    border: 1px solid #155eef;
+}
+
+.home-start-btn:hover {
+    background: #104bc5;
+    transform: translateY(-2px);
 }
 
 .home-info-btn {
-  background: white;
-  color: #334155;
-  border: 1px solid #cbd5e1;
+    background: #fff;
+    color: #334155;
+    border: 1px solid #d9e1ed;
 }
 
-/* 오른쪽 코드 에디터 */
+.home-info-btn:hover {
+    color: #155eef;
+    border-color: #9abaf5;
+}
+
+/* 3. CODE EDITOR */
 .home-editor {
-  width: 100%;
-  background: #111c31;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 30px 70px rgba(30, 58, 138, 0.18);
+    width: 100%;
+    min-width: 0;
+
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid #293a55;
+
+    background: #0e1729;
+    color: #e2e8f0;
+
+    box-shadow:
+        0 20px 50px rgba(26, 47, 82, 0.12);
 }
 
+/* EDITOR HEADER */
 .home-editor-header {
-  height: 54px;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  background: #1e293b;
-  color: #94a3b8;
+    min-height: 48px;
+    padding: 12px 20px;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 14px;
+    row-gap: 5px;
+
+    background: #1c2a40;
+    border-bottom: 1px solid #30415a;
+
+    color: #a9c1e4;
+    font-size: 12px;
 }
 
-.home-editor-header span {
-  color: #fb7185;
-  letter-spacing: 5px;
+.home-editor-header strong {
+    color: #e2e8f0;
+    font-weight: 600;
 }
 
-.home-editor pre {
-  padding: 35px 30px;
-  color: #bfdbfe;
-  font-family: Consolas, monospace;
-  font-size: 16px;
-  line-height: 2;
+.home-editor-header p {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 12px;
 }
 
-.home-editor-result {
-  margin: 0 24px 24px;
-  padding: 20px;
-  border-radius: 10px;
-  background: #123d37;
-  color: #bbf7d0;
+/* CODE AREA */
+.home-editor-code {
+    margin: 0;
+    min-height: 180px;
+
+    padding: 24px 26px;
+
+    background: #0e1729;
+    color: #c8dcf8;
+
+    font-family: Consolas, "Courier New", monospace;
+    font-size: clamp(12px, 0.85vw, 14px);
+    line-height: 1.85;
+    white-space: pre;
+    overflow-x: auto;
 }
 
-.home-editor-result p {
-  margin-top: 8px;
-  font-size: 13px;
+.home-editor-code pre,
+.home-editor-code code {
+    margin: 0;
+    font: inherit;
+    color: inherit;
 }
 
-/* 주요 기능 */
-.home-features {
-  padding: 100px 0;
-  background: #ffffff;
+/* AI FEEDBACK */
+.home-editor-feedback {
+    margin: 0 16px 16px;
+    padding: 16px 18px;
+
+    border-radius: 8px;
+    border: 1px solid #34435c;
+    background: #19273b;
+
+    color: #cbd5e1;
+    font-size: 12px;
+    line-height: 1.8;
 }
 
-.home-section-title {
-  text-align: center;
-  margin-bottom: 55px;
+.home-editor-feedback.bad {
+    background: #2b242c;
+    border-color: #5a3d49;
+    color: #f4c9d0;
 }
 
-.home-section-title span {
-  color: #2563eb;
-  font-size: 13px;
-  font-weight: 700;
+.home-editor-feedback strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #fca5a5;
+    font-size: 12px;
+    font-weight: 700;
 }
 
-.home-section-title h2 {
-  margin: 15px 0;
-  color: #142b5b;
-  font-size: 34px;
+.home-editor-feedback p {
+    margin: 0;
+    color: inherit;
+    font-size: 12px;
+    line-height: 1.8;
 }
 
-.home-section-title p {
-  color: #64748b;
+/* EDITOR FOOTER */
+.home-editor-footer {
+    min-height: 58px;
+    padding: 10px 17px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    background: #141f32;
+    border-top: 1px solid #30415a;
+
+    color: #9eafc7;
+    font-size: 12px;
 }
 
-.home-feature-grid {
-  width: 1400px;
-  max-width: calc(100% - 80px);
-  margin: 0 auto;
+/* 기본 브라우저 버튼 스타일 제거 */
+.home-editor-footer button,
+.home-editor-footer a {
+    appearance: none;
+    -webkit-appearance: none;
 
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
+    min-height: 35px;
+    padding: 0 15px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+    border-radius: 6px;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: background 0.2s ease;
 }
 
-.home-feature-card {
-  padding: 35px;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  background: white;
-  transition: 0.2s;
+.home-editor-footer button:hover,
+.home-editor-footer a:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
 }
 
-.home-feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.08);
+/* 4. COMMON SECTIONS */
+.home-section {
+    width: 100%;
+    background: #fff;
+
+    padding-block: clamp(70px, 8vh, 110px);
 }
 
-.home-feature-icon {
-  width: 58px;
-  height: 58px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-  border-radius: 14px;
-  background: #dbeafe;
-  color: #2563eb;
-  font-weight: 700;
+.home-inner {
+    width: 100%;
+    max-width: 1480px;
+    margin-inline: auto;
+    padding-inline: clamp(28px, 4vw, 76px);
 }
 
-.home-feature-card h3 {
-  margin-bottom: 14px;
-  color: #142b5b;
-  font-size: 20px;
+.home-section h2,
+.home-steps h2 {
+    color: #172c56;
+    font-size: clamp(27px, 2.2vw, 39px);
+    line-height: 1.35;
+    letter-spacing: -0.045em;
+    word-break: keep-all;
 }
 
-.home-feature-card p {
-  color: #64748b;
-  font-size: 15px;
-  line-height: 1.8;
+.home-section>p,
+.home-inner>p {
+    color: #64748b;
+    line-height: 1.8;
+}
+
+/* 5. FEATURE LIST */
+.home-feature-list {
+    margin-top: 45px;
+    border-top: 1px solid #cbd5e1;
+}
+
+.home-feature-row {
+    display: grid;
+    grid-template-columns:
+        minmax(150px, 0.65fr) minmax(220px, 1.15fr) minmax(250px, 1fr);
+
+    align-items: center;
+    gap: clamp(24px, 3vw, 55px);
+
+    padding: 27px 0;
+    border-bottom: 1px solid #e5eaf2;
+
+    transition: background 0.2s ease;
+}
+
+.home-feature-row:hover {
+    background: #f9fbff;
+}
+
+.home-feature-row h3 {
+    margin: 0;
+    color: #172c56;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.home-feature-row p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+.home-feature-example {
+    padding: 14px 17px;
+    border-radius: 7px;
+
+    background: #f5f7fb;
+    border: 1px solid #e5eaf1;
+
+    color: #435269;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* 6. LEARNING STEPS */
+.home-steps {
+    width: 100%;
+    padding-block: 85px;
+    background: #f3f6fb;
+}
+
+.home-steps h2 {
+    margin-bottom: 36px;
+}
+
+.home-steps h3 {
+    color: #172c56;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.home-steps p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* 7. CTA */
+.home-cta {
+    width: 100%;
+    padding: 75px clamp(28px, 5vw, 90px);
+
+    background: #172d55;
+    color: #fff;
+}
+
+.home-cta h2 {
+    color: #fff;
+    font-size: clamp(26px, 2.2vw, 39px);
+    letter-spacing: -0.04em;
+}
+
+.home-cta p {
+    margin-top: 15px;
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.home-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 25px;
+    padding: 13px 24px;
+
+    background: #fff;
+    color: #172d55;
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* 8. FOOTER */
+.home-footer {
+    width: 100%;
+    padding: 27px clamp(28px, 4vw, 76px);
+
+    background: #fff;
+    border-top: 1px solid #e5eaf2;
+
+    color: #64748b;
+    font-size: 12px;
 }
