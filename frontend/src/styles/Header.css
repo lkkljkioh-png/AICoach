@@ -1,0 +1,103 @@
+
+/* ==============================
+   AICoach Header
+   PC 웹사이트 기준
+================================ */
+
+.header {
+  width: 100%;
+  height: 86px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e8edf3;
+}
+
+.header-container {
+  width: min(100% - 80px, 1480px);
+  height: 100%;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* 원본 PNG 로고 */
+.header-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header-logo img {
+  display: block;
+  width: 190px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 로고 바로 옆 메뉴 */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  margin-left: 34px;
+}
+
+.header-nav a {
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition: color 0.2s ease;
+}
+
+.header-nav a:hover {
+  color: #155eef;
+}
+
+/* 로그인 / 회원가입 오른쪽 정렬 */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.login-link {
+  display: inline-flex;
+  align-items: center;
+  color: #334155;
+  font-size: 14px;
+  padding: 10px 4px;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  color: #155eef;
+}
+
+.signup-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 41px;
+  padding: 0 22px;
+
+  background-color: #155eef;
+  color: #ffffff;
+  border-radius: 7px;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: background-color 0.2s ease;
+}
+
+.signup-link:hover {
+  background-color: #104ac2;
+}
