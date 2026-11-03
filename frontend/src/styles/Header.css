@@ -1,17 +1,26 @@
 .header {
     width: 100%;
-    height: 80px;
-    background-color: white;
-    border-bottom: 1px solid #e5e7eb;
+    background: #ffffff;
+    border-bottom: 1px solid #e5eaf2;
 }
 
 .header-container {
     width: 100%;
-    height: 100%;
-    padding: 0 4%;
+    min-height: 80px;
+    padding: 0 5%;
 
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+/* 왼쪽 */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-shrink: 0;
 }
 
 .header-logo {
@@ -26,23 +35,112 @@
     height: auto;
 }
 
-.header-nav {
+.header-nav-left {
     display: flex;
     align-items: center;
+    gap: 28px;
+}
+
+/* 오른쪽 */
+.header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     gap: 30px;
-    margin-left: 35px;
+    margin-left: auto;
+}
+
+.header-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
 }
 
 .header-actions {
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* 공통 링크 */
+.header-nav-left a,
+.header-nav-right a,
+.login-link {
+    color: #172c56;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.header-nav-left a:hover,
+.header-nav-right a:hover,
+.login-link:hover {
+    color: #2563eb;
 }
 
 .signup-link {
-    background: #155eef;
-    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 12px 20px;
-    border-radius: 6px;
+
+    background: #2563eb;
+    color: #ffffff;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.signup-link:hover {
+    background: #1d4ed8;
+}
+
+/* 반응형 */
+@media (max-width: 1250px) {
+    .header-container {
+        padding: 0 3%;
+        gap: 16px;
+    }
+
+    .header-logo img {
+        width: 140px;
+    }
+
+    .header-left,
+    .header-right {
+        gap: 16px;
+    }
+
+    .header-nav-left,
+    .header-nav-right {
+        gap: 14px;
+    }
+
+    .header-nav-left a,
+    .header-nav-right a,
+    .login-link {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 950px) {
+    .header-container {
+        flex-wrap: wrap;
+        padding: 15px 20px;
+    }
+
+    .header-left,
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .header-right {
+        margin-left: 0;
+        flex-wrap: wrap;
+    }
 }
