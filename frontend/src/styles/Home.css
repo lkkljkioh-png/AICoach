@@ -1,17 +1,25 @@
-/* ================================
-   AICOACH HOME - GLOBAL COLORS
-================================ */
+/* ========================================
+   AICOACH HOME PAGE
+   Main Design + Lucide Icons + Responsive
+======================================== */
+
+/* ========================================
+   0. DESIGN VARIABLES
+======================================== */
 
 :root {
     --home-navy: #142b50;
     --home-blue: #2563eb;
+    --home-blue-dark: #1d4ed8;
     --home-muted: #64748b;
     --home-line: #e3eaf3;
+    --home-bg: #f8faff;
+    --home-white: #ffffff;
 }
 
-/* ================================
+/* ========================================
    1. HERO SECTION
-================================ */
+======================================== */
 
 .home-hero {
     width: 100%;
@@ -25,8 +33,10 @@
 }
 
 .home-hero-container {
+    width: 100%;
     max-width: 1460px;
     min-height: 680px;
+
     margin: 0 auto;
     padding: 94px 52px 100px;
 
@@ -42,33 +52,6 @@
 
 .home-hero-left {
     min-width: 0;
-}
-
-.home-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-
-    margin-bottom: 24px;
-    padding: 9px 13px;
-
-    color: #2563eb;
-    background: #eaf2ff;
-    border: 1px solid #d8e6ff;
-    border-radius: 99px;
-
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-}
-
-.home-status-dot {
-    width: 7px;
-    height: 7px;
-
-    border-radius: 50%;
-    background: #2563eb;
-    box-shadow: 0 0 0 4px #d2e3ff;
 }
 
 .home-hero-left h1 {
@@ -96,7 +79,9 @@
     word-break: keep-all;
 }
 
-/* HERO BUTTONS */
+/* ========================================
+   2. HERO BUTTONS
+======================================== */
 
 .home-buttons {
     display: flex;
@@ -113,51 +98,70 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 21px;
+    gap: 16px;
 
     min-height: 52px;
-    padding: 16px 21px;
+    padding: 15px 22px;
 
     border-radius: 11px;
+    font-family: inherit;
     font-size: 14px;
-    font-weight: 750;
+    font-weight: 700;
     text-decoration: none;
+    white-space: nowrap;
 
     transition:
-        transform 0.18s,
-        background 0.18s,
-        border-color 0.18s;
+        transform 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
 }
 
 .home-start-btn {
     background: #2563eb;
     color: #ffffff;
+    border: 1px solid #2563eb;
+
     box-shadow: 0 9px 18px #2563eb27;
+}
+
+.home-start-btn:hover {
+    background: #174bc1;
+    border-color: #174bc1;
+    transform: translateY(-2px);
 }
 
 .home-info-btn {
     background: #ffffff;
     color: #1f385c;
+
     border: 1px solid #d8e2f1;
 }
 
-.home-start-btn:hover,
-.home-info-btn:hover,
-.home-cta-btn:hover {
+.home-info-btn:hover {
+    border-color: #aac5f7;
+    color: #2563eb;
     transform: translateY(-2px);
 }
 
-.home-start-btn:hover {
-    background: #174bc1;
+.home-start-btn svg,
+.home-info-btn svg,
+.home-cta-btn svg {
+    display: block;
+    flex-shrink: 0;
 }
 
-/* HERO HIGHLIGHTS */
+/* ========================================
+   3. HERO HIGHLIGHTS
+======================================== */
 
 .home-hero-highlights {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+
     column-gap: 19px;
-    row-gap: 10px;
+    row-gap: 12px;
 
     margin-top: 30px;
     padding-top: 23px;
@@ -168,15 +172,26 @@
     font-size: 12px;
 }
 
-.home-hero-highlights b {
-    margin-right: 5px;
-    color: #2563eb;
-    font-size: 14px;
+.home-hero-highlights span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
 }
 
-/* ================================
-   2. CODE EDITOR
-================================ */
+.home-hero-highlights svg {
+    display: block;
+    flex-shrink: 0;
+
+    width: 15px;
+    height: 15px;
+
+    color: #2563eb;
+}
+
+/* ========================================
+   4. CODE EDITOR
+======================================== */
 
 .home-editor {
     width: 100%;
@@ -201,9 +216,12 @@
     flex-wrap: wrap;
     gap: 12px;
 
+    min-height: 55px;
     padding: 17px 21px;
 
     background: #1c2d48;
+    border-bottom: 1px solid #30405a;
+
     font-size: 12px;
 }
 
@@ -213,11 +231,14 @@
     gap: 9px;
 
     color: #ffffff;
+    font-size: 12px;
     font-weight: 800;
 }
 
 .home-editor-file-dot {
     display: block;
+    flex-shrink: 0;
+
     width: 8px;
     height: 8px;
 
@@ -227,9 +248,12 @@
 
 .home-editor-task {
     color: #abc2e5;
+    font-size: 12px;
 }
 
-/* CODE LINES */
+/* ========================================
+   5. CODE AREA
+======================================== */
 
 .home-editor-code {
     margin: 0;
@@ -238,6 +262,7 @@
     overflow-x: auto;
 
     background: #0f1b30;
+    color: #e2edff;
 
     font-family: Consolas, "Courier New", monospace;
     font-size: 13px;
@@ -273,10 +298,15 @@
 
 .code-line code {
     display: block;
+    margin: 0;
+    padding: 0;
 
     color: #e2edff;
     white-space: pre;
-    font: inherit;
+
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
 }
 
 .tk-key {
@@ -287,7 +317,9 @@
     color: #f7c58a;
 }
 
-/* AI FEEDBACK */
+/* ========================================
+   6. AI FEEDBACK
+======================================== */
 
 .home-editor-feedback {
     margin: 5px 17px 17px;
@@ -306,6 +338,12 @@
     color: #ffd5df;
 }
 
+.home-editor-feedback.ok {
+    background: #152b32;
+    border-color: #275a52;
+    color: #c9efe4;
+}
+
 .home-feedback-title {
     display: flex;
     align-items: center;
@@ -317,33 +355,31 @@
     font-weight: 800;
 }
 
-.home-feedback-title span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 18px;
-    height: 18px;
-
-    background: #16a085;
-    color: #ffffff;
-
-    border-radius: 50%;
-    font-size: 11px;
+.home-feedback-title svg {
+    display: block;
+    flex-shrink: 0;
 }
 
-.home-editor-feedback.bad .home-feedback-title span {
-    background: #e05d76;
+.home-editor-feedback.bad .home-feedback-title svg {
+    color: #fb7185;
+}
+
+.home-editor-feedback.ok .home-feedback-title svg {
+    color: #34d399;
 }
 
 .home-editor-feedback p {
     margin: 0;
+
     color: inherit;
     font-size: 12px;
     line-height: 1.8;
+    word-break: keep-all;
 }
 
-/* EDITOR FOOTER */
+/* ========================================
+   7. EDITOR FOOTER
+======================================== */
 
 .home-editor-footer {
     display: flex;
@@ -352,6 +388,7 @@
     flex-wrap: wrap;
     gap: 15px;
 
+    min-height: 64px;
     padding: 13px 17px;
 
     background: #17263f;
@@ -359,7 +396,7 @@
 }
 
 .home-test-summary {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
 
@@ -367,42 +404,58 @@
     font-size: 12px;
 }
 
-.home-test-dot {
-    width: 7px;
-    height: 7px;
-
-    background: #f59e0b;
-    border-radius: 50%;
+.home-test-summary svg {
+    display: block;
+    flex-shrink: 0;
 }
 
-.home-test-dot.passed {
-    background: #34d399;
+.test-icon-success {
+    color: #34d399;
 }
+
+.test-icon-warning {
+    color: #fbbf24;
+}
+
+/* SUBMIT BUTTON */
 
 .home-editor-footer button {
     appearance: none;
 
-    padding: 11px 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 39px;
+    padding: 10px 16px;
 
     background: #2563eb;
+    color: #ffffff;
+
     border: 1px solid #3d73ed;
     border-radius: 8px;
 
-    color: #ffffff;
+    font-family: inherit;
     font-size: 12px;
     font-weight: 750;
 
     cursor: pointer;
-    transition: background 0.18s;
+    transition: background 0.18s ease;
 }
 
 .home-editor-footer button:hover {
     background: #174bc1;
 }
 
-/* ================================
-   3. COMMON SECTIONS
-================================ */
+.home-editor-footer button svg {
+    display: block;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   8. COMMON SECTIONS
+======================================== */
 
 .home-section {
     width: 100%;
@@ -446,14 +499,17 @@
 }
 
 .home-section-heading>p {
+    margin: 0;
+
     color: #708096;
     font-size: 15px;
     line-height: 1.8;
+    word-break: keep-all;
 }
 
-/* ================================
-   4. FEATURE CARDS
-================================ */
+/* ========================================
+   9. FEATURE SECTION
+======================================== */
 
 .home-features-section {
     background: #ffffff;
@@ -471,6 +527,7 @@
     display: flex;
     flex-direction: column;
 
+    min-width: 0;
     min-height: 285px;
     padding: 30px;
 
@@ -481,9 +538,9 @@
     box-shadow: 0 10px 27px #15335e08;
 
     transition:
-        transform 0.2s,
-        box-shadow 0.2s,
-        border-color 0.2s;
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .home-feature-card:hover {
@@ -491,6 +548,8 @@
     border-color: #bad1fa;
     box-shadow: 0 20px 35px #15335e14;
 }
+
+/* FEATURE CARD HEADER */
 
 .home-feature-top {
     display: flex;
@@ -512,8 +571,12 @@
     color: #2462da;
 
     border-radius: 13px;
-    font-size: 29px;
-    font-weight: 650;
+}
+
+.home-feature-icon svg {
+    display: block;
+    width: 25px;
+    height: 25px;
 }
 
 .home-feature-number {
@@ -522,6 +585,8 @@
     font-weight: 700;
     letter-spacing: 0.12em;
 }
+
+/* FEATURE CARD CONTENT */
 
 .home-feature-card h3 {
     margin: 0 0 12px;
@@ -533,6 +598,8 @@
 }
 
 .home-feature-card p {
+    margin: 0;
+
     color: #61728b;
     font-size: 14px;
     line-height: 1.9;
@@ -540,6 +607,10 @@
 }
 
 .home-feature-caption {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
     margin-top: auto;
     padding-top: 22px;
 
@@ -548,13 +619,14 @@
     font-weight: 750;
 }
 
-.home-feature-caption span {
-    margin-right: 5px;
+.home-feature-caption svg {
+    display: block;
+    flex-shrink: 0;
 }
 
-/* ================================
-   5. LEARNING PROCESS
-================================ */
+/* ========================================
+   10. LEARNING PROCESS
+======================================== */
 
 .home-process-section {
     background: #f6f9fe;
@@ -577,6 +649,7 @@
 .home-step-card {
     position: relative;
 
+    min-width: 0;
     min-height: 245px;
     padding: 30px;
 
@@ -587,7 +660,7 @@
     box-shadow: 0 10px 28px #203b6207;
 }
 
-/* STEP CONNECTING ARROWS */
+/* STEP ARROWS */
 
 .home-step-card:not(:last-child)::after {
     content: "→";
@@ -613,6 +686,8 @@
     font-size: 16px;
 }
 
+/* STEP HEADER */
+
 .home-step-top {
     display: flex;
     align-items: center;
@@ -629,8 +704,9 @@
 }
 
 .home-step-symbol {
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     width: 45px;
     height: 45px;
@@ -639,28 +715,37 @@
     color: #2563eb;
 
     border-radius: 13px;
-    font-size: 24px;
-    font-weight: 800;
 }
+
+.home-step-symbol svg {
+    display: block;
+    width: 25px;
+    height: 25px;
+}
+
+/* STEP CONTENT */
 
 .home-step-card h3 {
     margin: 0 0 12px;
 
     color: #182f55;
     font-size: 20px;
+    font-weight: 750;
     letter-spacing: -0.04em;
 }
 
 .home-step-card p {
+    margin: 0;
+
     color: #6b7d95;
     font-size: 14px;
     line-height: 1.9;
     word-break: keep-all;
 }
 
-/* ================================
-   6. BOTTOM CTA
-================================ */
+/* ========================================
+   11. BOTTOM CTA
+======================================== */
 
 .home-cta-section {
     padding: 80px 0 90px;
@@ -687,7 +772,7 @@
     border-radius: 22px;
 }
 
-/* DECORATIVE CIRCLE */
+/* BACKGROUND DECORATION */
 
 .home-cta::before {
     content: "";
@@ -705,7 +790,11 @@
     box-shadow:
         0 0 0 60px #ffffff08,
         0 0 0 125px #ffffff05;
+
+    pointer-events: none;
 }
+
+/* CTA CONTENT */
 
 .home-cta-content {
     position: relative;
@@ -727,6 +816,7 @@
 
     color: #ffffff;
     font-size: clamp(29px, 2.7vw, 42px);
+    font-weight: 800;
     line-height: 1.35;
     letter-spacing: -0.055em;
 }
@@ -737,7 +827,10 @@
     color: #c6d8f4;
     font-size: 15px;
     line-height: 1.75;
+    word-break: keep-all;
 }
+
+/* CTA BUTTON */
 
 .home-cta-btn {
     min-height: 48px;
@@ -749,9 +842,12 @@
 
 .home-cta-btn:hover {
     background: #e9f2ff;
+    transform: translateY(-2px);
 }
 
-/* CTA ART */
+/* ========================================
+   12. BOTTOM CTA ICON
+======================================== */
 
 .home-cta-art {
     position: relative;
@@ -767,11 +863,17 @@
 }
 
 .home-cta-art-code {
-    color: #ffffff26;
-    font-family: Consolas, monospace;
-    font-size: 95px;
-    font-weight: 800;
-    letter-spacing: -0.13em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff38;
+}
+
+.home-cta-art-code svg {
+    display: block;
+    width: 112px;
+    height: 112px;
 }
 
 .home-cta-art-check {
@@ -779,8 +881,9 @@
     right: 7px;
     bottom: 21px;
 
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     width: 64px;
     height: 64px;
@@ -789,15 +892,20 @@
     color: #ffffff;
 
     border-radius: 19px;
-    font-size: 35px;
 
     transform: rotate(9deg);
     box-shadow: 0 13px 25px #091b3d44;
 }
 
-/* ================================
-   7. FOOTER
-================================ */
+.home-cta-art-check svg {
+    display: block;
+    width: 38px;
+    height: 38px;
+}
+
+/* ========================================
+   13. FOOTER
+======================================== */
 
 .home-footer {
     display: flex;
@@ -806,6 +914,7 @@
     flex-wrap: wrap;
     gap: 10px;
 
+    width: 100%;
     min-height: 80px;
 
     padding: 22px max(32px,
@@ -818,9 +927,9 @@
     font-size: 12px;
 }
 
-/* ================================
-   8. RESPONSIVE
-================================ */
+/* ========================================
+   14. TABLET RESPONSIVE
+======================================== */
 
 @media (max-width: 1050px) {
     .home-hero-container {
@@ -846,42 +955,112 @@
     }
 }
 
+/* ========================================
+   15. MOBILE RESPONSIVE
+======================================== */
+
 @media (max-width: 700px) {
     .home-hero-container {
         padding: 55px 22px 65px;
+        gap: 35px;
     }
 
     .home-inner {
         padding: 0 22px;
     }
 
+    /* HERO */
     .home-hero-left h1 {
         font-size: clamp(31px, 8vw, 42px);
     }
 
     .home-lead {
         font-size: 14px;
+        line-height: 1.85;
+    }
+
+    .home-buttons {
+        margin-top: 26px;
+    }
+
+    .home-start-btn,
+    .home-info-btn {
+        min-height: 48px;
+        padding: 13px 16px;
+        font-size: 13px;
     }
 
     .home-hero-highlights {
         flex-direction: column;
-        gap: 9px;
+        align-items: flex-start;
+        gap: 10px;
+
+        margin-top: 25px;
     }
 
+    /* CODE EDITOR */
+    .home-editor-header {
+        padding: 14px 15px;
+    }
+
+    .home-editor-code {
+        padding: 19px 10px;
+        font-size: 12px;
+    }
+
+    .line-number {
+        margin-right: 14px;
+    }
+
+    .home-editor-feedback {
+        margin: 5px 12px 12px;
+        padding: 13px;
+    }
+
+    .home-editor-footer {
+        align-items: stretch;
+        padding: 12px;
+    }
+
+    .home-editor-footer button {
+        width: 100%;
+    }
+
+    /* SECTIONS */
     .home-section {
         padding: 70px 0;
     }
 
-    .home-feature-list,
-    .home-steps {
+    .home-section-heading h2 {
+        font-size: 29px;
+    }
+
+    .home-section-heading>p {
+        font-size: 14px;
+    }
+
+    /* FEATURE CARDS */
+    .home-feature-list {
         grid-template-columns: 1fr;
         gap: 14px;
         margin-top: 28px;
     }
 
-    .home-feature-card,
+    .home-feature-card {
+        min-height: 0;
+        padding: 25px;
+    }
+
+    /* LEARNING STEPS */
+    .home-steps {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-top: 28px;
+    }
+
     .home-step-card {
         min-height: 0;
+        padding: 25px 25px 35px;
     }
 
     .home-step-card:not(:last-child)::after {
@@ -893,10 +1072,7 @@
         transform: rotate(90deg);
     }
 
-    .home-step-card {
-        padding-bottom: 35px;
-    }
-
+    /* BOTTOM CTA */
     .home-cta-section {
         padding: 50px 0;
     }
@@ -914,25 +1090,27 @@
         font-size: 28px;
     }
 
-    .home-editor-footer {
-        align-items: stretch;
+    .home-cta p {
+        font-size: 14px;
     }
 
-    .home-editor-footer button {
-        width: 100%;
-    }
-
+    /* FOOTER */
     .home-footer {
         padding: 24px 22px;
     }
 }
+
+/* ========================================
+   16. ACCESSIBILITY
+======================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
     .home-start-btn,
     .home-info-btn,
     .home-cta-btn,
-    .home-feature-card {
+    .home-feature-card,
+    .home-editor-footer button {
         transition: none;
     }
 }
