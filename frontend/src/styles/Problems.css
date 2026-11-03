@@ -1,0 +1,401 @@
+/* ========================================
+   AICOACH PROBLEMS PAGE
+======================================== */
+
+.problems-page {
+    min-height: calc(100vh - 80px);
+    padding: 64px 24px 100px;
+    background: #f8faff;
+    color: #142b50;
+}
+
+.problems-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* PAGE HEADING */
+
+.problems-eyebrow {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+}
+
+.problems-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 13px 0 32px;
+}
+
+.problems-heading h1 {
+    margin-bottom: 12px;
+    font-size: clamp(30px, 3vw, 42px);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.055em;
+}
+
+.problems-heading p {
+    color: #718096;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.problems-stat {
+    flex-shrink: 0;
+    padding: 17px 24px;
+    background: #ffffff;
+    border: 1px solid #e3eaf3;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.problems-stat strong {
+    display: block;
+    color: #2563eb;
+    font-size: 25px;
+}
+
+.problems-stat span {
+    color: #718096;
+    font-size: 12px;
+}
+
+/* SEARCH AND FILTER */
+
+.problems-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.problems-search {
+    flex: 1 1 270px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    min-height: 48px;
+    padding: 0 16px;
+
+    background: #ffffff;
+    border: 1px solid #dfe7f1;
+    border-radius: 11px;
+    color: #8897ad;
+}
+
+.problems-search:focus-within {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px #2563eb12;
+}
+
+.problems-search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #172c56;
+    font: inherit;
+    font-size: 14px;
+}
+
+.problems-select {
+    min-width: 145px;
+    min-height: 48px;
+    padding: 0 14px;
+
+    background: #ffffff;
+    color: #203654;
+    border: 1px solid #dfe7f1;
+    border-radius: 11px;
+
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* PROBLEMS LIST */
+
+.problems-panel {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e3eaf3;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px #142b5009;
+}
+
+.problems-panel-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    padding: 22px 26px;
+    border-bottom: 1px solid #ecf0f6;
+}
+
+.problems-panel-title h2 {
+    font-size: 17px;
+    letter-spacing: -0.03em;
+}
+
+.problems-panel-title span {
+    color: #8492a8;
+    font-size: 12px;
+}
+
+.problem-item {
+    border-bottom: 1px solid #edf1f6;
+}
+
+.problem-item:last-child {
+    border-bottom: 0;
+}
+
+.problem-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 26px;
+}
+
+.problem-index {
+    min-width: 25px;
+    color: #9eacc0;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.problem-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.problem-content h3 {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 750;
+    letter-spacing: -0.03em;
+}
+
+.problem-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    color: #8695aa;
+    font-size: 12px;
+}
+
+.problem-tags span:not(:last-child)::after {
+    content: "·";
+    margin-left: 8px;
+    color: #bbc5d3;
+}
+
+/* DIFFICULTY BADGES */
+
+.problem-level {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 50px;
+    padding: 6px 9px;
+
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.problem-level.입문 {
+    background: #eaf6ee;
+    color: #21844a;
+}
+
+.problem-level.초급 {
+    background: #eaf1ff;
+    color: #2563eb;
+}
+
+.problem-level.중급 {
+    background: #fff5df;
+    color: #b36a0a;
+}
+
+.problem-level.고급 {
+    background: #ffe9eb;
+    color: #c44050;
+}
+
+/* PREVIEW BUTTON */
+
+.problem-preview-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    min-width: 105px;
+    padding: 10px 13px;
+
+    color: #2563eb;
+    background: #f2f6ff;
+    border: 1px solid #dce9ff;
+    border-radius: 9px;
+
+    font-size: 12px;
+    font-weight: 750;
+    white-space: nowrap;
+    transition: background 0.18s ease;
+}
+
+.problem-preview-btn:hover {
+    background: #e7f0ff;
+}
+
+.problem-preview-btn[aria-expanded="true"] {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+}
+
+/* EXPANDED PROBLEM */
+
+.problem-details {
+    padding: 22px 26px 24px 70px;
+    background: #fbfcff;
+    border-top: 1px solid #edf1f6;
+}
+
+.problem-details h4 {
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.problem-details p {
+    margin-bottom: 18px;
+    color: #596c86;
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+.problem-example {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.problem-example>div {
+    min-width: 0;
+}
+
+.problem-example small {
+    display: block;
+    margin-bottom: 7px;
+    color: #78899f;
+}
+
+.problem-example pre {
+    padding: 14px;
+    overflow-x: auto;
+
+    background: #14233b;
+    color: #dbeafe;
+    border-radius: 9px;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.problem-hint {
+    color: #607fae;
+    font-size: 12px;
+}
+
+/* EMPTY STATE */
+
+.problems-empty {
+    padding: 68px 24px;
+    color: #718096;
+    text-align: center;
+}
+
+.problems-empty svg {
+    margin: 0 auto;
+}
+
+.problems-empty h3 {
+    margin: 12px 0 8px;
+    color: #203654;
+    font-size: 17px;
+}
+
+.problems-empty p {
+    font-size: 13px;
+}
+
+.problems-note {
+    margin-top: 18px;
+    color: #8b99ac;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+    .problems-page {
+        padding: 40px 18px 75px;
+    }
+
+    .problems-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .problems-stat {
+        display: none;
+    }
+
+    .problems-select {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .problems-panel-title {
+        padding: 18px;
+    }
+
+    .problem-row {
+        flex-wrap: wrap;
+        gap: 11px;
+        padding: 18px 15px;
+    }
+
+    .problem-index {
+        min-width: 18px;
+    }
+
+    .problem-content {
+        flex-basis: calc(100% - 90px);
+    }
+
+    .problem-preview-btn {
+        margin-left: 29px;
+    }
+
+    .problem-details {
+        padding: 20px 17px;
+    }
+
+    .problem-example {
+        grid-template-columns: 1fr;
+    }
+}
