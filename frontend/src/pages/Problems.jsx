@@ -196,7 +196,14 @@ function Problems() {
                                         </span>
 
                                         <div className="problem-content">
-                                            <h3>{problem.title}</h3>
+                                            <h3>
+                                                <a
+                                                    className="problem-title-link"
+                                                    href={`/problems/${problem.id}?language=${encodeURIComponent(language)}`}
+                                                >
+                                                    {problem.title}
+                                                </a>
+                                            </h3>
 
                                             <div className="problem-tags">
                                                 <span>{problem.category}</span>
@@ -260,6 +267,12 @@ function Problems() {
                                             <div className="problem-hint">
                                                 💡 학습 힌트: {problem.hint}
                                             </div>
+                                            <a
+                                                className="problem-solve-link"
+                                                href={`/problems/${problem.id}?language=${encodeURIComponent(language)}`}
+                                            >
+                                                이 문제 풀기 →
+                                            </a>
                                         </div>
                                     )}
                                 </article>

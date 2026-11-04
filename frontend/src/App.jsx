@@ -1,6 +1,7 @@
 
 import Home from "./pages/Home.jsx";
 import Problems from "./pages/Problems.jsx";
+import ProblemSolve from "./pages/ProblemSolve.jsx";
 
 function App() {
   const path =
@@ -8,6 +9,10 @@ function App() {
 
   if (path === "/problems") {
     return <Problems />;
+  }
+
+  if (/^\/problems\/[^/]+$/.test(path)) {
+    return <ProblemSolve />;
   }
 
   return <Home />;

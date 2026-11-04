@@ -1,0 +1,363 @@
+.solve-page {
+    min-height: 100vh;
+    background: #f8faff;
+    padding: 42px 24px 90px;
+    color: #142b50;
+}
+
+.solve-container {
+    max-width: 1320px;
+    margin: 0 auto;
+}
+
+.solve-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 32px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.solve-back:hover {
+    color: #2563eb;
+}
+
+.solve-heading {
+    margin-bottom: 30px;
+}
+
+.solve-eyebrow {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.solve-heading h1 {
+    margin: 10px 0 16px;
+    font-size: clamp(27px, 3vw, 36px);
+    letter-spacing: -0.045em;
+}
+
+.solve-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.solve-tags span {
+    padding: 7px 11px;
+    background: #eaf1ff;
+    color: #416491;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.solve-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.solve-card {
+    min-width: 0;
+    overflow: hidden;
+    background: white;
+    border: 1px solid #e3eaf3;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(20, 43, 80, 0.04);
+}
+
+.solve-card-header,
+.solve-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #edf1f6;
+}
+
+.solve-card h2 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 750;
+}
+
+.solve-card-body {
+    padding: 25px;
+}
+
+.solve-description {
+    color: #475569;
+    font-size: 15px;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    margin-bottom: 30px;
+}
+
+.solve-card-body h3 {
+    margin: 25px 0 12px;
+    font-size: 14px;
+}
+
+.solve-example {
+    margin: 0;
+    padding: 17px;
+    background: #f3f6fb;
+    border: 1px solid #e8edf5;
+    border-radius: 10px;
+    color: #334155;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+.solve-hint-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 25px;
+    border: 0;
+    background: transparent;
+    color: #2563eb;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.solve-hint {
+    margin-top: 14px;
+    padding: 17px;
+    background: #eff6ff;
+    border-radius: 10px;
+    color: #42648f;
+    line-height: 1.7;
+    font-size: 13px;
+}
+
+.solve-editor-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.solve-editor-title svg {
+    color: #2563eb;
+}
+
+.solve-editor-header select {
+    padding: 9px 13px;
+    border: 1px solid #dce5f1;
+    border-radius: 8px;
+    background: #fff;
+    color: #243b5a;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.solve-code-area {
+    padding: 16px;
+    background: #101b30;
+}
+
+.solve-code-area textarea {
+    width: 100%;
+    min-height: 430px;
+    padding: 16px;
+    resize: vertical;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #e2e8f0;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    tab-size: 4;
+    box-sizing: border-box;
+}
+
+.solve-editor-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 22px;
+}
+
+.solve-editor-footer button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 19px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.solve-reset {
+    border: 1px solid #e0e7f0;
+    background: #fff;
+    color: #64748b;
+}
+
+.solve-submit {
+    border: 1px solid #2563eb;
+    background: #2563eb;
+    color: white;
+}
+
+.solve-submit:hover {
+    background: #1d4ed8;
+}
+
+.solve-message {
+    margin: 0 22px 20px;
+    padding: 14px 16px;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #315b96;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.solve-not-found {
+    padding: 100px 24px;
+    text-align: center;
+}
+
+.solve-not-found a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #2563eb;
+}
+
+@media (max-width: 900px) {
+    .solve-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .solve-page {
+        padding: 28px 15px 60px;
+    }
+
+    .solve-card-body {
+        padding: 19px;
+    }
+
+    .solve-editor-header {
+        padding: 16px;
+    }
+
+    .solve-code-area {
+        padding: 12px;
+        background: #1e1e1e;
+        overflow: hidden;
+    }
+}
+
+
+/* 실행 및 제출 버튼 */
+
+.solve-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.solve-run {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+}
+
+.solve-run:hover {
+    background: #f1f5f9;
+}
+
+.solve-run:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 실행 결과 패널 */
+
+.solve-result-panel {
+    border-top: 1px solid #e3eaf3;
+}
+
+.solve-result-header {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 16px 22px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e3eaf3;
+}
+
+.solve-result-header h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.solve-result-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #94a3b8;
+}
+
+.solve-result-body {
+    min-height: 110px;
+    padding: 18px 22px;
+    background: #ffffff;
+}
+
+.solve-result-output {
+    margin: 0;
+    font-family: Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.solve-result-output.error {
+    color: #dc2626;
+}
+
+.solve-result-output.info {
+    color: #64748b;
+}
+
+.solve-result-output.success {
+    color: #16a34a;
+}
+
+.solve-result-placeholder {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .solve-action-buttons {
+        gap: 7px;
+    }
+
+    .solve-editor-footer button {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+}
