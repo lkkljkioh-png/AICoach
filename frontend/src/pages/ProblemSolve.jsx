@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     ArrowLeft,
     Code2,
@@ -11,7 +11,7 @@ import {
 
 import Header from "../components/Header.jsx";
 import Editor from "@monaco-editor/react";
-import { PROBLEMS } from "../data/problemsData.js";
+import { getProblemById } from "../api/problemsApi.js";
 import "../styles/ProblemSolve.css";
 
 const LANGUAGES = ["Python", "Java", "C", "C++", "JavaScript"];
@@ -85,7 +85,36 @@ function ProblemSolve() {
     const pathParts = window.location.pathname.split("/");
     const problemId = Number(pathParts[2]);
 
-    const problem = PROBLEMS.find((item) => item.id === problemId);
+
+    const [problem, setProblem] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        let active = true;
+
+        getProblemById(problemId)
+            .then((data) => {
+                if (active) {
+                    setProblem(data);
+                }
+            })
+            .catch((err) => {
+                if (active) {
+                    setError(err.message);
+                }
+            })
+            .finally(() => {
+                if (active) {
+                    setLoading(false);
+                }
+            });
+
+        return () => {
+            active = false;
+        };
+    }, [problemId]);
+
 
     const params = new URLSearchParams(window.location.search);
     const initialLanguage = params.get("language");
@@ -158,6 +187,31 @@ function ProblemSolve() {
             "코드 작성이 확인되었습니다. 실제 실행 및 AI 채점은 백엔드 연결 후 제공됩니다."
         );
     };
+
+
+    if (loading) {
+        return (
+            <>
+                <Header />
+                <main className="solve-not-found">
+                    <h2>문제를 불러오는 중입니다...</h2>
+                </main>
+            </>
+        );
+    }
+
+    if (error) {
+        return (
+            <>
+                <Header />
+                <main className="solve-not-found">
+                    <h2>문제를 불러오지 못했어요.</h2>
+                    <p>{error}</p>
+                    <a href="/problems">문제 목록으로 돌아가기</a>
+                </main>
+            </>
+        );
+    }
 
     if (!problem) {
         return (

@@ -1,5 +1,5 @@
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
     Search,
@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 import Header from "../components/Header.jsx";
-import { PROBLEMS } from "../data/problemsData.js";
+import { getProblems } from "../api/problemsApi.js";
 
 import "../styles/Problems.css";
 
@@ -21,11 +21,6 @@ const LEVELS = [
     "고급",
 ];
 
-const CATEGORIES = [
-    "전체 유형",
-    ...new Set(PROBLEMS.map((problem) => problem.category)),
-];
-
 const LANGUAGES = [
     "Python",
     "Java",
@@ -34,17 +29,55 @@ const LANGUAGES = [
     "JavaScript",
 ];
 
+
 function Problems() {
+    const [problems, setProblems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
     const [search, setSearch] = useState("");
     const [level, setLevel] = useState("전체 난이도");
     const [category, setCategory] = useState("전체 유형");
     const [language, setLanguage] = useState("Python");
     const [expanded, setExpanded] = useState(null);
 
+    // Spring Boot API에서 문제 불러오기
+    useEffect(() => {
+        let active = true;
+
+        getProblems()
+            .then((data) => {
+                if (active) {
+                    setProblems(data);
+                }
+            })
+            .catch((err) => {
+                if (active) {
+                    setError(err.message);
+                }
+            })
+            .finally(() => {
+                if (active) {
+                    setLoading(false);
+                }
+            });
+
+        return () => {
+            active = false;
+        };
+    }, []);
+
+    // DB 데이터에 있는 문제 유형 추출
+    const categories = useMemo(() => [
+        "전체 유형",
+        ...new Set(problems.map((problem) => problem.category)),
+    ], [problems]);
+
+    // 검색 및 필터 적용
     const filtered = useMemo(() => {
         const keyword = search.trim().toLowerCase();
 
-        return PROBLEMS.filter((problem) => {
+        return problems.filter((problem) => {
             const matchLevel =
                 level === "전체 난이도" ||
                 problem.level === level;
@@ -60,12 +93,13 @@ function Problems() {
                     problem.category,
                     problem.description,
                 ].some((value) =>
-                    value.toLowerCase().includes(keyword)
+                    (value ?? "").toLowerCase().includes(keyword)
                 );
 
             return matchLevel && matchCategory && matchSearch;
         });
-    }, [search, level, category]);
+    }, [problems, search, level, category]);
+
 
     return (
         <>
@@ -90,7 +124,7 @@ function Problems() {
                         </div>
 
                         <div className="problems-stat">
-                            <strong>{PROBLEMS.length}</strong>
+                            <strong>{problems.length}</strong>
                             <span>준비된 연습 문제</span>
                         </div>
                     </div>
@@ -138,7 +172,7 @@ function Problems() {
                                 setCategory(e.target.value)
                             }
                         >
-                            {CATEGORIES.map((item) => (
+                            {categories.map((item) => (
                                 <option key={item} value={item}>
                                     {item}
                                 </option>
@@ -174,7 +208,17 @@ function Problems() {
                             </span>
                         </div>
 
-                        {filtered.length === 0 ? (
+                        {loading ? (
+                            <div className="problems-empty">
+                                <h3>문제를 불러오는 중입니다...</h3>
+                            </div>
+                        ) : error ? (
+                            <div className="problems-empty">
+                                <h3>문제를 불러오지 못했어요.</h3>
+                                <p>{error}</p>
+                                <p>Spring Boot와 MySQL 연결을 확인해 주세요.</p>
+                            </div>
+                        ) : filtered.length === 0 ? (
                             <div className="problems-empty">
                                 <BookOpen size={32} />
 
@@ -281,10 +325,8 @@ function Problems() {
                     </section>
 
                     <p className="problems-note">
-                        현재는 예시 문제를 사용하는
-                        프론트엔드 화면입니다.
-                        실제 코드 실행 및 AI 채점 기능은
-                        추후 연결됩니다.
+                        문제 목록은 AICoach 데이터베이스에서 불러옵니다.
+                        실제 코드 실행 및 AI 채점 기능은 추후 연결됩니다.
                     </p>
                 </div>
             </main>
