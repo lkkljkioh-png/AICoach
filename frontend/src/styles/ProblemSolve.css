@@ -361,3 +361,145 @@
         font-size: 12px;
     }
 }
+
+
+/* =========================================
+   AICOACH - EXECUTION RESULT REDESIGN
+========================================= */
+
+.solve-result-panel {
+    margin: 0 20px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.035);
+}
+
+/* 결과 제목 영역 */
+.solve-result-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.solve-result-header h3 {
+    margin: 0;
+    color: #1e293b;
+    font-family: "Pretendard", "Noto Sans KR",
+        "Malgun Gothic", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.solve-result-dot {
+    width: 8px;
+    height: 8px;
+    background: #3b82f6;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px #dbeafe;
+}
+
+/* 코드 실행 출력 */
+.solve-result-body {
+    min-height: 100px;
+    padding: 20px;
+    background: #111827;
+}
+
+.solve-result-output {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+
+    font-family: "Cascadia Code",
+        "Consolas",
+        "D2Coding",
+        monospace;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.85;
+    letter-spacing: 0;
+
+    color: #f1f5f9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    tab-size: 4;
+}
+
+/* 상태별 색상 */
+.solve-result-output.success {
+    color: #86efac;
+}
+
+.solve-result-output.error {
+    color: #fda4af;
+}
+
+.solve-result-output.info {
+    color: #cbd5e1;
+}
+
+.solve-result-placeholder {
+    margin: 0;
+    color: #94a3b8;
+    font-family: "Pretendard", "Malgun Gothic",
+        sans-serif;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* 채점 결과 안내 */
+.solve-message {
+    margin: 0 20px 20px;
+    padding: 18px 20px;
+
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-left: 4px solid #3b82f6;
+    border-radius: 10px;
+
+    font-family: "Pretendard", "Noto Sans KR",
+        "Malgun Gothic", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.85;
+    letter-spacing: -0.3px;
+
+    color: #1e40af;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* 실행 버튼 */
+.solve-run,
+.solve-submit,
+.solve-reset {
+    font-family: "Pretendard", "Noto Sans KR",
+        "Malgun Gothic", sans-serif;
+    letter-spacing: -0.2px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+
+    .solve-result-panel,
+    .solve-message {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .solve-result-body {
+        padding: 16px;
+    }
+
+    .solve-result-output {
+        font-size: 13px;
+    }
+}

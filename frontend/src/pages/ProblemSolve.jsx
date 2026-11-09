@@ -11,7 +11,11 @@ import {
 
 import Header from "../components/Header.jsx";
 import Editor from "@monaco-editor/react";
-import { getProblemById } from "../api/problemsApi.js";
+import {
+    getProblemById,
+    runProblem,
+    submitProblem,
+} from "../api/problemsApi.js";
 import "../styles/ProblemSolve.css";
 
 const LANGUAGES = ["Python", "Java", "C", "C++", "JavaScript"];
@@ -159,7 +163,8 @@ function ProblemSolve() {
         changeCode(STARTER_CODE[language]);
     };
 
-    const runCode = () => {
+
+    const runCode = async () => {
         if (!code.trim() || code === STARTER_CODE[language]) {
             setRunResult({
                 status: "error",
@@ -168,26 +173,77 @@ function ProblemSolve() {
             return;
         }
 
-        setIsRunning(false);
-
+        setIsRunning(true);
+        setMessage("");
         setRunResult({
             status: "info",
-            output:
-                "코드 실행 기능은 현재 준비 중입니다.\n백엔드 코드 실행 환경 연결 후 실제 출력 결과가 표시됩니다.",
+            output: "코드 실행 중...",
         });
+
+        try {
+            const result = await runProblem(
+                problemId, language, code
+            );
+
+            setRunResult({
+                status: result.status === "SUCCESS"
+                    ? "success"
+                    : "error",
+                output: result.output || "(출력 없음)",
+            });
+
+        } catch (error) {
+            setRunResult({
+                status: "error",
+                output: error.message,
+            });
+        } finally {
+            setIsRunning(false);
+        }
     };
 
-    const submitCode = () => {
+    const submitCode = async () => {
         if (!code.trim() || code === STARTER_CODE[language]) {
             setMessage("먼저 코드를 작성해 주세요.");
             return;
         }
 
-        setMessage(
-            "코드 작성이 확인되었습니다. 실제 실행 및 AI 채점은 백엔드 연결 후 제공됩니다."
-        );
-    };
+        setIsRunning(true);
+        setMessage("채점 중입니다...");
 
+        try {
+            const result = await submitProblem(
+                problemId, language, code
+            );
+
+            const labels = {
+                ACCEPTED: "정답",
+                WRONG_ANSWER: "오답",
+                RUNTIME_ERROR: "실행 오류",
+                TIME_LIMIT: "시간 초과",
+                OUTPUT_LIMIT: "출력 제한 초과",
+            };
+
+            const label = labels[result.status] || result.status;
+
+            setMessage(
+                `${label} | ${result.passed}/${result.total} 통과\n`
+                + result.output
+            );
+
+            setRunResult({
+                status: result.status === "ACCEPTED"
+                    ? "success"
+                    : "error",
+                output: result.output,
+            });
+
+        } catch (error) {
+            setMessage(error.message);
+        } finally {
+            setIsRunning(false);
+        }
+    };
 
     if (loading) {
         return (
