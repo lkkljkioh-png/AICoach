@@ -18,7 +18,14 @@ import {
 } from "../api/problemsApi.js";
 import "../styles/ProblemSolve.css";
 
-const LANGUAGES = ["Python", "Java", "C", "C++", "JavaScript"];
+
+const LANGUAGES = [
+    "Python",
+    "JavaScript",
+    "Java",
+    "C",
+    "C++",
+];
 
 const STARTER_CODE = {
     Python: "# 여기에 코드를 작성하세요.\n\n",
@@ -134,6 +141,7 @@ function ProblemSolve() {
     const [message, setMessage] = useState("");
     const [runResult, setRunResult] = useState(null);
     const [isRunning, setIsRunning] = useState(false);
+    const [judgeResult, setJudgeResult] = useState(null);
 
     const code = codes[language] ?? STARTER_CODE[language];
 
@@ -164,7 +172,13 @@ function ProblemSolve() {
     };
 
 
+
     const runCode = async () => {
+        if (isRunning) return;
+
+        setJudgeResult(null);
+        setMessage("");
+
         if (!code.trim() || code === STARTER_CODE[language]) {
             setRunResult({
                 status: "error",
@@ -174,24 +188,18 @@ function ProblemSolve() {
         }
 
         setIsRunning(true);
-        setMessage("");
         setRunResult({
             status: "info",
-            output: "코드 실행 중...",
+            output: "코드를 실행하고 있습니다...",
         });
 
         try {
-            const result = await runProblem(
-                problemId, language, code
-            );
+            const result = await runProblem(problemId, language, code);
 
             setRunResult({
-                status: result.status === "SUCCESS"
-                    ? "success"
-                    : "error",
+                status: result.status === "SUCCESS" ? "success" : "error",
                 output: result.output || "(출력 없음)",
             });
-
         } catch (error) {
             setRunResult({
                 status: "error",
@@ -203,47 +211,35 @@ function ProblemSolve() {
     };
 
     const submitCode = async () => {
+        if (isRunning) return;
+
+        setMessage("");
+        setJudgeResult(null);
+
         if (!code.trim() || code === STARTER_CODE[language]) {
             setMessage("먼저 코드를 작성해 주세요.");
             return;
         }
 
         setIsRunning(true);
-        setMessage("채점 중입니다...");
+        setRunResult(null);
 
         try {
-            const result = await submitProblem(
-                problemId, language, code
-            );
+            const result = await submitProblem(problemId, language, code);
 
-            const labels = {
-                ACCEPTED: "정답",
-                WRONG_ANSWER: "오답",
-                RUNTIME_ERROR: "실행 오류",
-                TIME_LIMIT: "시간 초과",
-                OUTPUT_LIMIT: "출력 제한 초과",
-            };
-
-            const label = labels[result.status] || result.status;
-
-            setMessage(
-                `${label} | ${result.passed}/${result.total} 통과\n`
-                + result.output
-            );
-
-            setRunResult({
-                status: result.status === "ACCEPTED"
-                    ? "success"
-                    : "error",
-                output: result.output,
+            setJudgeResult({
+                status: result.status,
+                passed: result.passed ?? 0,
+                total: result.total ?? 0,
+                output: result.output ?? "",
             });
-
         } catch (error) {
             setMessage(error.message);
         } finally {
             setIsRunning(false);
         }
     };
+
 
     if (loading) {
         return (
@@ -379,6 +375,7 @@ function ProblemSolve() {
                                     초기화
                                 </button>
 
+
                                 <div className="solve-action-buttons">
                                     <button
                                         type="button"
@@ -387,16 +384,17 @@ function ProblemSolve() {
                                         disabled={isRunning}
                                     >
                                         <Play size={16} />
-                                        {isRunning ? "실행 중..." : "실행하기"}
+                                        실행하기
                                     </button>
 
                                     <button
                                         type="button"
                                         className="solve-submit"
                                         onClick={submitCode}
+                                        disabled={isRunning}
                                     >
                                         <Send size={16} />
-                                        제출하기
+                                        {isRunning ? "처리 중..." : "제출하기"}
                                     </button>
                                 </div>
                             </div>
@@ -419,6 +417,55 @@ function ProblemSolve() {
                                     )}
                                 </div>
                             </div>
+
+
+                            {judgeResult && (
+                                <div className="solve-judge-panel">
+                                    <div className="solve-judge-heading">
+                                        <span
+                                            className={`solve-judge-status ${judgeResult.status === "ACCEPTED"
+                                                ? "accepted"
+                                                : "rejected"
+                                                }`}
+                                        >
+                                            {({
+                                                ACCEPTED: "정답입니다!",
+                                                WRONG_ANSWER: "오답입니다",
+                                                RUNTIME_ERROR: "실행 오류",
+                                                TIME_LIMIT: "시간 초과",
+                                                OUTPUT_LIMIT: "출력 제한 초과",
+                                            })[judgeResult.status] ?? judgeResult.status}
+                                        </span>
+
+                                        <span className="solve-judge-count">
+                                            {judgeResult.passed} / {judgeResult.total} 통과
+                                        </span>
+                                    </div>
+
+                                    {judgeResult.total > 0 && (
+                                        <div
+                                            className="solve-judge-progress"
+                                            role="progressbar"
+                                            aria-label="테스트 케이스 통과율"
+                                            aria-valuenow={judgeResult.passed}
+                                            aria-valuemin={0}
+                                            aria-valuemax={judgeResult.total}
+                                        >
+                                            <div
+                                                style={{
+                                                    width: `${(judgeResult.passed / judgeResult.total) * 100
+                                                        }%`,
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+
+                                    <p className="solve-judge-description">
+                                        {judgeResult.output}
+                                    </p>
+                                </div>
+                            )}
+
 
                             {message && (
                                 <div className="solve-message" role="status">

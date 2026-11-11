@@ -503,3 +503,80 @@
         font-size: 13px;
     }
 }
+
+
+/* ==================================
+   AICOACH JUDGE RESULT
+================================== */
+
+.solve-judge-panel {
+    margin: 0 20px 20px;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.solve-judge-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.solve-judge-status {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+}
+
+.solve-judge-status.accepted {
+    color: #16a34a;
+}
+
+.solve-judge-status.rejected {
+    color: #dc2626;
+}
+
+.solve-judge-count {
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.solve-judge-progress {
+    height: 9px;
+    overflow: hidden;
+    background: #e2e8f0;
+    border-radius: 100px;
+}
+
+.solve-judge-progress>div {
+    height: 100%;
+    background: #22c55e;
+    border-radius: inherit;
+    transition: width 0.25s ease;
+}
+
+.solve-judge-description {
+    margin: 18px 0 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.solve-editor-footer button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .solve-judge-panel {
+        margin: 0 12px 16px;
+        padding: 16px;
+    }
+}

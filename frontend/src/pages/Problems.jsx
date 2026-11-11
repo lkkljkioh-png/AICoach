@@ -41,17 +41,17 @@ const SORT_OPTIONS = [
     { value: "title", label: "제목순" },
 ];
 
+
+
 const LANGUAGES = [
     { value: "Python", label: "Python", supported: true },
-    { value: "Java", label: "Java (준비 중)", supported: false },
-    { value: "C", label: "C (준비 중)", supported: false },
-    { value: "C++", label: "C++ (준비 중)", supported: false },
-    {
-        value: "JavaScript",
-        label: "JavaScript (준비 중)",
-        supported: false,
-    },
+    { value: "JavaScript", label: "JavaScript", supported: true },
+    { value: "Java", label: "Java", supported: true },
+    { value: "C", label: "C", supported: true },
+    { value: "C++", label: "C++", supported: true },
 ];
+
+
 
 function Problems() {
     const [problems, setProblems] = useState([]);

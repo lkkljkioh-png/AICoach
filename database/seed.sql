@@ -1,4 +1,3 @@
-
 USE aicoach;
 
 -- 초기 문제 5개

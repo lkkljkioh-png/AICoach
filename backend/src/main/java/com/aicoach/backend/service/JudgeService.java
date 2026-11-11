@@ -21,7 +21,16 @@ public class JudgeService {
     private static final int MAX_CODE_LENGTH = 12000;
     private static final int MAX_OUTPUT_BYTES = 16384;
     private static final int MAX_TEST_CASES = 20;
-    private static final int TIMEOUT_SECONDS = 5;
+
+    private static final int DEFAULT_TIMEOUT = 5;
+    private static final int COMPILE_TIMEOUT = 20;
+
+    private static final Set<String> LANGUAGES = Set.of(
+            "Python",
+            "JavaScript",
+            "Java",
+            "C",
+            "C++");
 
     private final ProblemService problemService;
     private final ProblemTestCaseRepository testCaseRepository;
@@ -29,6 +38,7 @@ public class JudgeService {
     public JudgeService(
             ProblemService problemService,
             ProblemTestCaseRepository testCaseRepository) {
+
         this.problemService = problemService;
         this.testCaseRepository = testCaseRepository;
     }
@@ -45,33 +55,36 @@ public class JudgeService {
             String output) {
     }
 
-    // 제출 코드 및 언어 검사
+    // 코드 및 언어 검증
     private void validate(String language, String code) {
 
-        if (!"Python".equals(language)) {
+        if (language == null || !LANGUAGES.contains(language)) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
-                    "현재 Python만 지원합니다.");
+                    "지원하지 않는 프로그래밍 언어입니다.");
         }
 
         if (code == null || code.isBlank()
                 || code.length() > MAX_CODE_LENGTH) {
+
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "코드를 입력하세요. 최대 12000자입니다.");
         }
     }
 
-    // 실행하기: 문제의 예시 입력 사용
+    // 실행하기: 예제 입력으로 실행
     public JudgeResult run(
             Long problemId,
             String language,
             String code) {
+
         validate(language, code);
 
         ProblemEntity problem = problemService.getProblem(problemId);
 
-        ExecutionResult result = executePython(
+        ExecutionResult result = executeCode(
+                language,
                 code,
                 problem.getInput());
 
@@ -82,11 +95,12 @@ public class JudgeService {
                 0);
     }
 
-    // 제출하기: 모든 테스트 케이스 채점
+    // 제출하기: 테스트 케이스 채점
     public JudgeResult submit(
             Long problemId,
             String language,
             String code) {
+
         validate(language, code);
 
         problemService.getProblem(problemId);
@@ -111,7 +125,8 @@ public class JudgeService {
 
         for (ProblemTestCaseEntity test : cases) {
 
-            ExecutionResult result = executePython(
+            ExecutionResult result = executeCode(
+                    language,
                     code,
                     test.getTestInput());
 
@@ -126,8 +141,7 @@ public class JudgeService {
             }
 
             String actual = normalize(result.output());
-            String expected = normalize(
-                    test.getExpectedOutput());
+            String expected = normalize(test.getExpectedOutput());
 
             if (!actual.equals(expected)) {
                 return new JudgeResult(
@@ -148,32 +162,30 @@ public class JudgeService {
                 total);
     }
 
+    // 출력 결과 비교용 정규화
     private String normalize(String value) {
-        if (value == null)
-            return "";
 
-        return value.replace("\r\n", "\n")
+        if (value == null) {
+            return "";
+        }
+
+        return value
+                .replace("\r\n", "\n")
                 .replace("\r", "\n")
                 .stripTrailing();
     }
 
-    // Docker에서 Python 코드 실행
-    private ExecutionResult executePython(
+    // 언어별 Docker 실행 명령 생성
+    private List<String> buildDockerCommand(
+            String language,
             String code,
-            String input) {
+            String containerName) {
 
-        String containerName = "aicoach-" + UUID.randomUUID();
-
-        // 코드 전달 시 명령어 해석을 피하기 위해 Base64 인코딩
         String encodedCode = Base64.getEncoder()
                 .encodeToString(
                         code.getBytes(StandardCharsets.UTF_8));
 
-        String pythonRunner = "import base64,sys;"
-                + "exec(compile(base64.b64decode(sys.argv[1]),"
-                + "'<submission>','exec'))";
-
-        List<String> command = List.of(
+        List<String> command = new ArrayList<>(List.of(
                 "docker", "run",
                 "--rm",
                 "--name", containerName,
@@ -182,15 +194,103 @@ public class JudgeService {
                 "--cap-drop", "ALL",
                 "--security-opt", "no-new-privileges",
                 "--pids-limit", "64",
-                "--memory", "128m",
-                "--memory-swap", "128m",
+                "--memory", "512m",
+                "--memory-swap", "512m",
                 "--cpus", "0.5",
                 "--user", "65534:65534",
-                "--tmpfs", "/tmp:rw,noexec,nosuid,size=16m",
-                "-i",
-                "python:3.12-alpine",
-                "python", "-I", "-B", "-c",
-                pythonRunner, encodedCode);
+                "--tmpfs", "/tmp:rw,exec,nosuid,size=64m",
+                "-i"));
+
+        switch (language) {
+
+            case "Python" -> {
+                String runner = "import base64,sys;"
+                        + "exec(compile(base64.b64decode(sys.argv[1]),"
+                        + "'<submission>','exec'))";
+
+                command.addAll(List.of(
+                        "python:3.12-alpine",
+                        "python", "-I", "-B", "-c",
+                        runner,
+                        encodedCode));
+            }
+
+            case "JavaScript" -> {
+                String runner = "eval(Buffer.from(process.argv[1],"
+                        + "'base64').toString('utf8'))";
+
+                command.addAll(List.of(
+                        "node:22-alpine",
+                        "node", "-e",
+                        runner,
+                        encodedCode));
+            }
+
+            case "Java" -> {
+                String runner = """
+                        printf '%s' "$1" | base64 -d > /tmp/Main.java || exit 42
+                        javac -encoding UTF-8 -d /tmp /tmp/Main.java || exit 42
+                        exec java -XX:ActiveProcessorCount=1 -Xmx128m -cp /tmp Main
+                        """;
+
+                command.addAll(List.of(
+                        "eclipse-temurin:21-jdk-alpine",
+                        "sh", "-c",
+                        runner,
+                        "sh",
+                        encodedCode));
+            }
+
+            case "C" -> {
+                String runner = """
+                        printf '%s' "$1" | base64 -d > /tmp/main.c || exit 42
+                        gcc -std=c17 -O0 -o /tmp/main /tmp/main.c || exit 42
+                        exec /tmp/main
+                        """;
+
+                command.addAll(List.of(
+                        "gcc:14",
+                        "sh", "-c",
+                        runner,
+                        "sh",
+                        encodedCode));
+            }
+
+            case "C++" -> {
+                String runner = """
+                        printf '%s' "$1" | base64 -d > /tmp/main.cpp || exit 42
+                        g++ -std=c++17 -O0 -o /tmp/main /tmp/main.cpp || exit 42
+                        exec /tmp/main
+                        """;
+
+                command.addAll(List.of(
+                        "gcc:14",
+                        "sh", "-c",
+                        runner,
+                        "sh",
+                        encodedCode));
+            }
+
+            default -> throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "지원하지 않는 언어입니다.");
+        }
+
+        return command;
+    }
+
+    // Docker에서 코드 실행
+    private ExecutionResult executeCode(
+            String language,
+            String code,
+            String input) {
+
+        String containerName = "aicoach-" + UUID.randomUUID();
+
+        List<String> command = buildDockerCommand(
+                language,
+                code,
+                containerName);
 
         Process process;
 
@@ -209,15 +309,18 @@ public class JudgeService {
 
         AtomicBoolean outputExceeded = new AtomicBoolean(false);
 
-        // 출력 스트림 수집
+        // 출력 수집
         Thread reader = Thread.startVirtualThread(() -> {
+
             try (InputStream stream = process.getInputStream()) {
 
                 byte[] chunk = new byte[1024];
                 int length;
 
                 while ((length = stream.read(chunk)) != -1) {
+
                     synchronized (buffer) {
+
                         if (buffer.size() + length > MAX_OUTPUT_BYTES) {
                             outputExceeded.set(true);
                             process.destroyForcibly();
@@ -232,9 +335,9 @@ public class JudgeService {
             }
         });
 
-        // 예시 입력 또는 테스트 케이스 입력 전달
-
+        // 표준 입력 전달
         Thread writer = Thread.startVirtualThread(() -> {
+
             try (OutputStream stream = process.getOutputStream()) {
 
                 byte[] inputBytes = (input == null ? "" : input)
@@ -243,20 +346,25 @@ public class JudgeService {
                 stream.write(inputBytes);
                 stream.flush();
 
-            } catch (IOException e) {
-                System.err.println(
-                        "Docker 입력 전달 실패: " + e.getMessage());
+            } catch (IOException ignored) {
             }
         });
 
+        boolean compiledLanguage = Set.of(
+                "Java", "C", "C++").contains(language);
+
+        int timeout = compiledLanguage
+                ? COMPILE_TIMEOUT
+                : DEFAULT_TIMEOUT;
+
         try {
             boolean finished = process.waitFor(
-                    TIMEOUT_SECONDS,
+                    timeout,
                     TimeUnit.SECONDS);
 
             if (!finished || outputExceeded.get()) {
-                process.destroyForcibly();
 
+                process.destroyForcibly();
                 cleanupContainer(containerName);
 
                 if (outputExceeded.get()) {
@@ -284,11 +392,18 @@ public class JudgeService {
             String output;
 
             synchronized (buffer) {
-                output = buffer.toString(
-                        StandardCharsets.UTF_8);
+                output = buffer.toString(StandardCharsets.UTF_8);
             }
 
-            if (process.exitValue() != 0) {
+            int exitCode = process.exitValue();
+
+            if (compiledLanguage && exitCode == 42) {
+                return new ExecutionResult(
+                        "COMPILE_ERROR",
+                        output);
+            }
+
+            if (exitCode != 0) {
                 return new ExecutionResult(
                         "RUNTIME_ERROR",
                         output);
@@ -301,6 +416,7 @@ public class JudgeService {
         } catch (InterruptedException e) {
 
             Thread.currentThread().interrupt();
+
             process.destroyForcibly();
             cleanupContainer(containerName);
 
@@ -310,7 +426,7 @@ public class JudgeService {
         }
     }
 
-    // 시간 초과 컨테이너 강제 정리
+    // 비정상 종료 시 Docker 컨테이너 정리
     private void cleanupContainer(String name) {
 
         try {
