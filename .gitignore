@@ -1,0 +1,23 @@
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Java / Gradle
+.gradle/
+build/
+backend/build/
+
+# React / Node.js
+node_modules/
+dist/
+
+# Database backups
+*.sql.gz
+*.sql.bak
