@@ -431,3 +431,135 @@
 .problem-title-link:hover {
     color: #2563eb;
 }
+
+
+/* ========================================
+   AICOACH PROBLEMS - FILTER UPDATE
+======================================== */
+
+/* 검색 결과 및 정렬 영역 */
+.problems-filter-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.problems-filter-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.problems-filter-info strong {
+    color: #2563eb;
+    font-weight: 800;
+}
+
+.problems-reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.problems-reset-btn:hover {
+    color: #2563eb;
+    background: #edf4ff;
+}
+
+/* 정렬 선택 */
+.problems-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 12px;
+    border: 1px solid #dfe7f1;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #64748b;
+}
+
+.problems-sort select {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #203654;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* 실제 DB 난이도 */
+.problem-level.EASY {
+    background: #eaf6ee;
+    color: #21844a;
+}
+
+.problem-level.MEDIUM {
+    background: #fff5df;
+    color: #b36a0a;
+}
+
+.problem-level.HARD {
+    background: #ffe9eb;
+    color: #c44050;
+}
+
+/* 검색 결과 없음 - 초기화 버튼 */
+.problems-empty-reset {
+    margin-top: 18px;
+    padding: 10px 18px;
+    border: 1px solid #dce9ff;
+    border-radius: 9px;
+    background: #f2f6ff;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.problems-empty-reset:hover {
+    background: #e7f0ff;
+}
+
+/* 키보드 접근성 */
+.problem-title-link:focus-visible,
+.problems-reset-btn:focus-visible,
+.problems-empty-reset:focus-visible,
+.problem-preview-btn:focus-visible,
+.problems-sort select:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+}
+
+/* 반응형 */
+@media (max-width: 700px) {
+    .problems-filter-bottom {
+        align-items: stretch;
+    }
+
+    .problems-filter-info {
+        flex: 1 1 100%;
+        justify-content: space-between;
+    }
+
+    .problems-sort {
+        width: 100%;
+    }
+
+    .problems-sort select {
+        flex: 1;
+    }
+}

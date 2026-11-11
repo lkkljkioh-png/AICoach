@@ -1,34 +1,57 @@
 
 import { useEffect, useMemo, useState } from "react";
-
 import {
     Search,
     ChevronDown,
     ChevronUp,
     BookOpen,
+    RotateCcw,
+    ArrowUpDown,
 } from "lucide-react";
 
 import Header from "../components/Header.jsx";
 import { getProblems } from "../api/problemsApi.js";
-
 import "../styles/Problems.css";
 
 const LEVELS = [
-    "전체 난이도",
-    "입문",
-    "초급",
-    "중급",
-    "고급",
+    { value: "ALL", label: "전체 난이도" },
+    { value: "EASY", label: "쉬움" },
+    { value: "MEDIUM", label: "보통" },
+    { value: "HARD", label: "어려움" },
+];
+
+const LEVEL_LABELS = {
+    EASY: "쉬움",
+    MEDIUM: "보통",
+    HARD: "어려움",
+};
+
+const LEVEL_ORDER = {
+    EASY: 1,
+    MEDIUM: 2,
+    HARD: 3,
+};
+
+const SORT_OPTIONS = [
+    { value: "default", label: "기본순" },
+    { value: "newest", label: "최신순" },
+    { value: "oldest", label: "오래된순" },
+    { value: "easy", label: "난이도 낮은순" },
+    { value: "hard", label: "난이도 높은순" },
+    { value: "title", label: "제목순" },
 ];
 
 const LANGUAGES = [
-    "Python",
-    "Java",
-    "C",
-    "C++",
-    "JavaScript",
+    { value: "Python", label: "Python", supported: true },
+    { value: "Java", label: "Java (준비 중)", supported: false },
+    { value: "C", label: "C (준비 중)", supported: false },
+    { value: "C++", label: "C++ (준비 중)", supported: false },
+    {
+        value: "JavaScript",
+        label: "JavaScript (준비 중)",
+        supported: false,
+    },
 ];
-
 
 function Problems() {
     const [problems, setProblems] = useState([]);
@@ -36,19 +59,19 @@ function Problems() {
     const [error, setError] = useState("");
 
     const [search, setSearch] = useState("");
-    const [level, setLevel] = useState("전체 난이도");
-    const [category, setCategory] = useState("전체 유형");
+    const [level, setLevel] = useState("ALL");
+    const [category, setCategory] = useState("ALL");
+    const [sort, setSort] = useState("default");
     const [language, setLanguage] = useState("Python");
     const [expanded, setExpanded] = useState(null);
 
-    // Spring Boot API에서 문제 불러오기
     useEffect(() => {
         let active = true;
 
         getProblems()
             .then((data) => {
                 if (active) {
-                    setProblems(data);
+                    setProblems(Array.isArray(data) ? data : []);
                 }
             })
             .catch((err) => {
@@ -67,39 +90,78 @@ function Problems() {
         };
     }, []);
 
-    // DB 데이터에 있는 문제 유형 추출
-    const categories = useMemo(() => [
-        "전체 유형",
-        ...new Set(problems.map((problem) => problem.category)),
-    ], [problems]);
+    const categories = useMemo(() => {
+        return [
+            "ALL",
+            ...new Set(
+                problems.map((problem) => problem.category).filter(Boolean)
+            ),
+        ];
+    }, [problems]);
 
-    // 검색 및 필터 적용
     const filtered = useMemo(() => {
-        const keyword = search.trim().toLowerCase();
+        const keyword = search.trim().toLocaleLowerCase();
 
-        return problems.filter((problem) => {
-            const matchLevel =
-                level === "전체 난이도" ||
-                problem.level === level;
-
-            const matchCategory =
-                category === "전체 유형" ||
-                problem.category === category;
-
-            const matchSearch =
+        const result = problems.filter((problem) => {
+            const matchesSearch =
                 !keyword ||
                 [
                     problem.title,
                     problem.category,
                     problem.description,
                 ].some((value) =>
-                    (value ?? "").toLowerCase().includes(keyword)
+                    String(value ?? "")
+                        .toLocaleLowerCase()
+                        .includes(keyword)
                 );
 
-            return matchLevel && matchCategory && matchSearch;
-        });
-    }, [problems, search, level, category]);
+            const matchesLevel =
+                level === "ALL" || problem.level === level;
 
+            const matchesCategory =
+                category === "ALL" || problem.category === category;
+
+            return matchesSearch && matchesLevel && matchesCategory;
+        });
+
+        const rank = (problem) =>
+            LEVEL_ORDER[problem.level] ?? 99;
+
+        result.sort((a, b) => {
+            switch (sort) {
+                case "newest":
+                    return b.id - a.id;
+
+                case "oldest":
+                    return a.id - b.id;
+
+                case "easy":
+                    return rank(a) - rank(b) || a.id - b.id;
+
+                case "hard":
+                    return rank(b) - rank(a) || a.id - b.id;
+
+                case "title":
+                    return a.title.localeCompare(b.title, "ko");
+
+                default:
+                    return a.id - b.id;
+            }
+        });
+
+        return result;
+    }, [problems, search, level, category, sort]);
+
+    const resetFilters = () => {
+        setSearch("");
+        setLevel("ALL");
+        setCategory("ALL");
+        setSort("default");
+        setExpanded(null);
+    };
+
+    const getProblemLink = (id) =>
+        `/problems/${id}?language=${encodeURIComponent(language)}`;
 
     return (
         <>
@@ -114,12 +176,10 @@ function Problems() {
                     <div className="problems-heading">
                         <div>
                             <h1>문제 풀이</h1>
-
                             <p>
                                 내 수준에 맞는 문제를 골라보세요.
                                 <br />
-                                원하는 프로그래밍 언어로 문제를
-                                해결할 수 있어요.
+                                원하는 문제를 검색하고 직접 코드를 작성해 보세요.
                             </p>
                         </div>
 
@@ -129,80 +189,106 @@ function Problems() {
                         </div>
                     </div>
 
-                    {/* 검색 및 필터 */}
-
                     <div className="problems-toolbar">
                         <label className="problems-search">
                             <Search size={18} />
-
                             <input
                                 aria-label="문제 검색"
+                                type="search"
                                 value={search}
-                                onChange={(e) =>
-                                    setSearch(e.target.value)
+                                onChange={(event) =>
+                                    setSearch(event.target.value)
                                 }
-                                placeholder="문제명 또는 유형 검색"
+                                placeholder="문제명, 설명 또는 유형 검색"
                             />
                         </label>
-
-                        {/* 난이도 */}
 
                         <select
                             className="problems-select"
                             aria-label="난이도 선택"
                             value={level}
-                            onChange={(e) =>
-                                setLevel(e.target.value)
+                            onChange={(event) =>
+                                setLevel(event.target.value)
                             }
                         >
                             {LEVELS.map((item) => (
-                                <option key={item} value={item}>
-                                    {item}
+                                <option key={item.value} value={item.value}>
+                                    {item.label}
                                 </option>
                             ))}
                         </select>
-
-                        {/* 문제 유형 */}
 
                         <select
                             className="problems-select"
                             aria-label="유형 선택"
                             value={category}
-                            onChange={(e) =>
-                                setCategory(e.target.value)
+                            onChange={(event) =>
+                                setCategory(event.target.value)
                             }
                         >
                             {categories.map((item) => (
                                 <option key={item} value={item}>
-                                    {item}
+                                    {item === "ALL" ? "전체 유형" : item}
                                 </option>
                             ))}
                         </select>
-
-                        {/* 프로그래밍 언어 */}
 
                         <select
                             className="problems-select"
                             aria-label="프로그래밍 언어 선택"
                             value={language}
-                            onChange={(e) =>
-                                setLanguage(e.target.value)
+                            onChange={(event) =>
+                                setLanguage(event.target.value)
                             }
                         >
                             {LANGUAGES.map((item) => (
-                                <option key={item} value={item}>
-                                    {item}
+                                <option
+                                    key={item.value}
+                                    value={item.value}
+                                    disabled={!item.supported}
+                                >
+                                    {item.label}
                                 </option>
                             ))}
                         </select>
                     </div>
 
-                    {/* 문제 목록 */}
+                    <div className="problems-filter-bottom">
+                        <div className="problems-filter-info">
+                            <span>
+                                검색 결과 <strong>{filtered.length}</strong>개
+                            </span>
+                            <button
+                                type="button"
+                                className="problems-reset-btn"
+                                onClick={resetFilters}
+                            >
+                                <RotateCcw size={14} />
+                                필터 초기화
+                            </button>
+                        </div>
+
+                        <label className="problems-sort">
+                            <ArrowUpDown size={15} />
+                            <select
+                                aria-label="문제 정렬"
+                                value={sort}
+                                onChange={(event) =>
+                                    setSort(event.target.value)
+                                }
+                            >
+                                {SORT_OPTIONS.map((item) => (
+                                    <option key={item.value} value={item.value}>
+                                        {item.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
+                    </div>
 
                     <section className="problems-panel">
                         <div className="problems-panel-title">
                             <h2>전체 문제</h2>
-
                             <span>
                                 {language} · {filtered.length}개 문제
                             </span>
@@ -221,12 +307,15 @@ function Problems() {
                         ) : filtered.length === 0 ? (
                             <div className="problems-empty">
                                 <BookOpen size={32} />
-
                                 <h3>검색 결과가 없어요</h3>
-
-                                <p>
-                                    검색어나 필터 조건을 변경해 보세요.
-                                </p>
+                                <p>검색어나 필터 조건을 변경해 보세요.</p>
+                                <button
+                                    type="button"
+                                    className="problems-empty-reset"
+                                    onClick={resetFilters}
+                                >
+                                    필터 초기화
+                                </button>
                             </div>
                         ) : (
                             filtered.map((problem) => (
@@ -243,7 +332,7 @@ function Problems() {
                                             <h3>
                                                 <a
                                                     className="problem-title-link"
-                                                    href={`/problems/${problem.id}?language=${encodeURIComponent(language)}`}
+                                                    href={getProblemLink(problem.id)}
                                                 >
                                                     {problem.title}
                                                 </a>
@@ -252,24 +341,21 @@ function Problems() {
                                             <div className="problem-tags">
                                                 <span>{problem.category}</span>
                                                 <span>{language}</span>
-                                                <span>
-                                                    약 {problem.time}분
-                                                </span>
+                                                <span>약 {problem.time}분</span>
                                             </div>
                                         </div>
 
                                         <span
                                             className={`problem-level ${problem.level}`}
                                         >
-                                            {problem.level}
+                                            {LEVEL_LABELS[problem.level] ??
+                                                problem.level}
                                         </span>
 
                                         <button
                                             type="button"
                                             className="problem-preview-btn"
-                                            aria-expanded={
-                                                expanded === problem.id
-                                            }
+                                            aria-expanded={expanded === problem.id}
                                             onClick={() =>
                                                 setExpanded(
                                                     expanded === problem.id
@@ -293,27 +379,28 @@ function Problems() {
                                     {expanded === problem.id && (
                                         <div className="problem-details">
                                             <h4>문제 설명</h4>
-
                                             <p>{problem.description}</p>
 
                                             <div className="problem-example">
                                                 <div>
                                                     <small>예시 입력</small>
-                                                    <pre>{problem.input}</pre>
+                                                    <pre>{problem.input ?? "입력 없음"}</pre>
                                                 </div>
-
                                                 <div>
                                                     <small>예시 출력</small>
-                                                    <pre>{problem.output}</pre>
+                                                    <pre>{problem.output ?? "출력 없음"}</pre>
                                                 </div>
                                             </div>
 
-                                            <div className="problem-hint">
-                                                💡 학습 힌트: {problem.hint}
-                                            </div>
+                                            {problem.hint && (
+                                                <div className="problem-hint">
+                                                    💡 학습 힌트: {problem.hint}
+                                                </div>
+                                            )}
+
                                             <a
                                                 className="problem-solve-link"
-                                                href={`/problems/${problem.id}?language=${encodeURIComponent(language)}`}
+                                                href={getProblemLink(problem.id)}
                                             >
                                                 이 문제 풀기 →
                                             </a>
@@ -326,7 +413,8 @@ function Problems() {
 
                     <p className="problems-note">
                         문제 목록은 AICoach 데이터베이스에서 불러옵니다.
-                        실제 코드 실행 및 AI 채점 기능은 추후 연결됩니다.
+                        현재 코드 실행 및 채점은 Python을 지원합니다.
+                        다른 언어는 추후 지원할 예정입니다.
                     </p>
                 </div>
             </main>
