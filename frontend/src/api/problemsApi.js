@@ -2,7 +2,10 @@
 const API_BASE_URL = "http://localhost:8080/api";
 
 async function request(url, options = {}) {
-    const response = await fetch(`${API_BASE_URL}${url}`, options);
+    const response = await fetch(`${API_BASE_URL}${url}`, {
+        ...options,
+        credentials: "include",
+    });
 
     if (!response.ok) {
         let message = `API 요청 실패 (${response.status})`;

@@ -17,7 +17,7 @@ import {
     submitProblem,
 } from "../api/problemsApi.js";
 import "../styles/ProblemSolve.css";
-
+import AIFeedback from "../components/AIFeedback.jsx";
 
 const LANGUAGES = [
     "Python",
@@ -472,6 +472,14 @@ function ProblemSolve() {
                                     {message}
                                 </div>
                             )}
+
+                            <AIFeedback
+                                problemId={problemId}
+                                language={language}
+                                code={code}
+                                disabled={isRunning}
+                            />
+                            
                         </section>
                     </div>
                 </div>

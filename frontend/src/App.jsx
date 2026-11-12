@@ -1,11 +1,19 @@
-
 import Home from "./pages/Home.jsx";
 import Problems from "./pages/Problems.jsx";
 import ProblemSolve from "./pages/ProblemSolve.jsx";
+import AuthPage from "./pages/AuthPage.jsx";
 
 function App() {
   const path =
     window.location.pathname.replace(/\/+$/, "") || "/";
+
+  if (path === "/login") {
+    return <AuthPage mode="login" />;
+  }
+
+  if (path === "/signup") {
+    return <AuthPage mode="signup" />;
+  }
 
   if (path === "/problems") {
     return <Problems />;

@@ -1,0 +1,310 @@
+/* =========================================
+   AICOACH - GEMINI AI FEEDBACK
+========================================= */
+
+.ai-feedback-panel {
+    margin: 0 20px 22px;
+    overflow: hidden;
+    border: 1px solid #dce6f4;
+    border-radius: 14px;
+    background: #ffffff;
+    font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.035);
+}
+
+/* 헤더 */
+
+.ai-feedback-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 20px;
+    border-bottom: 1px solid #edf1f7;
+}
+
+.ai-feedback-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.ai-feedback-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #eaf1ff;
+    color: #2563eb;
+}
+
+.ai-feedback-title h3 {
+    margin: 0 0 6px;
+    color: #172b4d;
+    font-size: 16px;
+    font-weight: 750;
+}
+
+.ai-feedback-title p {
+    margin: 0;
+    color: #718096;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.ai-feedback-model {
+    padding: 7px 10px;
+    border-radius: 7px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* 본문 */
+
+.ai-feedback-body {
+    padding: 20px;
+}
+
+.ai-feedback-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.ai-feedback-action>p {
+    flex: 1;
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* AI 피드백 버튼 */
+
+.ai-feedback-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 17px;
+    border: 1px solid #2563eb;
+    border-radius: 9px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.ai-feedback-button:hover:not(:disabled) {
+    background: #1d4ed8;
+}
+
+.ai-feedback-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 로딩 */
+
+.ai-feedback-loading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-top: 19px;
+    padding: 17px;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.ai-feedback-loading strong {
+    display: block;
+    font-size: 13px;
+}
+
+.ai-feedback-loading p {
+    margin: 5px 0 0;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.ai-feedback-spin {
+    animation: ai-feedback-rotate 1s linear infinite;
+}
+
+@keyframes ai-feedback-rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 오류 메시지 */
+
+.ai-feedback-error {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 19px;
+    padding: 17px;
+    border-radius: 10px;
+    background: #fff1f2;
+    color: #be123c;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.ai-feedback-error svg {
+    flex-shrink: 0;
+}
+
+/* AI 분석 결과 */
+
+.ai-feedback-result {
+    margin-top: 20px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.ai-feedback-result-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 16px 19px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #2563eb;
+    font-size: 14px;
+}
+
+.ai-feedback-result-title strong {
+    color: #1e293b;
+}
+
+.ai-feedback-result-title span {
+    margin-left: auto;
+    color: #16a34a;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* 분석 텍스트 */
+
+.ai-feedback-content {
+    padding: 20px;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.ai-feedback-content h3 {
+    margin: 24px 0 12px;
+    color: #1e293b;
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.ai-feedback-content h3:first-child {
+    margin-top: 0;
+}
+
+.ai-feedback-content p {
+    margin: 9px 0;
+}
+
+.ai-feedback-content hr {
+    margin: 18px 0;
+    border: none;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* 목록 */
+
+.ai-feedback-list-item {
+    display: flex;
+    gap: 10px;
+    margin: 9px 0;
+}
+
+.ai-feedback-bullet {
+    width: 5px;
+    height: 5px;
+    margin-top: 12px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #3b82f6;
+}
+
+/* 강조 텍스트 및 코드 */
+
+.ai-feedback-content strong {
+    color: #243b5a;
+    font-weight: 750;
+}
+
+.ai-feedback-content code {
+    padding: 2px 6px;
+    border-radius: 5px;
+    background: #f1f5f9;
+    color: #2563eb;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 12px;
+}
+
+/* 하단 안내 */
+
+.ai-feedback-notice {
+    margin: 0;
+    padding: 13px 20px;
+    border-top: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+    .ai-feedback-panel {
+        margin: 0 12px 16px;
+    }
+
+    .ai-feedback-header,
+    .ai-feedback-body {
+        padding: 15px;
+    }
+
+    .ai-feedback-model {
+        display: none;
+    }
+
+    .ai-feedback-action {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ai-feedback-button {
+        width: 100%;
+    }
+
+    .ai-feedback-content {
+        padding: 16px;
+        font-size: 13px;
+    }
+}

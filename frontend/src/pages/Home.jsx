@@ -3,6 +3,8 @@ import Header from "../components/Header.jsx";
 import FeatureIcon from "../components/common/FeatureIcon.jsx";
 import HomeCodeDemo from "../components/home/HomeCodeDemo.jsx";
 
+import { useEffect, useState } from "react";
+import { getCurrentUser } from "../api/authApi.js";
 import { FEATURES, STEPS } from "../data/homeData.js";
 
 import {
@@ -26,6 +28,26 @@ const STEP_ICONS = [
 ];
 
 function Home() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+
+    getCurrentUser()
+      .then((data) => {
+        if (active) setUser(data);
+      })
+      .catch((error) => {
+        console.error("로그인 상태 확인 실패:", error);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const startPath = user ? "/problems" : "/signup";
+
   return (
     <>
       <Header />
@@ -51,7 +73,7 @@ function Home() {
 
               <div className="home-buttons">
                 <a
-                  href="/signup"
+                  href={startPath}
                   className="home-start-btn"
                 >
                   학습 시작하기
@@ -215,7 +237,7 @@ function Home() {
                 </p>
 
                 <a
-                  href="/signup"
+                  href={startPath}
                   className="home-cta-btn"
                 >
                   무료로 시작하기
