@@ -5,10 +5,15 @@ import com.aicoach.backend.entity.ProblemEntity;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.server.ResponseStatusException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
+import org.springframework.web.client.RestClientException;
 
 import java.util.List;
 import java.util.Map;
@@ -16,17 +21,31 @@ import java.util.Map;
 @Service
 public class AIFeedbackService {
 
+    private static final int MAX_RETRIES = 2;
+
     private final ProblemService problemService;
-    private final RestClient client = RestClient.create();
+    private final RestClient client;
 
     @Value("${GEMINI_API_KEY:}")
     private String apiKey;
 
-    @Value("${GEMINI_MODEL:gemini-2.5-flash}")
+    @Value("${GEMINI_MODEL:gemini-3.8-flash}")
     private String model;
+
+    @Value("${GEMINI_FALLBACK_MODEL:gemini-3.7-flash}")
+    private String fallbackModel;
 
     public AIFeedbackService(ProblemService problemService) {
         this.problemService = problemService;
+
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+
+        factory.setConnectTimeout(10000);
+        factory.setReadTimeout(60000);
+
+        this.client = RestClient.builder()
+                .requestFactory(factory)
+                .build();
     }
 
     public record FeedbackResult(String feedback) {
@@ -101,46 +120,152 @@ public class AIFeedbackService {
                 "generationConfig", Map.of(
                         "maxOutputTokens", 2048));
 
+        // 기본 모델로 최대 3회 시도
+        for (int attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+
+            try {
+                return requestFeedback(model, request);
+
+            } catch (RestClientResponseException e) {
+
+                int status = e.getStatusCode().value();
+
+                System.err.println(
+                        "[Gemini] " + model
+                                + " HTTP " + status
+                                + " (시도 " + (attempt + 1) + ")");
+
+                if (status != 503) {
+                    throw new ResponseStatusException(
+                            HttpStatus.BAD_GATEWAY,
+                            "Gemini API 오류 (HTTP " + status + ")");
+                }
+
+                if (attempt < MAX_RETRIES) {
+                    waitBeforeRetry(attempt);
+                }
+            }
+        }
+
+        // 기본 모델 과부하가 지속되면 대체 모델 실행
+        if (fallbackModel != null
+                && !fallbackModel.isBlank()
+                && !fallbackModel.equals(model)) {
+
+            System.out.println(
+                    "[Gemini] 대체 모델 전환: " + fallbackModel);
+
+            try {
+                return requestFeedback(fallbackModel, request);
+
+            } catch (RestClientResponseException e) {
+
+                System.err.println(
+                        "[Gemini] 대체 모델 오류: HTTP "
+                                + e.getStatusCode().value());
+            }
+        }
+
+        throw new ResponseStatusException(
+                HttpStatus.SERVICE_UNAVAILABLE,
+                "Gemini 서버가 혼잡합니다. 잠시 후 다시 시도해 주세요.");
+    }
+
+    private FeedbackResult requestFeedback(
+            String selectedModel,
+            Map<String, Object> request) {
+
+        String rawResponse;
+
         try {
-            Map<?, ?> response = client.post()
+            rawResponse = client.post()
                     .uri(
                             "https://generativelanguage.googleapis.com"
                                     + "/v1beta/models/{model}:generateContent",
-                            model)
+                            selectedModel)
                     .header("x-goog-api-key", apiKey)
                     .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
                     .body(request)
                     .retrieve()
-                    .body(Map.class);
-
-            String feedback = extractText(response);
-
-            if (feedback.isBlank()) {
-                throw new ResponseStatusException(
-                        HttpStatus.BAD_GATEWAY,
-                        "Gemini가 분석 결과를 반환하지 않았습니다.");
-            }
-
-            return new FeedbackResult(feedback);
+                    .body(String.class);
 
         } catch (RestClientResponseException e) {
+            // 기존 재시도 로직에서 HTTP 상태를 판단하도록 전달
+            throw e;
 
-            System.err.println("===== GEMINI API ERROR =====");
-            System.err.println("HTTP Status: " + e.getStatusCode().value());
-            System.err.println("Response: " + e.getResponseBodyAsString());
-            System.err.println("============================");
+        } catch (RestClientException e) {
+            System.err.println("===== GEMINI DEBUG START =====");
+            e.printStackTrace(System.err);
+            System.err.println("===== GEMINI DEBUG END =====");
+
+            throw new ResponseStatusException(
+                    HttpStatus.SERVICE_UNAVAILABLE,
+                    "Gemini request failed",
+                    e);
+        }
+
+        if (rawResponse == null || rawResponse.isBlank()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_GATEWAY,
+                    "Gemini 응답이 비어 있습니다.");
+        }
+
+        Map<?, ?> response;
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            response = mapper.readValue(
+                    rawResponse,
+                    Map.class);
+
+        } catch (
+
+        JacksonException e) {
+            System.err.println(
+                    "[Gemini] JSON 변환 실패: "
+                            + e.getMessage());
 
             throw new ResponseStatusException(
                     HttpStatus.BAD_GATEWAY,
-                    "Gemini API 요청에 실패했습니다.");
+                    "Gemini 응답 형식이 올바르지 않습니다.",
+                    e);
         }
 
+        String feedback = extractText(response);
+
+        if (feedback.isBlank()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_GATEWAY,
+                    "Gemini가 분석 결과를 반환하지 않았습니다.");
+        }
+
+        System.out.println("[Gemini] 분석 성공: " + selectedModel);
+
+        return new FeedbackResult(feedback);
+    }
+
+    private void waitBeforeRetry(int attempt) {
+        long delay = 1000L * (1L << attempt);
+
+        try {
+            Thread.sleep(delay);
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+
+            throw new ResponseStatusException(
+                    HttpStatus.SERVICE_UNAVAILABLE,
+                    "Gemini 요청이 중단되었습니다.");
+        }
     }
 
     private String extractText(Map<?, ?> response) {
 
-        if (response == null)
+        if (response == null) {
             return "";
+        }
 
         Object candidates = response.get("candidates");
 
@@ -152,25 +277,35 @@ public class AIFeedbackService {
         StringBuilder result = new StringBuilder();
 
         for (Object candidate : list) {
-            if (!(candidate instanceof Map<?, ?> map))
+
+            if (!(candidate instanceof Map<?, ?> map)) {
                 continue;
+            }
 
             Object content = map.get("content");
-            if (!(content instanceof Map<?, ?> contentMap))
+
+            if (!(content instanceof Map<?, ?> contentMap)) {
                 continue;
+            }
 
             Object parts = contentMap.get("parts");
-            if (!(parts instanceof List<?> partList))
+
+            if (!(parts instanceof List<?> partList)) {
                 continue;
+            }
 
             for (Object part : partList) {
+
                 if (part instanceof Map<?, ?> partMap) {
+
                     Object text = partMap.get("text");
 
                     if (text instanceof String value) {
+
                         if (!result.isEmpty()) {
                             result.append("\n");
                         }
+
                         result.append(value);
                     }
                 }

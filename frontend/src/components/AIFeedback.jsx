@@ -96,13 +96,16 @@ export default function AIFeedback({
         setFeedback("");
 
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 45000);
+
+        const timeout = setTimeout(() => controller.abort(), 90000);
+
 
         try {
             const response = await fetch(
                 `${API_BASE}/problems/${problemId}/feedback`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },

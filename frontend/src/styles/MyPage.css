@@ -1,0 +1,290 @@
+.my-page {
+    min-height: calc(100vh - 72px);
+    background: #f6f8fc;
+    color: #18233b;
+    padding: 48px 24px 88px;
+}
+
+.my-container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.my-heading {
+    margin-bottom: 30px;
+}
+
+.my-eyebrow {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.my-heading h1 {
+    margin: 8px 0;
+    font-size: clamp(26px, 3vw, 36px);
+    letter-spacing: -1.1px;
+}
+
+.my-heading p {
+    margin: 0;
+    color: #69768d;
+    font-size: 15px;
+}
+
+.my-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.my-stat-card,
+.my-panel,
+.my-empty {
+    background: white;
+    border: 1px solid #e5eaf3;
+    border-radius: 18px;
+    box-shadow: 0 5px 25px rgba(28, 48, 85, 0.035);
+}
+
+.my-stat-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.my-stat-icon {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #eef4ff;
+    color: #2563eb;
+}
+
+.my-stat-card>span {
+    font-size: 14px;
+    color: #627089;
+    font-weight: 600;
+}
+
+.my-stat-card strong {
+    font-size: 31px;
+    letter-spacing: -0.8px;
+}
+
+.my-stat-card small {
+    font-size: 15px;
+    font-weight: 500;
+    color: #728098;
+    margin-left: 5px;
+}
+
+.my-content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2.2fr) minmax(270px, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.my-panel {
+    padding: 24px;
+    min-width: 0;
+}
+
+.my-panel-title {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    color: #6882a9;
+    margin-bottom: 24px;
+}
+
+.my-panel-title h2 {
+    margin: 0 0 6px;
+    color: #202b45;
+    font-size: 19px;
+}
+
+.my-panel-title p {
+    margin: 0;
+    font-size: 13px;
+    color: #8490a3;
+}
+
+.my-table-wrap {
+    overflow-x: auto;
+}
+
+.my-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 610px;
+    text-align: left;
+    font-size: 13px;
+}
+
+.my-table th {
+    padding: 12px 8px;
+    border-bottom: 1px solid #e6ebf2;
+    color: #77849b;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.my-table td {
+    padding: 15px 8px;
+    border-bottom: 1px solid #f0f2f6;
+    color: #526078;
+    white-space: nowrap;
+}
+
+.my-table td:first-child {
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.my-table td a {
+    color: #254677;
+    text-decoration: none;
+    font-weight: 650;
+}
+
+.my-table td a:hover,
+.my-panel-empty a:hover {
+    text-decoration: underline;
+}
+
+.my-result {
+    display: inline-block;
+    border-radius: 7px;
+    padding: 5px 9px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.my-result-ok {
+    background: #e8f8ef;
+    color: #14804a;
+}
+
+.my-result-fail {
+    background: #fff0ee;
+    color: #b94b43;
+}
+
+.my-language-row {
+    margin-bottom: 22px;
+}
+
+.my-language-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 9px;
+    font-size: 13px;
+}
+
+.my-language-meta span {
+    color: #8290a4;
+}
+
+.my-progress {
+    height: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #edf1f8;
+}
+
+.my-progress>div {
+    height: 100%;
+    background: #477ce5;
+    border-radius: inherit;
+}
+
+.my-stat-note {
+    margin: 26px 0 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #8390a2;
+}
+
+.my-panel-empty {
+    text-align: center;
+    padding: 45px 0;
+    color: #8190a4;
+    font-size: 14px;
+}
+
+.my-panel-empty a {
+    color: #2563eb;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 700;
+}
+
+.my-empty {
+    text-align: center;
+    padding: 80px 24px;
+}
+
+.my-empty h2 {
+    font-size: 22px;
+}
+
+.my-empty p {
+    color: #7b889c;
+}
+
+.my-empty button,
+.my-primary-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 20px;
+    border-radius: 9px;
+    background: #2563eb;
+    color: white;
+    border: 0;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+@media (max-width: 960px) {
+    .my-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .my-stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .my-page {
+        padding: 32px 16px 60px;
+    }
+
+    .my-stat-grid {
+        gap: 10px;
+    }
+
+    .my-stat-card {
+        padding: 17px;
+    }
+
+    .my-stat-card strong {
+        font-size: 26px;
+    }
+
+    .my-panel {
+        padding: 18px;
+    }
+}
