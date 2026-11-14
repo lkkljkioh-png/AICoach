@@ -1,0 +1,255 @@
+.learning-page {
+    min-height: calc(100vh - 80px);
+    padding: 64px 24px 100px;
+    background: #f8faff;
+    color: #142b50;
+}
+
+.learning-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.learning-hero {
+    margin-bottom: 36px;
+}
+
+.learning-eyebrow {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .13em;
+}
+
+.learning-hero h1 {
+    margin: 12px 0;
+    font-size: clamp(30px, 3vw, 42px);
+    font-weight: 800;
+    letter-spacing: -.05em;
+}
+
+.learning-hero h1 span {
+    color: #2563eb;
+}
+
+.learning-hero p,
+.learning-subtitle {
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.learning-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.learning-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 25px;
+    background: white;
+    border: 1px solid #e3eaf3;
+    border-radius: 15px;
+}
+
+.learning-stat svg {
+    color: #2563eb;
+}
+
+.learning-stat span {
+    color: #718096;
+    font-size: 13px;
+}
+
+.learning-stat strong {
+    font-size: 27px;
+    font-weight: 800;
+}
+
+.learning-summary,
+.learning-recommendations {
+    margin-bottom: 28px;
+    padding: 28px;
+    border: 1px solid #e3eaf3;
+    border-radius: 16px;
+    background: white;
+}
+
+.learning-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.learning-section-title svg {
+    color: #2563eb;
+}
+
+.learning-section-title h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.learning-insights {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.learning-insights>div {
+    padding: 22px;
+    border-radius: 12px;
+    background: #f4f7fc;
+}
+
+.learning-insights span,
+.learning-insights strong {
+    display: block;
+}
+
+.learning-insights span {
+    color: #718096;
+    font-size: 12px;
+}
+
+.learning-insights strong {
+    margin: 10px 0;
+    font-size: 23px;
+    color: #2563eb;
+}
+
+.learning-insights p {
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.learning-subtitle {
+    margin-bottom: 20px;
+}
+
+.learning-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.learning-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px;
+    border: 1px solid #e3eaf3;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.learning-card-number {
+    color: #a1aec0;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.learning-card-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.learning-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.learning-card-tags span {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #eef4ff;
+    color: #426ca5;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.learning-card h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+}
+
+.learning-card p {
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.learning-card-link,
+.learning-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 17px;
+    border: 0;
+    border-radius: 9px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 750;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.learning-card-link:hover,
+.learning-btn:hover {
+    background: #1d4ed8;
+}
+
+.learning-message {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 14px;
+    padding: 60px 24px;
+    border: 1px solid #e3eaf3;
+    border-radius: 15px;
+    background: white;
+    color: #718096;
+    text-align: center;
+}
+
+.learning-message h2,
+.learning-message h3 {
+    color: #142b50;
+}
+
+@media (max-width: 700px) {
+    .learning-page {
+        padding: 40px 18px 70px;
+    }
+
+    .learning-stats,
+    .learning-insights {
+        grid-template-columns: 1fr;
+    }
+
+    .learning-summary,
+    .learning-recommendations {
+        padding: 20px 16px;
+    }
+
+    .learning-card {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .learning-card-link {
+        margin-left: auto;
+    }
+}

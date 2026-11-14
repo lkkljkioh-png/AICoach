@@ -4,6 +4,7 @@ import Problems from "./pages/Problems.jsx";
 import ProblemSolve from "./pages/ProblemSolve.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
 import MyPage from "./pages/MyPage.jsx";
+import Learning from "./pages/Learning.jsx";
 
 function App() {
   const path =
@@ -23,6 +24,10 @@ function App() {
 
   if (/^\/problems\/[^/]+$/.test(path)) {
     return <ProblemSolve />;
+  }
+
+  if (path === "/learning") {
+    return <Learning />;
   }
 
   if (path === "/mypage") {
