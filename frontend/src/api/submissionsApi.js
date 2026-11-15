@@ -1,13 +1,10 @@
 
 const API_BASE_URL = "http://localhost:8080/api";
 
-export async function getMySubmissions() {
-    const response = await fetch(
-        `${API_BASE_URL}/submissions/me`,
-        {
-            credentials: "include",
-        }
-    );
+async function request(url) {
+    const response = await fetch(url, {
+        credentials: "include",
+    });
 
     if (response.status === 401) {
         const error = new Error("로그인이 필요합니다.");
@@ -17,11 +14,23 @@ export async function getMySubmissions() {
 
     if (!response.ok) {
         throw new Error(
-            `제출 기록을 불러오지 못했습니다. (${response.status})`
+            `제출 기록 조회 실패 (${response.status})`
         );
     }
 
-    const data = await response.json();
+    return response.json();
+}
+
+export async function getMySubmissions() {
+    const data = await request(
+        `${API_BASE_URL}/submissions/me`
+    );
 
     return Array.isArray(data) ? data : [];
+}
+
+export function getSubmissionById(id) {
+    return request(
+        `${API_BASE_URL}/submissions/${id}`
+    );
 }

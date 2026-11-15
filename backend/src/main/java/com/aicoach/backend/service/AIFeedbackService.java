@@ -25,7 +25,7 @@ public class AIFeedbackService {
     @Value("${GEMINI_API_KEY:}")
     private String apiKey;
 
-    @Value("${GEMINI_MODEL:gemini-3.8-flash}")
+    @Value("${GEMINI_MODEL:gemini-3.5-flash}")
     private String model;
 
     public AIFeedbackService(ProblemService problemService) {

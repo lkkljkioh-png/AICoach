@@ -9,12 +9,14 @@ import {
     Target,
 } from "lucide-react";
 
+import SubmissionViewer from "../components/SubmissionViewer.jsx";
 import Header from "../components/Header.jsx";
 import { getCurrentUser } from "../api/authApi.js";
 import { getProblems } from "../api/problemsApi.js";
 import { getMySubmissions } from "../api/submissionsApi.js";
 
 import "../styles/MyPage.css";
+
 
 const STATUS_LABELS = {
     ACCEPTED: "정답",
@@ -41,6 +43,8 @@ export default function MyPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [notLoggedIn, setNotLoggedIn] = useState(false);
+    const [selectedSubmissionId, setSelectedSubmissionId] =
+        useState(null);
 
     useEffect(() => {
         let active = true;
@@ -256,6 +260,7 @@ export default function MyPage() {
                                                         <th>결과</th>
                                                         <th>통과</th>
                                                         <th>제출 일시</th>
+                                                        <th>관리</th>
                                                     </tr>
                                                 </thead>
 
@@ -277,8 +282,8 @@ export default function MyPage() {
                                                                 <td>
                                                                     <span
                                                                         className={`my-result ${item.status === "ACCEPTED"
-                                                                                ? "my-result-ok"
-                                                                                : "my-result-fail"
+                                                                            ? "my-result-ok"
+                                                                            : "my-result-fail"
                                                                             }`}
                                                                     >
                                                                         {STATUS_LABELS[item.status] ||
@@ -292,6 +297,15 @@ export default function MyPage() {
 
                                                                 <td>
                                                                     {formatDate(item.submittedAt)}
+                                                                </td>
+                                                                <td>
+                                                                    <button
+                                                                        type="button"
+                                                                        className="my-code-view-btn"
+                                                                        onClick={() => setSelectedSubmissionId(item.id)}
+                                                                    >
+                                                                        코드 보기
+                                                                    </button>
                                                                 </td>
                                                             </tr>
                                                         )
@@ -348,6 +362,13 @@ export default function MyPage() {
                     )}
                 </div>
             </main>
+
+            {selectedSubmissionId !== null && (
+                <SubmissionViewer
+                    submissionId={selectedSubmissionId}
+                    onClose={() => setSelectedSubmissionId(null)}
+                />
+            )}
         </>
     );
 }

@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Local credentials ###
+cookies.txt
+backend/src/main/resources/application-local.properties

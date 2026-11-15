@@ -1,3 +1,4 @@
+
 package com.aicoach.backend.controller;
 
 import com.aicoach.backend.service.SubmissionService;
@@ -25,9 +26,7 @@ public class SubmissionController {
         this.submissionService = submissionService;
     }
 
-    @GetMapping("/me")
-    public List<SubmissionService.SubmissionResponse> mySubmissions(
-            HttpServletRequest request) {
+    private Long requireUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
         if (session == null) {
@@ -40,7 +39,25 @@ public class SubmissionController {
             throw unauthorized();
         }
 
-        return submissionService.getUserSubmissions(id);
+        return id;
+    }
+
+    @GetMapping("/me")
+    public List<SubmissionService.SubmissionResponse> mySubmissions(HttpServletRequest request) {
+
+        Long userId = requireUser(request);
+
+        return submissionService.getUserSubmissions(userId);
+    }
+
+    @GetMapping("/{id}")
+    public SubmissionService.SubmissionDetailResponse getSubmission(
+            @PathVariable Long id,
+            HttpServletRequest request) {
+
+        Long userId = requireUser(request);
+
+        return submissionService.getSubmission(id, userId);
     }
 
     private ResponseStatusException unauthorized() {

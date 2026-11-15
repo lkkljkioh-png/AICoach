@@ -288,3 +288,19 @@
         padding: 18px;
     }
 }
+
+.my-code-view-btn {
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #dbeafe;
+    border-radius: 7px;
+    padding: 7px 11px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.my-code-view-btn:hover {
+    background: #dbeafe;
+}
