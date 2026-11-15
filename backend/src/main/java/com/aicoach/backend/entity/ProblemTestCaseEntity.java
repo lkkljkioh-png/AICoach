@@ -23,6 +23,16 @@ public class ProblemTestCaseEntity {
     protected ProblemTestCaseEntity() {
     }
 
+    public ProblemTestCaseEntity(
+            Long problemId,
+            String testInput,
+            String expectedOutput) {
+
+        this.problemId = problemId;
+        this.testInput = testInput;
+        this.expectedOutput = expectedOutput;
+    }
+
     public Long getId() {
         return id;
     }

@@ -41,6 +41,31 @@ public class ProblemEntity {
     protected ProblemEntity() {
     }
 
+    public ProblemEntity(
+            String title,
+            String level,
+            String category,
+            Integer time,
+            String description,
+            String input,
+            String output,
+            String hint) {
+
+        this.title = title;
+        this.level = level;
+        this.category = category;
+        this.time = time;
+        this.description = description;
+        this.input = input;
+        this.output = output;
+        this.hint = hint;
+        this.published = false;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
     public Long getId() {
         return id;
     }
