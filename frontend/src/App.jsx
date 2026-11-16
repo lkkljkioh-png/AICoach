@@ -5,6 +5,7 @@ import ProblemSolve from "./pages/ProblemSolve.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
 import MyPage from "./pages/MyPage.jsx";
 import Learning from "./pages/Learning.jsx";
+import AdminProblems from "./pages/AdminProblems.jsx";
 
 function App() {
   const path =
@@ -16,6 +17,10 @@ function App() {
 
   if (path === "/signup") {
     return <AuthPage mode="signup" />;
+  }
+
+  if (path === "/admin/problems") {
+    return <AdminProblems />;
   }
 
   if (path === "/problems") {

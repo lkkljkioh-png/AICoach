@@ -204,4 +204,43 @@ public class AIProblemStorageService {
                 HttpStatus.BAD_REQUEST,
                 reason);
     }
+
+    // =====================================
+    // 검증 완료된 문제 공개
+    // =====================================
+
+    @Transactional
+    public SaveResponse publishProblem(Long problemId) {
+
+        ProblemEntity problem = problemRepository
+                .findById(problemId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "문제를 찾을 수 없습니다."));
+
+        // 저장된 테스트케이스가 있는지 확인
+        List<ProblemTestCaseEntity> cases = testCaseRepository
+                .findByProblemIdOrderByIdAsc(problemId);
+
+        if (cases.size() != 5) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY,
+                    "테스트케이스가 5개가 아닙니다.");
+        }
+
+        // 관리자 검증 저장 절차를 거친 문제만
+        // 공개할 수 있도록 운영해야 함
+        problem.setPublished(true);
+
+        problemRepository.save(problem);
+
+        return new SaveResponse(
+                problem.getId(),
+                problem.getTitle(),
+                true,
+                "PUBLISHED",
+                cases.size(),
+                cases.size());
+    }
+
 }

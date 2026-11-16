@@ -13,6 +13,10 @@ import {
 } from "lucide-react";
 
 import Header from "../components/Header.jsx";
+import LearningDashboard from "../components/LearningDashboard.jsx";
+import AILearningCoach from "../components/AILearningCoach.jsx";
+
+
 import { getLearningRecommendations } from "../api/learningApi.js";
 
 import "../styles/Learning.css";
@@ -164,6 +168,10 @@ export default function Learning() {
 
                     ) : data && (
                         <>
+
+                            {/* 학습 대시보드 */}
+                            <LearningDashboard />
+
                             {/* 학습 통계 */}
                             <section className="learning-stats">
                                 <div className="learning-stat">
@@ -321,6 +329,9 @@ export default function Learning() {
                                     </div>
                                 )}
                             </section>
+
+                            {/* Gemini AI 맞춤 학습 코칭 */}
+                            <AILearningCoach />
 
                             {/* 맞춤 추천 문제 */}
                             <section className="learning-recommendations">

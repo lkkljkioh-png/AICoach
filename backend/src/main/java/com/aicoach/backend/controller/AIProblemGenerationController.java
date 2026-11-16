@@ -116,4 +116,20 @@ public class AIProblemGenerationController {
         // Docker 검증 후 MySQL 저장
         return storageService.saveVerifiedProblem(problem);
     }
+
+    // =====================================
+    // 문제 공개
+    // PATCH /api/admin/problems/{id}/publish
+    // =====================================
+
+    @PatchMapping("/{id}/publish")
+    public AIProblemStorageService.SaveResponse publish(
+            @PathVariable Long id,
+            HttpServletRequest servletRequest) {
+
+        requireAdmin(servletRequest);
+
+        return storageService.publishProblem(id);
+    }
+
 }
