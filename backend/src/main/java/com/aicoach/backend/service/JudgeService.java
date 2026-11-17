@@ -110,13 +110,13 @@ public class JudgeService {
 
                 if (cases.isEmpty()) {
                         throw new ResponseStatusException(
-                                        HttpStatus.UNPROCESSABLE_ENTITY,
+                                        HttpStatus.UNPROCESSABLE_CONTENT,
                                         "테스트 케이스가 등록되지 않았습니다.");
                 }
 
                 if (cases.size() > MAX_TEST_CASES) {
                         throw new ResponseStatusException(
-                                        HttpStatus.UNPROCESSABLE_ENTITY,
+                                        HttpStatus.UNPROCESSABLE_CONTENT,
                                         "테스트 케이스가 너무 많습니다.");
                 }
 
