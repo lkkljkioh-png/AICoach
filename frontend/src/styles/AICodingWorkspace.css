@@ -1,0 +1,138 @@
+.ai-workspace {
+    margin: 20px;
+    padding: 24px;
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+    background: #f8fbff;
+}
+
+.ai-workspace-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #2563eb;
+    margin-bottom: 22px;
+}
+
+.ai-workspace-heading h3 {
+    margin: 0 0 6px;
+    color: #142b50;
+    font-size: 18px;
+}
+
+.ai-workspace-heading p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.ai-workspace-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.ai-workspace-section h4 {
+    margin: 0;
+    font-size: 15px;
+    color: #142b50;
+}
+
+.ai-workspace textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    resize: vertical;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.ai-workspace-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ai-workspace button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 15px;
+    border: 0;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ai-workspace button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.ai-workspace-code {
+    padding: 18px;
+    overflow-x: auto;
+    background: #172033;
+    color: #e2e8f0;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.ai-workspace-explanation {
+    margin: 0;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.ai-workspace-review {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #334155;
+}
+
+.ai-workspace-review input {
+    margin-top: 3px;
+}
+
+.ai-workspace-info,
+.ai-workspace-error {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.ai-workspace-info {
+    color: #2563eb;
+}
+
+.ai-workspace-error {
+    color: #dc2626;
+}
+
+@media (max-width: 700px) {
+    .ai-workspace {
+        margin: 12px;
+        padding: 16px;
+    }
+
+    .ai-workspace-actions button {
+        flex: 1;
+    }
+}

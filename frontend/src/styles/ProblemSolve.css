@@ -580,3 +580,311 @@
         padding: 16px;
     }
 }
+
+/* ==================================
+   AI LEARNING EXTENSION
+================================== */
+
+.solve-ai-learning-panel {
+    margin: 20px;
+    padding: 22px;
+    background: #f8fbff;
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+}
+
+.solve-ai-learning-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #2563eb;
+}
+
+.solve-ai-learning-heading>svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.solve-ai-learning-heading h3 {
+    margin: 0 0 8px;
+    color: #142b50;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.solve-ai-learning-heading p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.solve-ai-learning-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.solve-ai-learning-features span {
+    padding: 7px 11px;
+    border-radius: 7px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.solve-ai-learning-notice {
+    margin: 17px 0 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+@media (max-width: 700px) {
+    .solve-ai-learning-panel {
+        margin: 12px;
+        padding: 16px;
+    }
+}
+
+
+/* ==========================================
+   AICOACH LEARNING MODE SELECTOR
+========================================== */
+
+.solve-learning-mode {
+    margin-bottom: 28px;
+    padding: 26px;
+    background: #ffffff;
+    border: 1px solid #e3eaf3;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(20, 43, 80, 0.04);
+}
+
+.solve-learning-mode-header h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #142b50;
+}
+
+.solve-learning-mode-header p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #64748b;
+}
+
+.solve-learning-mode-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 22px;
+}
+
+/* 학습 모드 카드 */
+
+.solve-mode-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    padding: 22px;
+    text-align: left;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    color: #142b50;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.solve-mode-card:hover {
+    border-color: #93c5fd;
+    background: #f8fbff;
+    transform: translateY(-2px);
+}
+
+/* 선택된 모드 */
+
+.solve-mode-card.active {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.solve-mode-card:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+/* 아이콘 */
+
+.solve-mode-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    color: #2563eb;
+    background: #eff6ff;
+    border-radius: 12px;
+}
+
+.solve-mode-card.active .solve-mode-icon {
+    background: #dbeafe;
+}
+
+/* 카드 텍스트 */
+
+.solve-mode-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.solve-mode-content strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #142b50;
+}
+
+.solve-mode-content p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #64748b;
+}
+
+/* 선택 체크 아이콘 */
+
+.solve-mode-card>svg {
+    flex-shrink: 0;
+    color: #2563eb;
+}
+
+/* 현재 모드 설명 */
+
+.solve-mode-description {
+    margin-top: 18px;
+    padding: 14px 17px;
+    background: #f1f5f9;
+    border-radius: 9px;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   AI LEARNING EXTENSION PANEL
+========================================== */
+
+.solve-ai-learning-panel {
+    margin: 20px;
+    padding: 22px;
+    background: #f8fbff;
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+}
+
+.solve-ai-learning-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #2563eb;
+}
+
+.solve-ai-learning-heading>svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.solve-ai-learning-heading h3 {
+    margin: 0 0 8px;
+    color: #142b50;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.solve-ai-learning-heading p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.solve-ai-learning-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.solve-ai-learning-features span {
+    padding: 7px 11px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.solve-ai-learning-notice {
+    margin: 17px 0 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 700px) {
+    .solve-learning-mode {
+        padding: 18px;
+    }
+
+    .solve-learning-mode-options {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .solve-mode-card {
+        padding: 16px;
+    }
+
+    .solve-mode-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .solve-ai-learning-panel {
+        margin: 12px;
+        padding: 16px;
+    }
+}
+
+.solve-right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+.solve-right-column>.solve-card {
+    width: 100%;
+}
+
+.solve-right-column .ai-workspace {
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
