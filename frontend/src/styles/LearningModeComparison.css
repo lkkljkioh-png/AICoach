@@ -1,0 +1,149 @@
+.mode-comparison {
+    margin-bottom: 28px;
+}
+
+.mode-comparison-heading {
+    margin-bottom: 20px;
+}
+
+.mode-comparison-heading h2 {
+    font-size: 22px;
+    font-weight: 750;
+    color: #18233b;
+    margin: 0 0 8px;
+}
+
+.mode-comparison-heading p {
+    color: #718096;
+    font-size: 13px;
+    margin: 0;
+}
+
+.mode-comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.mode-comparison-card {
+    background: white;
+    border: 1px solid #e5eaf3;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.mode-comparison-card.direct {
+    border-top: 3px solid #2563eb;
+}
+
+.mode-comparison-card.ai {
+    border-top: 3px solid #8b5cf6;
+}
+
+.mode-comparison-card-header {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 27px;
+}
+
+.mode-comparison-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #2563eb;
+    flex-shrink: 0;
+}
+
+.mode-comparison-card.ai .mode-comparison-icon {
+    background: #f5f3ff;
+    color: #8b5cf6;
+}
+
+.mode-comparison-card-header h3 {
+    font-size: 17px;
+    color: #18233b;
+    margin: 0 0 5px;
+}
+
+.mode-comparison-card-header p {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.mode-comparison-primary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #edf1f7;
+}
+
+.mode-comparison-primary span {
+    font-size: 13px;
+    color: #718096;
+}
+
+.mode-comparison-primary strong {
+    font-size: 32px;
+    color: #1e293b;
+}
+
+.mode-comparison-details {
+    display: grid;
+    gap: 16px;
+    padding: 22px 0;
+}
+
+.mode-comparison-details>div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.mode-comparison-details strong {
+    margin-left: auto;
+    font-size: 15px;
+    color: #1e293b;
+}
+
+.mode-comparison-progress {
+    height: 9px;
+    background: #eff3fa;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.mode-comparison-progress>div {
+    height: 100%;
+    background: #2563eb;
+    border-radius: inherit;
+    transition: width 0.25s ease;
+}
+
+.mode-comparison-card.ai .mode-comparison-progress>div {
+    background: #8b5cf6;
+}
+
+.mode-comparison-note {
+    margin: 16px 0 0;
+    color: #8490a3;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+@media (max-width: 760px) {
+    .mode-comparison-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mode-comparison-card {
+        padding: 20px;
+    }
+}

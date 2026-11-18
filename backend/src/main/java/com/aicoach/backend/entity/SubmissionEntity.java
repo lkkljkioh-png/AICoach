@@ -1,3 +1,4 @@
+
 package com.aicoach.backend.entity;
 
 import jakarta.persistence.*;
@@ -35,6 +36,9 @@ public class SubmissionEntity {
     @Column(nullable = false)
     private int total;
 
+    @Column(name = "learning_mode", nullable = false, length = 20)
+    private String learningMode = "UNKNOWN";
+
     @Column(name = "submitted_at", nullable = false, updatable = false)
     private LocalDateTime submittedAt;
 
@@ -48,7 +52,9 @@ public class SubmissionEntity {
             String code,
             String status,
             int passed,
-            int total) {
+            int total,
+            String learningMode) {
+
         this.userId = userId;
         this.problemId = problemId;
         this.language = language;
@@ -56,6 +62,7 @@ public class SubmissionEntity {
         this.status = status;
         this.passed = passed;
         this.total = total;
+        this.learningMode = learningMode;
     }
 
     @PrePersist
@@ -93,6 +100,10 @@ public class SubmissionEntity {
 
     public int getTotal() {
         return total;
+    }
+
+    public String getLearningMode() {
+        return learningMode;
     }
 
     public LocalDateTime getSubmittedAt() {

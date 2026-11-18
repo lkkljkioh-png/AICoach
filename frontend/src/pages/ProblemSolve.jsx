@@ -850,7 +850,8 @@ export default function ProblemSolve() {
             const result = await submitProblem(
                 problemId,
                 language,
-                code
+                code,
+                learningMode === "ai" ? "AI" : "DIRECT"
             );
 
             setJudgeResult({
@@ -1082,8 +1083,8 @@ export default function ProblemSolve() {
                             <button
                                 type="button"
                                 className={`solve-mode-card ${learningMode === "direct"
-                                        ? "active"
-                                        : ""
+                                    ? "active"
+                                    : ""
                                     }`}
                                 onClick={() =>
                                     changeLearningMode("direct")
@@ -1116,8 +1117,8 @@ export default function ProblemSolve() {
                             <button
                                 type="button"
                                 className={`solve-mode-card ${learningMode === "ai"
-                                        ? "active"
-                                        : ""
+                                    ? "active"
+                                    : ""
                                     }`}
                                 onClick={() =>
                                     changeLearningMode("ai")
@@ -1456,9 +1457,9 @@ export default function ProblemSolve() {
                                             <div className="solve-judge-heading">
                                                 <span
                                                     className={`solve-judge-status ${judgeResult.status ===
-                                                            "ACCEPTED"
-                                                            ? "accepted"
-                                                            : "rejected"
+                                                        "ACCEPTED"
+                                                        ? "accepted"
+                                                        : "rejected"
                                                         }`}
                                                 >
                                                     {JUDGE_LABELS[
@@ -1491,9 +1492,9 @@ export default function ProblemSolve() {
                                                     <div
                                                         style={{
                                                             width: `${(
-                                                                    judgeResult.passed /
-                                                                    judgeResult.total
-                                                                ) * 100
+                                                                judgeResult.passed /
+                                                                judgeResult.total
+                                                            ) * 100
                                                                 }%`,
                                                         }}
                                                     />

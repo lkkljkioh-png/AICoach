@@ -14,7 +14,7 @@ async function request(url, options = {}) {
             const data = await response.json();
             message = data.detail || data.message || message;
         } catch {
-            // JSON 오류 응답이 아닌 경우
+            // JSON이 아닌 오류 응답 처리
         }
 
         throw new Error(message);
@@ -31,13 +31,17 @@ export function getProblemById(id) {
     return request(`/problems/${id}`);
 }
 
-function postCode(id, action, language, code) {
+function postCode(id, action, language, code, learningMode) {
     return request(`/problems/${id}/${action}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ language, code }),
+        body: JSON.stringify({
+            language,
+            code,
+            learningMode,
+        }),
     });
 }
 
@@ -45,6 +49,12 @@ export function runProblem(id, language, code) {
     return postCode(id, "run", language, code);
 }
 
-export function submitProblem(id, language, code) {
-    return postCode(id, "submit", language, code);
+export function submitProblem(id, language, code, learningMode) {
+    return postCode(
+        id,
+        "submit",
+        language,
+        code,
+        learningMode
+    );
 }

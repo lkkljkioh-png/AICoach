@@ -14,6 +14,8 @@ import Header from "../components/Header.jsx";
 import { getCurrentUser } from "../api/authApi.js";
 import { getProblems } from "../api/problemsApi.js";
 import { getMySubmissions } from "../api/submissionsApi.js";
+import LearningActivity from "../components/LearningActivity.jsx";
+import LearningModeComparison from "../components/LearningModeComparison.jsx";
 
 import "../styles/MyPage.css";
 
@@ -229,6 +231,9 @@ export default function MyPage() {
                                     </strong>
                                 </div>
                             </div>
+
+                            <LearningActivity submissions={submissions} />
+                            <LearningModeComparison submissions={submissions} />
 
                             <div className="my-content-grid">
                                 <section className="my-panel">

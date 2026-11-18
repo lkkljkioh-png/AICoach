@@ -28,7 +28,8 @@ public class SubmissionService {
                         Long problemId,
                         String language,
                         String code,
-                        JudgeService.JudgeResult result) {
+                        JudgeService.JudgeResult result,
+                        String learningMode) {
 
                 SubmissionEntity submission = new SubmissionEntity(
                                 userId,
@@ -37,7 +38,8 @@ public class SubmissionService {
                                 code,
                                 result.status(),
                                 result.passed(),
-                                result.total());
+                                result.total(),
+                                learningMode);
 
                 submissionRepository.save(submission);
         }
@@ -72,7 +74,8 @@ public class SubmissionService {
                                 submission.getStatus(),
                                 submission.getPassed(),
                                 submission.getTotal(),
-                                submission.getSubmittedAt());
+                                submission.getSubmittedAt(),
+                                submission.getLearningMode());
         }
 
         private SubmissionResponse toResponse(
@@ -85,7 +88,8 @@ public class SubmissionService {
                                 submission.getStatus(),
                                 submission.getPassed(),
                                 submission.getTotal(),
-                                submission.getSubmittedAt());
+                                submission.getSubmittedAt(),
+                                submission.getLearningMode());
         }
 
         public record SubmissionResponse(
@@ -95,7 +99,8 @@ public class SubmissionService {
                         String status,
                         int passed,
                         int total,
-                        LocalDateTime submittedAt) {
+                        LocalDateTime submittedAt,
+                        String learningMode) {
         }
 
         public record SubmissionDetailResponse(
@@ -106,6 +111,7 @@ public class SubmissionService {
                         String status,
                         int passed,
                         int total,
-                        LocalDateTime submittedAt) {
+                        LocalDateTime submittedAt,
+                        String learningMode) {
         }
 }
