@@ -191,9 +191,15 @@ export default function ProblemSolve() {
             : null;
 
     // 학습 모드
+    const [learningMode, setLearningMode] = useState(() => {
+        const params = new URLSearchParams(window.location.search);
+        const requestedMode = params.get("mode");
 
-    const [learningMode, setLearningMode] =
-        useState(readLearningMode);
+        if (requestedMode === "direct") return "direct";
+        if (requestedMode === "ai") return "ai";
+
+        return readLearningMode();
+    });
 
     // AI 편집기 표시 상태
 
