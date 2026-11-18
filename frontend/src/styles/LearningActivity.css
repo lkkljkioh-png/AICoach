@@ -354,3 +354,177 @@
         width: 15px;
     }
 }
+
+
+.activity-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.activity-mode-switch {
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+    border-radius: 11px;
+    background: #eaf0fa;
+}
+
+.activity-mode-switch button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    background: transparent;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.activity-mode-switch button.active {
+    background: #fff;
+    color: #2563eb;
+    box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
+}
+
+.activity-period-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding: 13px 16px;
+    border: 1px solid #e5eaf3;
+    border-radius: 13px;
+    background: #fff;
+}
+
+.activity-navigation-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.activity-navigation-left button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+    background: #fff;
+    color: #475569;
+    cursor: pointer;
+}
+
+.activity-navigation-left button:hover {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.activity-selected-period {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 170px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.activity-selected-period svg {
+    color: #2563eb;
+}
+
+.activity-today-button {
+    padding: 9px 13px;
+    border: 1px solid #dbeafe;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.activity-today-button:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.activity-chart-scroll {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.activity-chart-week {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    min-width: 420px;
+}
+
+.activity-chart-month {
+    display: grid;
+    grid-template-columns: repeat(31, minmax(30px, 1fr));
+    gap: 5px;
+    min-width: 1050px;
+}
+
+.activity-chart-month .activity-dual-bars {
+    gap: 3px;
+}
+
+.activity-chart-month .activity-dual-column {
+    width: 11px;
+}
+
+.activity-chart-month .activity-date {
+    font-size: 10px;
+}
+
+.activity-chart-month .activity-count {
+    font-size: 10px;
+}
+
+.activity-chart-month .activity-day {
+    min-width: 0;
+}
+
+@media (max-width: 760px) {
+    .activity-period-navigation {
+        flex-wrap: wrap;
+    }
+
+    .activity-selected-period {
+        min-width: 140px;
+        font-size: 12px;
+    }
+
+    .activity-navigation-left {
+        gap: 6px;
+    }
+
+    .activity-chart-week {
+        min-width: 420px;
+    }
+}
+
+@media (max-width: 480px) {
+    .activity-controls {
+        width: 100%;
+    }
+
+    .activity-mode-switch {
+        width: 100%;
+    }
+
+    .activity-mode-switch button {
+        flex: 1;
+    }
+
+    .activity-period-navigation {
+        padding: 12px;
+    }
+}

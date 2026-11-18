@@ -1,0 +1,249 @@
+.goal-stats {
+    margin-top: 30px;
+    color: #1e293b;
+}
+
+.goal-stats-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.goal-stats-heading>svg {
+    color: #2563eb;
+}
+
+.goal-stats-eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: #2563eb;
+}
+
+.goal-stats-heading h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 21px;
+    margin: 8px 0;
+}
+
+.goal-stats-heading h3 svg {
+    color: #2563eb;
+}
+
+.goal-stats-heading p {
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.goal-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.goal-stats-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 11px;
+    background: #fff;
+    border: 1px solid #e5eaf3;
+    border-radius: 15px;
+    padding: 20px;
+    min-width: 0;
+}
+
+.goal-stats-card>svg {
+    color: #2563eb;
+}
+
+.goal-stats-card>span {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.goal-stats-card strong {
+    font-size: 27px;
+    color: #18233b;
+}
+
+.goal-stats-card strong small {
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.goal-stats-card>small {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.goal-stats-detail {
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e5eaf3;
+    border-radius: 17px;
+}
+
+.goal-stats-detail-heading {
+    margin-bottom: 24px;
+}
+
+.goal-stats-detail-heading h4 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.goal-stats-detail-heading p {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.goal-stats-chart-scroll {
+    overflow-x: auto;
+    padding-bottom: 6px;
+}
+
+.goal-stats-chart {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(22px, 1fr);
+    gap: 6px;
+    min-width: 650px;
+    align-items: end;
+}
+
+.goal-stats-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.goal-stats-bar-track {
+    width: 100%;
+    height: 130px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 6px;
+    background: #f1f5f9;
+    overflow: hidden;
+}
+
+.goal-stats-bar {
+    width: 100%;
+    background: #60a5fa;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.3s ease;
+}
+
+.goal-stats-bar.completed {
+    background: #16a34a;
+}
+
+.goal-stats-day-label {
+    color: #64748b;
+    font-size: 11px;
+}
+
+.goal-stats-day-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.goal-stats-day-dot.planned {
+    background: #60a5fa;
+}
+
+.goal-stats-day-dot.completed {
+    background: #16a34a;
+}
+
+.goal-stats-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 22px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.goal-stats-legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.goal-stats-legend i {
+    width: 9px;
+    height: 9px;
+    border-radius: 3px;
+}
+
+.goal-legend-success {
+    background: #16a34a;
+}
+
+.goal-legend-progress {
+    background: #60a5fa;
+}
+
+.goal-legend-none {
+    background: #e2e8f0;
+}
+
+.goal-stats-feedback {
+    margin: 20px 0 0;
+    padding: 15px;
+    background: #eff6ff;
+    border-radius: 10px;
+    color: #2563eb;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.goal-stats-feedback.success {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.goal-stats-note {
+    margin: 14px 0 0;
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+@media (max-width: 950px) {
+    .goal-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .goal-stats-grid {
+        gap: 9px;
+    }
+
+    .goal-stats-card {
+        padding: 15px;
+    }
+
+    .goal-stats-card strong {
+        font-size: 24px;
+    }
+
+    .goal-stats-detail {
+        padding: 16px;
+    }
+}
