@@ -47,7 +47,8 @@ public class AIFeedbackService {
     public FeedbackResult analyze(
             Long problemId,
             String language,
-            String code) {
+            String code,
+            Long userId) {
 
         if (code == null || code.isBlank()
                 || code.length() > 12000) {
@@ -70,7 +71,9 @@ public class AIFeedbackService {
                     "Gemini API 키가 설정되지 않았습니다.");
         }
 
-        ProblemEntity problem = problemService.getProblem(problemId);
+        ProblemEntity problem = problemService.getProblem(
+                problemId,
+                userId);
 
         String prompt = """
                                 당신은 AICoach의 한국어 프로그래밍 튜터입니다.

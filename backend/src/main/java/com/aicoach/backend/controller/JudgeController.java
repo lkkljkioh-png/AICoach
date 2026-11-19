@@ -43,12 +43,23 @@ public class JudgeController {
     @PostMapping("/{id}/run")
     public JudgeService.JudgeResult run(
             @PathVariable Long id,
-            @RequestBody CodeRequest request) {
+            @RequestBody CodeRequest request,
+            HttpServletRequest servletRequest) {
+
+        HttpSession session = servletRequest.getSession(false);
+
+        Long userId = null;
+
+        if (session != null &&
+                session.getAttribute(SESSION_USER_ID) instanceof Long idValue) {
+            userId = idValue;
+        }
 
         return judgeService.run(
                 id,
                 request.language(),
-                request.code());
+                request.code(),
+                userId);
     }
 
     @PostMapping("/{id}/submit")
@@ -84,7 +95,8 @@ public class JudgeController {
         JudgeService.JudgeResult result = judgeService.submit(
                 id,
                 request.language(),
-                request.code());
+                request.code(),
+                userId);
 
         // 채점 결과 및 학습 모드 저장
         submissionService.saveSubmission(

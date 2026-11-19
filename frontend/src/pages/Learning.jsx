@@ -17,6 +17,8 @@ import LearningDashboard from "../components/LearningDashboard.jsx";
 import AILearningCoach from "../components/AILearningCoach.jsx";
 import IndependentPractice from "../components/IndependentPractice.jsx";
 import AILearningProgress from "../components/AILearningProgress.jsx";
+import PersonalizedProblem from "../components/PersonalizedProblem.jsx";
+
 
 
 import { getLearningRecommendations } from "../api/learningApi.js";
@@ -337,6 +339,8 @@ export default function Learning() {
 
                             {/* Gemini AI 맞춤 학습 코칭 */}
                             <AILearningCoach />
+
+                            <PersonalizedProblem />
 
                             {/* 맞춤 추천 문제 */}
                             <section className="learning-recommendations">

@@ -13,6 +13,14 @@ import Header from "../components/Header.jsx";
 import { getProblems } from "../api/problemsApi.js";
 import "../styles/Problems.css";
 
+import {
+    getMyPersonalizedProblems,
+} from "../api/personalizedProblemApi.js";
+
+import {
+    getProblemById,
+} from "../api/problemsApi.js";
+
 const LEVELS = [
     { value: "ALL", label: "전체 난이도" },
     { value: "EASY", label: "쉬움" },
@@ -41,7 +49,11 @@ const SORT_OPTIONS = [
     { value: "title", label: "제목순" },
 ];
 
-
+const PROBLEM_TYPES = [
+    { value: "ALL", label: "전체 문제" },
+    { value: "PUBLIC", label: "일반 문제" },
+    { value: "PERSONAL", label: "내 AI 문제" },
+];
 
 const LANGUAGES = [
     { value: "Python", label: "Python", supported: true },
@@ -57,38 +69,102 @@ function Problems() {
     const [problems, setProblems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-
     const [search, setSearch] = useState("");
     const [level, setLevel] = useState("ALL");
     const [category, setCategory] = useState("ALL");
     const [sort, setSort] = useState("default");
     const [language, setLanguage] = useState("Python");
     const [expanded, setExpanded] = useState(null);
+    const [problemType, setProblemType] = useState("ALL");
+
+
 
     useEffect(() => {
         let active = true;
 
-        getProblems()
-            .then((data) => {
-                if (active) {
-                    setProblems(Array.isArray(data) ? data : []);
+        async function loadProblems() {
+            setLoading(true);
+            setError("");
+
+            try {
+                // 공개 문제 불러오기
+                const publicProblems = await getProblems();
+
+                let personalProblems = [];
+
+                try {
+                    // 로그인 사용자의 개인 문제 불러오기
+                    const myProblems =
+                        await getMyPersonalizedProblems();
+
+                    if (Array.isArray(myProblems)) {
+                        // 개인 문제 상세 정보 가져오기
+                        const results = await Promise.all(
+                            myProblems.map(async (item) => {
+                                try {
+                                    const detail =
+                                        await getProblemById(item.id);
+
+                                    return {
+                                        ...detail,
+                                        isPersonal: true,
+                                    };
+                                } catch {
+                                    return {
+                                        ...item,
+                                        isPersonal: true,
+                                    };
+                                }
+                            })
+                        );
+
+                        personalProblems = results;
+                    }
+                } catch (err) {
+                    // 비로그인 사용자는 공개 문제만 표시
+                    if (err.status !== 401) {
+                        console.error(
+                            "개인 문제 조회 실패:",
+                            err
+                        );
+                    }
                 }
-            })
-            .catch((err) => {
-                if (active) {
-                    setError(err.message);
+
+                const merged = new Map();
+
+                for (const problem of [
+                    ...(Array.isArray(publicProblems)
+                        ? publicProblems
+                        : []),
+                    ...personalProblems,
+                ]) {
+                    merged.set(problem.id, problem);
                 }
-            })
-            .finally(() => {
+
+                if (active) {
+                    setProblems([...merged.values()]);
+                }
+            } catch (err) {
+                if (active) {
+                    setError(
+                        err.message ||
+                        "문제 목록을 불러오지 못했습니다."
+                    );
+                }
+            } finally {
                 if (active) {
                     setLoading(false);
                 }
-            });
+            }
+        }
+
+        loadProblems();
 
         return () => {
             active = false;
         };
     }, []);
+
 
     const categories = useMemo(() => {
         return [
@@ -115,13 +191,24 @@ function Problems() {
                         .includes(keyword)
                 );
 
+            const matchesProblemType =
+                problemType === "ALL" ||
+                (problemType === "PUBLIC" && !problem.isPersonal) ||
+                (problemType === "PERSONAL" && problem.isPersonal);
+
             const matchesLevel =
                 level === "ALL" || problem.level === level;
 
             const matchesCategory =
                 category === "ALL" || problem.category === category;
 
-            return matchesSearch && matchesLevel && matchesCategory;
+            return (
+                matchesSearch &&
+                matchesProblemType &&
+                matchesLevel &&
+                matchesCategory
+            );
+
         });
 
         const rank = (problem) =>
@@ -150,7 +237,7 @@ function Problems() {
         });
 
         return result;
-    }, [problems, search, level, category, sort]);
+    }, [problems, search, problemType, level, category, sort]);
 
     const resetFilters = () => {
         setSearch("");
@@ -158,6 +245,8 @@ function Problems() {
         setCategory("ALL");
         setSort("default");
         setExpanded(null);
+        setProblemType("ALL");
+
     };
 
     const getProblemLink = (id) =>
@@ -202,6 +291,25 @@ function Problems() {
                                 placeholder="문제명, 설명 또는 유형 검색"
                             />
                         </label>
+
+
+                        <select
+                            className="problems-select"
+                            aria-label="문제 종류 선택"
+                            value={problemType}
+                            onChange={(event) =>
+                                setProblemType(event.target.value)
+                            }
+                        >
+                            {PROBLEM_TYPES.map((item) => (
+                                <option
+                                    key={item.value}
+                                    value={item.value}
+                                >
+                                    {item.label}
+                                </option>
+                            ))}
+                        </select>
 
                         <select
                             className="problems-select"
@@ -334,7 +442,15 @@ function Problems() {
                                                     className="problem-title-link"
                                                     href={getProblemLink(problem.id)}
                                                 >
+
                                                     {problem.title}
+
+                                                    {problem.isPersonal && (
+                                                        <span className="problem-personal-badge">
+                                                            내 AI 문제
+                                                        </span>
+                                                    )}
+
                                                 </a>
                                             </h3>
 

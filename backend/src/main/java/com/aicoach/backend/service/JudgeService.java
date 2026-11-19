@@ -74,14 +74,24 @@ public class JudgeService {
         }
 
         // 실행하기: 예제 입력으로 실행
+
         public JudgeResult run(
                         Long problemId,
                         String language,
                         String code) {
 
+                return run(problemId, language, code, null);
+        }
+
+        public JudgeResult run(
+                        Long problemId,
+                        String language,
+                        String code,
+                        Long userId) {
+
                 validate(language, code);
 
-                ProblemEntity problem = problemService.getProblem(problemId);
+                ProblemEntity problem = problemService.getProblem(problemId, userId);
 
                 ExecutionResult result = executeCode(
                                 language,
@@ -96,14 +106,27 @@ public class JudgeService {
         }
 
         // 제출하기: 테스트 케이스 채점
+
+        // 제출하기: 테스트케이스 채점
         public JudgeResult submit(
                         Long problemId,
                         String language,
                         String code) {
 
+                return submit(problemId, language, code, null);
+        }
+
+        // 사용자 권한을 확인한 후 채점
+        public JudgeResult submit(
+                        Long problemId,
+                        String language,
+                        String code,
+                        Long userId) {
+
                 validate(language, code);
 
-                problemService.getProblem(problemId);
+                // 공개 문제 또는 본인의 개인 문제인지 확인
+                problemService.getProblem(problemId, userId);
 
                 List<ProblemTestCaseEntity> cases = testCaseRepository.findByProblemIdOrderByIdAsc(
                                 problemId);
@@ -141,7 +164,8 @@ public class JudgeService {
                         }
 
                         String actual = normalize(result.output());
-                        String expected = normalize(test.getExpectedOutput());
+                        String expected = normalize(
+                                        test.getExpectedOutput());
 
                         if (!actual.equals(expected)) {
                                 return new JudgeResult(

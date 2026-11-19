@@ -18,10 +18,11 @@ import LearningModeComparison from "../components/LearningModeComparison.jsx";
 import LearningPlanner from "../components/LearningPlanner.jsx";
 
 
+
 import { getCurrentUser } from "../api/authApi.js";
 import { getProblems } from "../api/problemsApi.js";
 import { getMySubmissions } from "../api/submissionsApi.js";
-
+import LearningWeaknessAnalysis from "../components/LearningWeaknessAnalysis.jsx";
 import "../styles/MyPage.css";
 
 const STATUS_LABELS = {
@@ -311,6 +312,11 @@ export default function MyPage() {
 
                                     <LearningModeComparison
                                         submissions={submissions}
+                                    />
+
+                                    <LearningWeaknessAnalysis
+                                        submissions={submissions}
+                                        problems={problems}
                                     />
 
                                     <div className="my-content-grid">
