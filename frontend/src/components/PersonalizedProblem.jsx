@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import {
     Sparkles,
@@ -6,16 +7,16 @@ import {
     CheckCircle2,
     RefreshCw,
     BookOpen,
+    ArrowRight,
 } from "lucide-react";
-
 
 import {
     generatePersonalizedProblem,
-    savePersonalizedProblem,
     getMyPersonalizedProblems,
 } from "../api/personalizedProblemApi.js";
 
 import "../styles/PersonalizedProblem.css";
+import PersonalProblemManager from "./PersonalProblemManager.jsx";
 
 const LEVEL_LABELS = {
     EASY: "쉬움",
@@ -23,94 +24,143 @@ const LEVEL_LABELS = {
     HARD: "어려움",
 };
 
+const CATEGORIES = [
+    "구현",
+    "문자열",
+    "배열",
+    "정렬",
+    "완전 탐색",
+    "그리디",
+    "스택과 큐",
+    "해시",
+    "이분 탐색",
+    "그래프 탐색",
+    "DFS/BFS",
+    "동적 계획법",
+];
+
 export default function PersonalizedProblem() {
+    const [mode, setMode] = useState("AUTO");
+    const [level, setLevel] = useState("EASY");
+    const [category, setCategory] = useState("구현");
+
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const [saving, setSaving] = useState(false);
-    const [savedProblem, setSavedProblem] = useState(null);
     const [myProblems, setMyProblems] = useState([]);
+    const [listLoading, setListLoading] = useState(true);
     const [listError, setListError] = useState("");
 
+    const problem = result?.problem;
+    const savedProblem = result?.savedProblem;
+
+    // 기존에 저장한 개인 문제 불러오기
     useEffect(() => {
         let active = true;
 
-        getMyPersonalizedProblems()
-            .then((data) => {
+        async function loadMyProblems() {
+            try {
+                const data =
+                    await getMyPersonalizedProblems();
+
                 if (active) {
                     setMyProblems(
                         Array.isArray(data) ? data : []
                     );
                 }
-            })
-            .catch((err) => {
+            } catch (err) {
                 if (active) {
                     setListError(err.message);
                 }
-            });
+            } finally {
+                if (active) {
+                    setListLoading(false);
+                }
+            }
+        }
+
+        loadMyProblems();
 
         return () => {
             active = false;
         };
     }, []);
 
-    const handleSaveProblem = async () => {
-        if (!problem || saving || savedProblem) return;
+    // 생성 방식 변경
+    const handleModeChange = (nextMode) => {
+        if (loading) return;
 
-        setSaving(true);
+        setMode(nextMode);
         setError("");
-
-        try {
-            const saved = await savePersonalizedProblem(problem);
-
-            setSavedProblem(saved);
-
-            setMyProblems((previous) => [
-                {
-                    id: saved.problemId,
-                    title: problem.title,
-                    category: problem.category,
-                    level: problem.level,
-                    time: problem.time,
-                },
-                ...previous,
-            ]);
-        } catch (err) {
-            setError(
-                err.message || "문제를 저장하지 못했습니다."
-            );
-        } finally {
-            setSaving(false);
-        }
+        setResult(null);
     };
 
-
+    // AI 문제 생성 및 DB 자동 저장
     const handleGenerate = async () => {
         if (loading) return;
 
         setLoading(true);
         setError("");
         setResult(null);
-        setSavedProblem(null);
-
 
         try {
-            const data = await generatePersonalizedProblem();
+            const options =
+                mode === "MANUAL"
+                    ? {
+                        mode: "MANUAL",
+                        level,
+                        category,
+                    }
+                    : {
+                        mode: "AUTO",
+                    };
+
+            const data =
+                await generatePersonalizedProblem(options);
+
+            if (!data?.problem || !data?.savedProblem?.problemId) {
+                throw new Error(
+                    "문제 저장 결과가 올바르지 않습니다."
+                );
+            }
+
+            if (data.savedProblem.validationStatus !== "ACCEPTED") {
+                throw new Error(
+                    "Docker 검증이 완료되지 않았습니다."
+                );
+            }
+
             setResult(data);
+
+            // 생성 후 실제 DB에 저장된 목록 재조회
+            try {
+                const updated =
+                    await getMyPersonalizedProblems();
+
+                setMyProblems(
+                    Array.isArray(updated) ? updated : []
+                );
+                setListError("");
+            } catch (listErr) {
+                setListError(
+                    "문제는 저장되었지만 목록을 갱신하지 못했습니다: "
+                    + listErr.message
+                );
+            }
+
         } catch (err) {
             setError(
-                err.message || "문제를 생성하지 못했습니다."
+                err.message || "문제 생성에 실패했습니다."
             );
         } finally {
             setLoading(false);
         }
     };
 
-    const problem = result?.problem;
-
     return (
         <section className="personal-problem">
+
             <div className="personal-problem-header">
                 <div className="personal-problem-icon">
                     <BrainCircuit size={25} />
@@ -120,21 +170,101 @@ export default function PersonalizedProblem() {
                     <span>AI PERSONALIZED PRACTICE</span>
                     <h2>AI 맞춤 문제 생성</h2>
                     <p>
-                        나의 제출 기록과 취약 유형을 분석해
-                        새로운 코딩 문제를 생성합니다.
+                        취약점 기반 자동 추천 또는
+                        직접 설정으로 새로운 문제를 생성하세요.
                     </p>
                 </div>
             </div>
+
+            <div className="personal-problem-mode">
+                <h3>문제 생성 방식</h3>
+
+                <div className="personal-problem-mode-buttons">
+                    <button
+                        type="button"
+                        className={
+                            mode === "AUTO" ? "active" : ""
+                        }
+                        onClick={() => handleModeChange("AUTO")}
+                        disabled={loading}
+                    >
+                        <BrainCircuit size={18} />
+                        AI 자동 추천
+                    </button>
+
+                    <button
+                        type="button"
+                        className={
+                            mode === "MANUAL" ? "active" : ""
+                        }
+                        onClick={() => handleModeChange("MANUAL")}
+                        disabled={loading}
+                    >
+                        <BookOpen size={18} />
+                        직접 설정
+                    </button>
+                </div>
+            </div>
+
+            {mode === "MANUAL" && (
+                <div className="personal-problem-settings">
+
+                    <div>
+                        <label htmlFor="personal-level">
+                            난이도
+                        </label>
+
+                        <select
+                            id="personal-level"
+                            value={level}
+                            disabled={loading}
+                            onChange={(event) => {
+                                setLevel(event.target.value);
+                                setResult(null);
+                            }}
+                        >
+                            <option value="EASY">쉬움</option>
+                            <option value="MEDIUM">보통</option>
+                            <option value="HARD">어려움</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label htmlFor="personal-category">
+                            알고리즘 유형
+                        </label>
+
+                        <select
+                            id="personal-category"
+                            value={category}
+                            disabled={loading}
+                            onChange={(event) => {
+                                setCategory(event.target.value);
+                                setResult(null);
+                            }}
+                        >
+                            {CATEGORIES.map((item) => (
+                                <option key={item} value={item}>
+                                    {item}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+            )}
 
             {!result && !loading && (
                 <div className="personal-problem-intro">
                     <Sparkles size={32} />
 
-                    <h3>나에게 필요한 문제를 만들어 볼까요?</h3>
+                    <h3>
+                        새로운 코딩 문제를 생성해 볼까요?
+                    </h3>
 
                     <p>
-                        AI가 현재 학습 수준과 부족한 영역에
-                        맞춰 새로운 문제를 출제합니다.
+                        {mode === "AUTO"
+                            ? "학습 기록을 분석해 새로운 문제를 생성합니다."
+                            : `${LEVEL_LABELS[level]} 난이도 · ${category}`}
                     </p>
                 </div>
             )}
@@ -149,11 +279,13 @@ export default function PersonalizedProblem() {
                         className="personal-problem-spin"
                     />
 
-                    <strong>Gemini가 문제를 생성하고 있습니다.</strong>
+                    <strong>
+                        AI 문제 생성 및 검증 중
+                    </strong>
 
                     <p>
-                        학습 기록을 반영해 문제와
-                        테스트케이스를 구성하고 있어요.
+                        Gemini 문제 생성, Docker 정답 검증,
+                        MySQL 저장을 진행하고 있습니다.
                     </p>
                 </div>
             )}
@@ -168,26 +300,27 @@ export default function PersonalizedProblem() {
                 </div>
             )}
 
-            {problem && (
+            {problem && savedProblem && (
                 <div className="personal-problem-result">
+
                     <div className="personal-problem-success">
                         <CheckCircle2 size={19} />
-                        개인 맞춤 문제 생성 완료
+                        생성 및 DB 저장 완료
                     </div>
 
                     <div className="personal-problem-tags">
                         <span>
-                            {LEVEL_LABELS[result.recommendedLevel]
-                                || result.recommendedLevel}
+                            {LEVEL_LABELS[problem.level] ||
+                                problem.level}
                         </span>
-                        <span>{result.weakCategory}</span>
+                        <span>{problem.category}</span>
                         <span>약 {problem.time}분</span>
                     </div>
 
                     <h3>{problem.title}</h3>
 
                     <div className="personal-problem-insight">
-                        <strong>이 문제가 추천된 이유</strong>
+                        <strong>문제 생성 정보</strong>
                         <p>{result.insight}</p>
                     </div>
 
@@ -196,13 +329,16 @@ export default function PersonalizedProblem() {
                             <BookOpen size={17} />
                             문제 설명
                         </h4>
+
                         <p>{problem.description}</p>
                     </div>
 
                     <div className="personal-problem-examples">
                         <div>
                             <h4>예제 입력</h4>
-                            <pre>{problem.input || "(입력 없음)"}</pre>
+                            <pre>
+                                {problem.input || "(입력 없음)"}
+                            </pre>
                         </div>
 
                         <div>
@@ -213,46 +349,29 @@ export default function PersonalizedProblem() {
 
                     <details className="personal-problem-hint">
                         <summary>힌트 보기</summary>
-                        <p>{problem.hint || "힌트가 없습니다."}</p>
+                        <p>
+                            {problem.hint || "힌트가 없습니다."}
+                        </p>
                     </details>
 
+                    <div className="personal-problem-saved">
+                        <p>
+                            Docker 테스트
+                            {" "}
+                            {savedProblem.passed}
+                            /{savedProblem.total} 통과
+                            {" · "}
+                            DB 저장 완료
+                        </p>
 
-                    <div className="personal-problem-actions">
-                        {!savedProblem ? (
-                            <>
-                                <button
-                                    type="button"
-                                    className="personal-problem-button"
-                                    onClick={handleSaveProblem}
-                                    disabled={saving || loading}
-                                >
-                                    {saving
-                                        ? "Docker 검증 및 저장 중..."
-                                        : "문제 저장하고 풀기"}
-                                </button>
-
-                                <p className="personal-problem-notice">
-                                    저장 전에 Docker로 정답 코드를 검증합니다.
-                                    검증을 통과한 문제만 내 문제로 저장됩니다.
-                                </p>
-                            </>
-                        ) : (
-                            <div className="personal-problem-saved">
-                                <p>
-                                    문제가 저장되었습니다.
-                                    이제 코딩을 시작할 수 있어요.
-                                </p>
-
-                                <a
-                                    className="personal-problem-button"
-                                    href={`/problems/${savedProblem.problemId}`}
-                                >
-                                    코드 작성하러 가기
-                                </a>
-                            </div>
-                        )}
+                        <a
+                            className="personal-problem-button"
+                            href={`/problems/${savedProblem.problemId}`}
+                        >
+                            문제 풀기
+                            <ArrowRight size={18} />
+                        </a>
                     </div>
-
                 </div>
             )}
 
@@ -272,43 +391,15 @@ export default function PersonalizedProblem() {
                 )}
 
                 {loading
-                    ? "문제 생성 중..."
+                    ? "생성 · 검증 · 저장 중..."
                     : result
-                        ? "다른 맞춤 문제 생성하기"
-                        : "내 취약점 기반 문제 생성하기"}
+                        ? "새로운 문제 다시 생성하기"
+                        : "AI 문제 생성하기"}
             </button>
 
-            <div className="personal-problem-my-list">
-                <h3>내가 생성한 문제</h3>
-
-                {listError && (
-                    <p role="alert">{listError}</p>
-                )}
-
-                {!listError && myProblems.length === 0 && (
-                    <p>아직 저장한 개인 문제가 없습니다.</p>
-                )}
-
-                {myProblems.map((item) => (
-                    <div
-                        key={item.id}
-                        className="personal-problem-my-item"
-                    >
-                        <div>
-                            <strong>{item.title}</strong>
-                            <span>
-                                {LEVEL_LABELS[item.level] || item.level}
-                                {" · "}
-                                {item.category}
-                            </span>
-                        </div>
-
-                        <a href={`/problems/${item.id}`}>
-                            문제 풀기
-                        </a>
-                    </div>
-                ))}
-            </div>
+            <PersonalProblemManager
+                refreshKey={savedProblem?.problemId ?? 0}
+            />
 
         </section>
     );

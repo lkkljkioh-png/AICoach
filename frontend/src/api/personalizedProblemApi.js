@@ -1,39 +1,45 @@
 
 const API_BASE = "http://localhost:8080/api";
 
-export async function generatePersonalizedProblem() {
-    const response = await fetch(
-        `${API_BASE}/learning/personalized-problems/generate`,
-        {
-            method: "POST",
-            credentials: "include",
-        }
-    );
-
+async function readResponse(response, fallbackMessage) {
     if (!response.ok) {
-        let message = `맞춤 문제 생성 실패 (${response.status})`;
+        let message = `${fallbackMessage} (${response.status})`;
 
         try {
             const data = await response.json();
-
-            message =
-                data.detail ||
-                data.message ||
-                message;
+            message = data.detail || data.message || message;
         } catch {
-            // JSON 이외의 오류 응답 처리
+            // JSON이 아닌 오류 응답 처리
         }
 
         const error = new Error(message);
         error.status = response.status;
-
         throw error;
     }
 
     return response.json();
 }
 
+// 자동 추천 또는 직접 설정 문제 생성
+export async function generatePersonalizedProblem(
+    options = { mode: "AUTO" }
+) {
+    const response = await fetch(
+        `${API_BASE}/learning/personalized-problems/generate`,
+        {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(options),
+        }
+    );
 
+    return readResponse(response, "맞춤 문제 생성 실패");
+}
+
+// Docker 검증 및 개인 문제 저장
 export async function savePersonalizedProblem(problem) {
     const response = await fetch(
         `${API_BASE}/learning/personalized-problems/save`,
@@ -47,26 +53,10 @@ export async function savePersonalizedProblem(problem) {
         }
     );
 
-    if (!response.ok) {
-        let message = `개인 문제 저장 실패 (${response.status})`;
-
-        try {
-            const data = await response.json();
-
-            message =
-                data.detail ||
-                data.message ||
-                message;
-        } catch {
-            // JSON 이외의 오류 응답 처리
-        }
-
-        throw new Error(message);
-    }
-
-    return response.json();
+    return readResponse(response, "개인 문제 저장 실패");
 }
 
+// 내가 저장한 개인 문제 조회
 export async function getMyPersonalizedProblems() {
     const response = await fetch(
         `${API_BASE}/learning/personalized-problems/me`,
@@ -75,12 +65,40 @@ export async function getMyPersonalizedProblems() {
         }
     );
 
+    return readResponse(response, "개인 문제 조회 실패");
+}
+
+
+// 본인의 개인 문제 삭제
+export async function deleteMyPersonalizedProblem(problemId) {
+    const response = await fetch(
+        `http://localhost:8080/api/learning/personalized-problems/${problemId}`,
+        {
+            method: "DELETE",
+            credentials: "include",
+        }
+    );
+
     if (!response.ok) {
-        throw new Error(
-            `개인 문제 조회 실패 (${response.status})`
-        );
+        let message = `문제 삭제 실패 (${response.status})`;
+
+        try {
+            const data = await response.json();
+
+            message =
+                data.detail ||
+                data.message ||
+                data.reason ||
+                message;
+        } catch {
+            // JSON이 아닌 응답 처리
+        }
+
+        const error = new Error(message);
+        error.status = response.status;
+        throw error;
     }
 
-    return response.json();
+    return true;
 }
 

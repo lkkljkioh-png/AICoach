@@ -312,3 +312,87 @@
         align-items: stretch;
     }
 }
+
+
+.personal-problem-mode {
+    margin: 24px 0;
+}
+
+.personal-problem-mode h3 {
+    margin-bottom: 13px;
+    font-size: 15px;
+}
+
+.personal-problem-mode-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.personal-problem-mode-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 15px;
+    border: 1px solid #dbe3ef;
+    border-radius: 10px;
+    background: #fff;
+    color: #526078;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.personal-problem-mode-buttons button.active {
+    border-color: #2563eb;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.personal-problem-mode-buttons button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.personal-problem-settings {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 24px;
+    padding: 20px;
+    border: 1px solid #e5eaf3;
+    border-radius: 12px;
+    background: #f8faff;
+}
+
+.personal-problem-settings>div {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.personal-problem-settings label {
+    color: #526078;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.personal-problem-settings select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dbe3ef;
+    border-radius: 9px;
+    background: white;
+    color: #18233b;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+
+    .personal-problem-mode-buttons,
+    .personal-problem-settings {
+        grid-template-columns: 1fr;
+    }
+}

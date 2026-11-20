@@ -63,8 +63,13 @@ public class AIProblemGenerationService {
             List<TestCase> testCases) {
     }
 
+    public GeneratedProblem generate(GenerateRequest request) {
+        return generate(request, List.of());
+    }
+
     public GeneratedProblem generate(
-            GenerateRequest request) {
+            GenerateRequest request,
+            List<String> previousTitles) {
 
         if (request == null ||
                 !LEVELS.contains(request.level())) {
@@ -145,6 +150,38 @@ public class AIProblemGenerationService {
                 category,
                 request.level(),
                 category);
+
+        // 이전에 생성한 문제 제목을 중복 방지 조건에 반영
+        List<String> excludedTitles = previousTitles == null
+                ? List.of()
+                : previousTitles.stream()
+                        .filter(Objects::nonNull)
+                        .filter(title -> !title.isBlank())
+                        .limit(30)
+                        .toList();
+
+        String excludedText = excludedTitles.isEmpty()
+                ? "없음"
+                : String.join("\n", excludedTitles);
+
+        // 요청마다 새로운 출제 조건을 전달
+        String generationId = UUID.randomUUID().toString();
+
+        prompt += """
+
+                추가 출제 조건:
+                - 이번 생성 요청 식별자: %s
+                - 이전에 출제한 다음 문제와 제목, 풀이 목표,
+                  문제 상황이 겹치지 않도록 출제하세요.
+
+                이전 문제:
+                %s
+
+                - 동일 알고리즘 유형이어도 새로운 입력 조건과
+                  문제 상황을 사용하세요.
+                - 위 식별자는 문제 제목이나 설명에 넣지 마세요.
+                - 문제의 정확성이 다양성보다 우선입니다.
+                """.formatted(generationId, excludedText);
 
         Map<String, Object> body = Map.of(
                 "model", model,
