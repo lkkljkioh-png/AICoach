@@ -14,12 +14,16 @@ public class PersonalProblemOwner {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    @Column(name = "archived", nullable = false)
+    private boolean archived = false;
+
     protected PersonalProblemOwner() {
     }
 
     public PersonalProblemOwner(Long problemId, Long userId) {
         this.problemId = problemId;
         this.userId = userId;
+        this.archived = false;
     }
 
     public Long getProblemId() {
@@ -28,5 +32,13 @@ public class PersonalProblemOwner {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 }

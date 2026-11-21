@@ -203,3 +203,116 @@
         justify-content: flex-end;
     }
 }
+
+
+.ppm-storage {
+    margin-top: 22px;
+    padding: 20px;
+    background: #f8faff;
+    border: 1px solid #e3eaf3;
+    border-radius: 12px;
+}
+
+.ppm-storage-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 13px;
+}
+
+.ppm-storage-heading span {
+    font-size: 14px;
+    color: #475569;
+    font-weight: 600;
+}
+
+.ppm-storage-heading strong {
+    font-size: 16px;
+    color: #185fa5;
+}
+
+.ppm-storage-track {
+    height: 9px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.ppm-storage-fill {
+    height: 100%;
+    background: #2563eb;
+    border-radius: inherit;
+    transition: width 0.3s ease;
+}
+
+.ppm-storage p {
+    margin: 11px 0 0;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* 개인 문제와 보관함 탭 */
+.ppm-view-tabs {
+    display: flex;
+    gap: 9px;
+    margin: 24px 0 18px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.ppm-view-tabs button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 12px 17px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.ppm-view-tabs button.active {
+    color: #185fa5;
+    border-bottom-color: #185fa5;
+}
+
+.ppm-action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 13px;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    background: #f8faff;
+    color: #185fa5;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.ppm-action-button:hover {
+    background: #eff6ff;
+}
+
+.ppm-action-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .ppm-view-tabs button {
+        flex: 1;
+        padding: 12px 9px;
+        font-size: 13px;
+    }
+
+    .ppm-actions {
+        flex-wrap: wrap;
+    }
+}

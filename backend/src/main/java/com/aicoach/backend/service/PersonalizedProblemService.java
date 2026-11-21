@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 @Service
 public class PersonalizedProblemService {
 
+        public static final int MAX_PERSONAL_PROBLEMS = 30;
+
         private final AIProblemStorageService storageService;
         private final PersonalProblemOwnerRepository ownerRepository;
         private final ProblemRepository problemRepository;
@@ -42,11 +44,27 @@ public class PersonalizedProblemService {
                 this.submissionRepository = submissionRepository;
         }
 
+        // 보관 중이 아닌 개인 문제의 저장 한도 확인
+        @Transactional(readOnly = true)
+        public void checkProblemLimit(Long userId) {
+
+                long count = ownerRepository.countByUserIdAndArchivedFalse(userId);
+
+                if (count >= MAX_PERSONAL_PROBLEMS) {
+                        throw new ResponseStatusException(
+                                        HttpStatus.CONFLICT,
+                                        "개인 AI 문제는 최대 30개까지 보관할 수 있습니다. "
+                                                        + "기존 문제를 보관함으로 이동해 주세요.");
+                }
+        }
+
         // Docker 검증 및 개인 문제 저장
         @Transactional
         public AIProblemStorageService.SaveResponse save(
                         Long userId,
                         AIProblemGenerationService.GeneratedProblem problem) {
+
+                checkProblemLimit(userId);
 
                 AIProblemStorageService.SaveResponse saved = storageService.saveVerifiedProblem(problem);
 
@@ -58,14 +76,13 @@ public class PersonalizedProblemService {
                 return saved;
         }
 
-        // 로그인 사용자 개인 문제와 풀이 통계 조회
+        // 개인 문제 및 풀이 상태 조회
         @Transactional(readOnly = true)
         public List<PersonalProblemResponse> getMyProblems(Long userId) {
 
                 List<SubmissionEntity> submissions = submissionRepository
                                 .findByUserIdOrderBySubmittedAtDescIdDesc(userId);
 
-                // 문제 ID별 제출 기록 분류
                 Map<Long, List<SubmissionEntity>> submissionsByProblem = submissions.stream()
                                 .collect(Collectors.groupingBy(
                                                 SubmissionEntity::getProblemId));
@@ -117,27 +134,62 @@ public class PersonalizedProblemService {
                                                         solveStatus,
                                                         total,
                                                         accepted,
-                                                        accuracy);
+                                                        accuracy,
+                                                        owner.isArchived());
                                 })
                                 .filter(item -> item != null)
                                 .toList();
         }
 
-        // 제출 이력이 없는 개인 문제만 삭제
+        // 개인 문제 보관
+        @Transactional
+        public void archiveProblem(Long userId, Long problemId) {
+
+                PersonalProblemOwner owner = findOwnedProblem(userId, problemId);
+
+                if (owner.isArchived()) {
+                        return;
+                }
+
+                owner.setArchived(true);
+                ownerRepository.save(owner);
+        }
+
+        // 보관된 문제 복원
+        @Transactional
+        public void restoreProblem(Long userId, Long problemId) {
+
+                PersonalProblemOwner owner = findOwnedProblem(userId, problemId);
+
+                if (!owner.isArchived()) {
+                        return;
+                }
+
+                checkProblemLimit(userId);
+
+                owner.setArchived(false);
+                ownerRepository.save(owner);
+        }
+
+        // 개인 문제 소유권 확인
+        private PersonalProblemOwner findOwnedProblem(
+                        Long userId,
+                        Long problemId) {
+
+                return ownerRepository
+                                .findByProblemIdAndUserId(problemId, userId)
+                                .orElseThrow(() -> new ResponseStatusException(
+                                                HttpStatus.NOT_FOUND,
+                                                "본인의 개인 문제를 찾을 수 없습니다."));
+        }
+
+        // 제출 이력이 없는 개인 문제 삭제
         @Transactional
         public void deleteMyProblem(
                         Long userId,
                         Long problemId) {
 
-                // 다른 사용자의 문제 삭제 방지
-                if (!ownerRepository.existsByProblemIdAndUserId(
-                                problemId,
-                                userId)) {
-
-                        throw new ResponseStatusException(
-                                        HttpStatus.NOT_FOUND,
-                                        "본인의 개인 문제를 찾을 수 없습니다.");
-                }
+                findOwnedProblem(userId, problemId);
 
                 ProblemEntity problem = problemRepository
                                 .findById(problemId)
@@ -145,30 +197,23 @@ public class PersonalizedProblemService {
                                                 HttpStatus.NOT_FOUND,
                                                 "문제를 찾을 수 없습니다."));
 
-                // 공개 문제 삭제 방지
                 if (problem.isPublished()) {
                         throw new ResponseStatusException(
                                         HttpStatus.CONFLICT,
                                         "공개된 문제는 삭제할 수 없습니다.");
                 }
 
-                // 학습 기록 보호
                 long submissionCount = submissionRepository.countByProblemId(problemId);
 
                 if (submissionCount > 0) {
                         throw new ResponseStatusException(
                                         HttpStatus.CONFLICT,
                                         "제출 이력이 있는 문제는 삭제할 수 없습니다. "
-                                                        + "학습 기록 보호를 위해 삭제를 차단했습니다.");
+                                                        + "대신 보관함 기능을 이용해 주세요.");
                 }
 
-                // 테스트케이스 삭제
                 testCaseRepository.deleteByProblemId(problemId);
-
-                // 소유권 정보 삭제
                 ownerRepository.deleteById(problemId);
-
-                // 문제 삭제
                 problemRepository.delete(problem);
         }
 
@@ -181,6 +226,7 @@ public class PersonalizedProblemService {
                         String solveStatus,
                         int submissionCount,
                         long acceptedCount,
-                        double accuracy) {
+                        double accuracy,
+                        boolean archived) {
         }
 }

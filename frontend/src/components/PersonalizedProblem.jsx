@@ -18,6 +18,8 @@ import {
 import "../styles/PersonalizedProblem.css";
 import PersonalProblemManager from "./PersonalProblemManager.jsx";
 
+const MAX_PERSONAL_PROBLEMS = 30;
+
 const LEVEL_LABELS = {
     EASY: "쉬움",
     MEDIUM: "보통",
@@ -39,7 +41,9 @@ const CATEGORIES = [
     "동적 계획법",
 ];
 
-export default function PersonalizedProblem() {
+export default function PersonalizedProblem({
+    showManager = true,
+}) {
     const [mode, setMode] = useState("AUTO");
     const [level, setLevel] = useState("EASY");
     const [category, setCategory] = useState("구현");
@@ -54,6 +58,18 @@ export default function PersonalizedProblem() {
 
     const problem = result?.problem;
     const savedProblem = result?.savedProblem;
+    // 개인 문제 보관 현황
+    // 보관함에 있는 문제는 30개 제한에서 제외
+    const problemCount = myProblems.filter(
+        (problem) => !problem.archived
+    ).length;
+    const remainingCount = Math.max(
+        MAX_PERSONAL_PROBLEMS - problemCount,
+        0
+    );
+
+    const limitReached =
+        problemCount >= MAX_PERSONAL_PROBLEMS;
 
     // 기존에 저장한 개인 문제 불러오기
     useEffect(() => {
@@ -98,7 +114,16 @@ export default function PersonalizedProblem() {
 
     // AI 문제 생성 및 DB 자동 저장
     const handleGenerate = async () => {
-        if (loading) return;
+        if (loading || listLoading) return;
+
+        // 저장 한도 초과 시 생성 차단
+        if (limitReached) {
+            setError(
+                "개인 AI 문제는 최대 30개까지 저장할 수 있습니다. " +
+                "내 문제 탭에서 미제출 문제를 정리해 주세요."
+            );
+            return;
+        }
 
         setLoading(true);
         setError("");
@@ -174,6 +199,51 @@ export default function PersonalizedProblem() {
                         직접 설정으로 새로운 문제를 생성하세요.
                     </p>
                 </div>
+            </div>
+
+            <div className="personal-problem-quota">
+                <div className="personal-problem-quota-header">
+                    <span>내 AI 문제 저장 공간</span>
+                    <strong>
+                        {listLoading
+                            ? "조회 중..."
+                            : listError
+                                ? "조회 실패"
+                                : `${problemCount} / ${MAX_PERSONAL_PROBLEMS}개`}
+                    </strong>
+                </div>
+
+                <div
+                    className="personal-problem-quota-track"
+                    role="progressbar"
+                    aria-label="개인 AI 문제 저장 공간 사용량"
+                    aria-valuenow={Math.min(
+                        problemCount,
+                        MAX_PERSONAL_PROBLEMS
+                    )}
+                    aria-valuemin={0}
+                    aria-valuemax={MAX_PERSONAL_PROBLEMS}
+                >
+                    <div
+                        className="personal-problem-quota-fill"
+                        style={{
+                            width: `${Math.min(
+                                (problemCount / MAX_PERSONAL_PROBLEMS) * 100,
+                                100
+                            )}%`,
+                        }}
+                    />
+                </div>
+
+                <p>
+                    {listLoading
+                        ? "저장된 문제 개수를 확인하고 있습니다."
+                        : listError
+                            ? listError
+                            : limitReached
+                                ? "저장 공간이 가득 찼습니다. 내 문제 탭에서 문제를 정리해 주세요."
+                                : `새로운 AI 문제를 ${remainingCount}개 더 생성할 수 있습니다.`}
+                </p>
             </div>
 
             <div className="personal-problem-mode">
@@ -379,7 +449,11 @@ export default function PersonalizedProblem() {
                 type="button"
                 className="personal-problem-button"
                 onClick={handleGenerate}
-                disabled={loading}
+                disabled={
+                    loading ||
+                    listLoading ||
+                    limitReached
+                }
             >
                 {loading ? (
                     <RefreshCw
@@ -392,14 +466,20 @@ export default function PersonalizedProblem() {
 
                 {loading
                     ? "생성 · 검증 · 저장 중..."
-                    : result
-                        ? "새로운 문제 다시 생성하기"
-                        : "AI 문제 생성하기"}
+                    : listLoading
+                        ? "저장 공간 확인 중..."
+                        : limitReached
+                            ? "AI 문제 저장 공간 부족"
+                            : result
+                                ? "새로운 문제 다시 생성하기"
+                                : "AI 문제 생성하기"}
             </button>
 
-            <PersonalProblemManager
-                refreshKey={savedProblem?.problemId ?? 0}
-            />
+            {showManager && (
+                <PersonalProblemManager
+                    refreshKey={savedProblem?.problemId ?? 0}
+                />
+            )}
 
         </section>
     );

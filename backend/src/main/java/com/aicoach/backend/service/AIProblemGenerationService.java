@@ -205,14 +205,17 @@ public class AIProblemGenerationService {
 
         } catch (RestClientResponseException e) {
 
-            System.err.println(
-                    "[Gemini API 오류] HTTP "
-                            + e.getStatusCode().value());
+            int status = e.getStatusCode().value();
+            String responseBody = e.getResponseBodyAsString();
+
+            System.err.println("[GEMINI ERROR] HTTP " + status);
+            System.err.println("[GEMINI ERROR] Model: " + model);
+            System.err.println("[GEMINI ERROR] Response: "
+                    + responseBody);
 
             throw new ResponseStatusException(
                     HttpStatus.BAD_GATEWAY,
-                    "Gemini API 오류: HTTP "
-                            + e.getStatusCode().value());
+                    "Gemini API request failed: HTTP " + status);
         } catch (RestClientException e) {
 
             System.err.println(

@@ -396,3 +396,57 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* 개인 AI 문제 저장 공간 */
+.personal-problem-quota {
+    margin: 20px 0 24px;
+    padding: 20px;
+    background: #f8faff;
+    border: 1px solid #e3eaf3;
+    border-radius: 12px;
+}
+
+.personal-problem-quota-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 13px;
+}
+
+.personal-problem-quota-header span {
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.personal-problem-quota-header strong {
+    color: #185fa5;
+    font-size: 16px;
+}
+
+.personal-problem-quota-track {
+    height: 9px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.personal-problem-quota-fill {
+    height: 100%;
+    background: #2563eb;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+.personal-problem-quota p {
+    margin: 11px 0 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #64748b;
+}
+
+.personal-problem-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}

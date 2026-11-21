@@ -102,3 +102,48 @@ export async function deleteMyPersonalizedProblem(problemId) {
     return true;
 }
 
+
+// 개인 문제 보관
+export async function archivePersonalizedProblem(problemId) {
+    const response = await fetch(
+        `http://localhost:8080/api/learning/personalized-problems/${problemId}/archive`,
+        {
+            method: "PATCH",
+            credentials: "include",
+        }
+    );
+
+    if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(
+            data.detail ||
+            data.message ||
+            `문제 보관 실패 (${response.status})`
+        );
+    }
+
+    return true;
+}
+
+// 보관된 개인 문제 복원
+export async function restorePersonalizedProblem(problemId) {
+    const response = await fetch(
+        `http://localhost:8080/api/learning/personalized-problems/${problemId}/restore`,
+        {
+            method: "PATCH",
+            credentials: "include",
+        }
+    );
+
+    if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(
+            data.detail ||
+            data.message ||
+            `문제 복원 실패 (${response.status})`
+        );
+    }
+
+    return true;
+}
+

@@ -394,3 +394,144 @@
         gap: 7px 12px;
     }
 }
+
+
+/* AI 맞춤 학습 탭 메뉴 */
+.learning-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.learning-tab {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 18px 20px;
+    border: 1px solid #e3eaf3;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #64748b;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.learning-tab:hover {
+    border-color: #93c5fd;
+    background: #f8fbff;
+}
+
+.learning-tab.active {
+    border-color: #2563eb;
+    background: #eff6ff;
+    color: #185fa5;
+    box-shadow: 0 3px 12px rgba(37, 99, 235, 0.07);
+}
+
+.learning-tab svg {
+    flex-shrink: 0;
+}
+
+.learning-tab-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.learning-tab-copy strong {
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.learning-tab-copy small {
+    font-size: 11px;
+    line-height: 1.4;
+    color: #94a3b8;
+}
+
+.learning-tab.active small {
+    color: #527cac;
+}
+
+/* 탭별 콘텐츠 */
+.learning-tab-content {
+    min-height: 350px;
+}
+
+.learning-panel-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.learning-tab-heading {
+    padding: 4px 0 2px;
+}
+
+.learning-tab-heading h2 {
+    margin: 0 0 8px;
+    font-size: 23px;
+    font-weight: 800;
+    color: #142b50;
+}
+
+.learning-tab-heading p {
+    margin: 0;
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* 기존 컴포넌트 간격 통일 */
+.learning-panel-stack>.learning-stats,
+.learning-panel-stack>.learning-summary,
+.learning-panel-stack>.learning-recommendations,
+.learning-panel-stack>.personal-problem,
+.learning-panel-stack>.ppm {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.learning-panel-stack>.personal-problem,
+.learning-panel-stack>.ppm {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 반응형 */
+@media (max-width: 900px) {
+    .learning-tabs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .learning-tabs {
+        gap: 8px;
+    }
+
+    .learning-tab {
+        padding: 13px 12px;
+        gap: 9px;
+    }
+
+    .learning-tab-copy strong {
+        font-size: 13px;
+    }
+
+    .learning-tab-copy small {
+        display: none;
+    }
+
+    .learning-tab-heading h2 {
+        font-size: 20px;
+    }
+
+    .learning-panel-stack {
+        gap: 18px;
+    }
+}
