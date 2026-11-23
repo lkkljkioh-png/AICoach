@@ -6,6 +6,7 @@ import AuthPage from "./pages/AuthPage.jsx";
 import MyPage from "./pages/MyPage.jsx";
 import Learning from "./pages/Learning.jsx";
 import AdminProblems from "./pages/AdminProblems.jsx";
+import ReviewPage from "./pages/ReviewPage.jsx";
 
 function App() {
   const path =
@@ -21,6 +22,10 @@ function App() {
 
   if (path === "/admin/problems") {
     return <AdminProblems />;
+  }
+
+  if (path === "/review") {
+    return <ReviewPage />;
   }
 
   if (path === "/problems") {

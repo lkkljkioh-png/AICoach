@@ -9,6 +9,7 @@ import {
     Target,
     ChartNoAxesCombined,
     UserRound,
+    BookOpenCheck,
 } from "lucide-react";
 
 import Header from "../components/Header.jsx";
@@ -244,6 +245,21 @@ export default function MyPage() {
                                     <Target size={19} />
                                     학습 목표
                                 </button>
+
+                                <a
+                                    href="/review"
+                                    className="my-tab-button"
+                                    style={{
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        gap: "8px",
+                                        textDecoration: "none",
+                                    }}
+                                >
+                                    <BookOpenCheck size={19} />
+                                    오답 복습
+                                </a>
                             </nav>
 
                             {activeTab === "analysis" && (

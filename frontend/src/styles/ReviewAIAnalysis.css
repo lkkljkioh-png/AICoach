@@ -1,0 +1,142 @@
+.review-ai-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    background: rgba(15, 23, 42, 0.65);
+}
+
+.review-ai-modal {
+    width: 100%;
+    max-width: 850px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    background: #fff;
+    color: #17253b;
+}
+
+.review-ai-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    border-bottom: 1px solid #e5eaf1;
+}
+
+.review-ai-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px;
+    font-size: 22px;
+}
+
+.review-ai-header h2 svg {
+    color: #185fa5;
+}
+
+.review-ai-header p {
+    margin: 0;
+    font-size: 13px;
+    color: #718096;
+}
+
+.review-ai-header button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    color: #64748b;
+}
+
+.review-ai-body {
+    padding: 24px;
+}
+
+.review-ai-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.review-ai-info span {
+    padding: 7px 11px;
+    border-radius: 7px;
+    background: #eef4fb;
+    color: #185fa5;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.review-ai-code {
+    margin-bottom: 24px;
+}
+
+.review-ai-code h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.review-ai-code pre {
+    max-height: 300px;
+    overflow: auto;
+    background: #172235;
+    color: #edf2f7;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre;
+}
+
+.review-ai-notice {
+    margin: 20px 0;
+    font-size: 12px;
+    color: #718096;
+    line-height: 1.7;
+}
+
+.review-ai-retry {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #185fa5;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.review-ai-retry:hover {
+    background: #134e89;
+}
+
+.review-ai-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: #64748b;
+}
+
+@media (max-width: 600px) {
+    .review-ai-overlay {
+        padding: 10px;
+    }
+
+    .review-ai-header,
+    .review-ai-body {
+        padding: 16px;
+    }
+}
