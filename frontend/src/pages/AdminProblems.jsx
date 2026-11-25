@@ -18,6 +18,7 @@ import {
     generateAIProblem,
     saveAIProblem,
     publishAIProblem,
+    checkAdminAccess,
 } from "../api/aiProblemsApi.js";
 
 import "../styles/AdminProblems.css";
@@ -44,12 +45,44 @@ function AdminProblems() {
 
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
+
 
     useEffect(() => {
-        getCurrentUser()
-            .then(setUser)
-            .catch((err) => setError(err.message))
-            .finally(() => setAuthLoading(false));
+        let active = true;
+
+        async function verifyAccess() {
+            try {
+                const currentUser = await getCurrentUser();
+
+                if (!active) return;
+
+                setUser(currentUser);
+
+                if (!currentUser) return;
+
+                const access = await checkAdminAccess();
+
+                if (!active) return;
+
+                setIsAdmin(access.admin === true);
+            } catch (err) {
+                if (active) {
+                    setIsAdmin(false);
+                    setError(err.message);
+                }
+            } finally {
+                if (active) {
+                    setAuthLoading(false);
+                }
+            }
+        }
+
+        verifyAccess();
+
+        return () => {
+            active = false;
+        };
     }, []);
 
     const handleGenerate = async () => {
@@ -157,6 +190,22 @@ function AdminProblems() {
                 <main className="admin-problems">
                     <h2>로그인이 필요합니다.</h2>
                     <a href="/login">로그인하기</a>
+                </main>
+            </>
+        );
+    }
+
+
+    if (!isAdmin) {
+        return (
+            <>
+                <Header />
+                <main className="admin-problems">
+                    <h2>접근할 수 없습니다.</h2>
+                    <p>{error}</p>
+                    <a href="/problems">
+                        문제 목록으로 돌아가기
+                    </a>
                 </main>
             </>
         );

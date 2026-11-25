@@ -11,9 +11,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Locale;
 import java.util.regex.Pattern;
+import org.springframework.beans.factory.annotation.Value;
 
 @Service
 public class AuthService {
+
+    @Value("${AICOACH_ADMIN_EMAIL:}")
+    private String adminEmail;
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -50,6 +54,15 @@ public class AuthService {
         }
 
         String email = normalizeEmail(request.email());
+        // 관리자 이메일 회원가입 차단
+        if (adminEmail != null
+                && !adminEmail.isBlank()
+                && adminEmail.trim().equalsIgnoreCase(email)) {
+
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN,
+                    "사용할 수 없는 이메일입니다.");
+        }
         String password = request.password();
         String nickname = request.nickname() == null
                 ? ""

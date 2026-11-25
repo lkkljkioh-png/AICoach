@@ -147,3 +147,15 @@ export async function restorePersonalizedProblem(problemId) {
     return true;
 }
 
+// 개인 문제 저장 한도 조회
+export async function getPersonalizedProblemQuota() {
+    const response = await fetch(
+        `${API_BASE}/learning/personalized-problems/quota`,
+        {
+            credentials: "include",
+        }
+    );
+
+    return readResponse(response, "저장 한도 조회 실패");
+}
+

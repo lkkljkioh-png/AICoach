@@ -27,9 +27,7 @@ public class AIProblemGenerationController {
     @Value("${AICOACH_ADMIN_EMAIL:}")
     private String adminEmail;
 
-    // =====================================
     // 생성자
-    // =====================================
 
     public AIProblemGenerationController(
             AIProblemGenerationService generationService,
@@ -41,9 +39,7 @@ public class AIProblemGenerationController {
         this.authService = authService;
     }
 
-    // =====================================
     // 관리자 인증
-    // =====================================
 
     private void requireAdmin(HttpServletRequest request) {
 
@@ -83,10 +79,8 @@ public class AIProblemGenerationController {
         }
     }
 
-    // =====================================
     // AI 문제 생성
     // POST /api/admin/problems/generate
-    // =====================================
 
     @PostMapping("/generate")
     public AIProblemGenerationService.GeneratedProblem generate(
@@ -100,10 +94,8 @@ public class AIProblemGenerationController {
         return generationService.generate(request);
     }
 
-    // =====================================
     // 문제 검증 및 MySQL 저장
     // POST /api/admin/problems/save
-    // =====================================
 
     @PostMapping("/save")
     public AIProblemStorageService.SaveResponse save(
@@ -117,10 +109,8 @@ public class AIProblemGenerationController {
         return storageService.saveVerifiedProblem(problem);
     }
 
-    // =====================================
     // 문제 공개
     // PATCH /api/admin/problems/{id}/publish
-    // =====================================
 
     @PatchMapping("/{id}/publish")
     public AIProblemStorageService.SaveResponse publish(
@@ -130,6 +120,18 @@ public class AIProblemGenerationController {
         requireAdmin(servletRequest);
 
         return storageService.publishProblem(id);
+    }
+
+    @GetMapping("/access")
+    public AdminAccessResponse checkAdminAccess(
+            HttpServletRequest request) {
+
+        requireAdmin(request);
+
+        return new AdminAccessResponse(true);
+    }
+
+    public record AdminAccessResponse(boolean admin) {
     }
 
 }

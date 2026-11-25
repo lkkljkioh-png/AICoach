@@ -55,3 +55,8 @@ export function publishAIProblem(problemId) {
         method: "PATCH",
     });
 }
+
+export function checkAdminAccess() {
+    return request("/access");
+}
+

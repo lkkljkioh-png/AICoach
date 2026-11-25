@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {
     Sparkles,
@@ -13,6 +12,7 @@ import {
 import {
     generatePersonalizedProblem,
     getMyPersonalizedProblems,
+    getPersonalizedProblemQuota,
 } from "../api/personalizedProblemApi.js";
 
 import "../styles/PersonalizedProblem.css";
@@ -55,45 +55,88 @@ export default function PersonalizedProblem({
     const [myProblems, setMyProblems] = useState([]);
     const [listLoading, setListLoading] = useState(true);
     const [listError, setListError] = useState("");
+    const [quotaError, setQuotaError] = useState("");
+
+    const [unlimited, setUnlimited] = useState(false);
+    const [maxProblems, setMaxProblems] = useState(
+        MAX_PERSONAL_PROBLEMS
+    );
 
     const problem = result?.problem;
     const savedProblem = result?.savedProblem;
-    // 개인 문제 보관 현황
-    // 보관함에 있는 문제는 30개 제한에서 제외
+
+    // 보관함에 있는 문제는 저장 공간 집계에서 제외
     const problemCount = myProblems.filter(
         (problem) => !problem.archived
     ).length;
+
     const remainingCount = Math.max(
-        MAX_PERSONAL_PROBLEMS - problemCount,
+        maxProblems - problemCount,
         0
     );
 
     const limitReached =
-        problemCount >= MAX_PERSONAL_PROBLEMS;
+        !unlimited && problemCount >= maxProblems;
 
-    // 기존에 저장한 개인 문제 불러오기
+    const storageError = listError || quotaError;
+
+    // 기존 개인 문제와 저장 한도 조회
     useEffect(() => {
         let active = true;
 
         async function loadMyProblems() {
-            try {
-                const data =
-                    await getMyPersonalizedProblems();
+            setListLoading(true);
+            setListError("");
+            setQuotaError("");
 
-                if (active) {
-                    setMyProblems(
-                        Array.isArray(data) ? data : []
+            const [listResult, quotaResult] =
+                await Promise.allSettled([
+                    getMyPersonalizedProblems(),
+                    getPersonalizedProblemQuota(),
+                ]);
+
+            if (!active) return;
+
+            // 개인 문제 목록 저장
+            if (listResult.status === "fulfilled") {
+                const data = listResult.value;
+
+                if (Array.isArray(data)) {
+                    setMyProblems(data);
+                } else {
+                    setListError(
+                        "문제 목록 응답 형식이 올바르지 않습니다."
                     );
                 }
-            } catch (err) {
-                if (active) {
-                    setListError(err.message);
-                }
-            } finally {
-                if (active) {
-                    setListLoading(false);
-                }
+            } else {
+                setListError(
+                    listResult.reason?.message ||
+                    "개인 문제 조회에 실패했습니다."
+                );
             }
+
+            // 관리자 권한 및 저장 한도 저장
+            if (quotaResult.status === "fulfilled") {
+                const quota = quotaResult.value;
+
+                setUnlimited(quota.unlimited === true);
+
+                setMaxProblems(
+                    Number.isInteger(quota.maxProblems) &&
+                        quota.maxProblems > 0
+                        ? quota.maxProblems
+                        : MAX_PERSONAL_PROBLEMS
+                );
+            } else {
+                setUnlimited(false);
+
+                setQuotaError(
+                    quotaResult.reason?.message ||
+                    "저장 한도 조회에 실패했습니다."
+                );
+            }
+
+            setListLoading(false);
         }
 
         loadMyProblems();
@@ -116,11 +159,19 @@ export default function PersonalizedProblem({
     const handleGenerate = async () => {
         if (loading || listLoading) return;
 
-        // 저장 한도 초과 시 생성 차단
+        if (storageError) {
+            setError(
+                "저장 공간을 확인하지 못했습니다. " +
+                "페이지를 새로고침해 주세요."
+            );
+            return;
+        }
+
         if (limitReached) {
             setError(
-                "개인 AI 문제는 최대 30개까지 저장할 수 있습니다. " +
-                "내 문제 탭에서 미제출 문제를 정리해 주세요."
+                `개인 AI 문제는 최대 ${maxProblems}개까지 ` +
+                "저장할 수 있습니다. " +
+                "내 문제 탭에서 기존 문제를 정리해 주세요."
             );
             return;
         }
@@ -144,13 +195,18 @@ export default function PersonalizedProblem({
             const data =
                 await generatePersonalizedProblem(options);
 
-            if (!data?.problem || !data?.savedProblem?.problemId) {
+            if (!data?.problem ||
+                !data?.savedProblem?.problemId) {
+
                 throw new Error(
                     "문제 저장 결과가 올바르지 않습니다."
                 );
             }
 
-            if (data.savedProblem.validationStatus !== "ACCEPTED") {
+            if (
+                data.savedProblem.validationStatus !==
+                "ACCEPTED"
+            ) {
                 throw new Error(
                     "Docker 검증이 완료되지 않았습니다."
                 );
@@ -158,25 +214,32 @@ export default function PersonalizedProblem({
 
             setResult(data);
 
-            // 생성 후 실제 DB에 저장된 목록 재조회
+            // 생성 후 DB에 저장된 목록 재조회
             try {
                 const updated =
                     await getMyPersonalizedProblems();
 
-                setMyProblems(
-                    Array.isArray(updated) ? updated : []
-                );
+                if (!Array.isArray(updated)) {
+                    throw new Error(
+                        "문제 목록 응답 형식이 올바르지 않습니다."
+                    );
+                }
+
+                setMyProblems(updated);
                 setListError("");
+
             } catch (listErr) {
                 setListError(
-                    "문제는 저장되었지만 목록을 갱신하지 못했습니다: "
-                    + listErr.message
+                    "문제는 저장되었지만 목록을 " +
+                    "갱신하지 못했습니다: " +
+                    listErr.message
                 );
             }
 
         } catch (err) {
             setError(
-                err.message || "문제 생성에 실패했습니다."
+                err.message ||
+                "문제 생성에 실패했습니다."
             );
         } finally {
             setLoading(false);
@@ -194,6 +257,7 @@ export default function PersonalizedProblem({
                 <div>
                     <span>AI PERSONALIZED PRACTICE</span>
                     <h2>AI 맞춤 문제 생성</h2>
+
                     <p>
                         취약점 기반 자동 추천 또는
                         직접 설정으로 새로운 문제를 생성하세요.
@@ -204,45 +268,57 @@ export default function PersonalizedProblem({
             <div className="personal-problem-quota">
                 <div className="personal-problem-quota-header">
                     <span>내 AI 문제 저장 공간</span>
+
                     <strong>
                         {listLoading
                             ? "조회 중..."
                             : listError
                                 ? "조회 실패"
-                                : `${problemCount} / ${MAX_PERSONAL_PROBLEMS}개`}
+                                : quotaError
+                                    ? `${problemCount}개`
+                                    : unlimited
+                                        ? `${problemCount}개 / 무제한`
+                                        : `${problemCount} / ${maxProblems}개`}
                     </strong>
                 </div>
 
-                <div
-                    className="personal-problem-quota-track"
-                    role="progressbar"
-                    aria-label="개인 AI 문제 저장 공간 사용량"
-                    aria-valuenow={Math.min(
-                        problemCount,
-                        MAX_PERSONAL_PROBLEMS
+                {!unlimited &&
+                    !listLoading &&
+                    !storageError && (
+                        <div
+                            className="personal-problem-quota-track"
+                            role="progressbar"
+                            aria-label="개인 AI 문제 저장 공간 사용량"
+                            aria-valuenow={Math.min(
+                                problemCount,
+                                maxProblems
+                            )}
+                            aria-valuemin={0}
+                            aria-valuemax={maxProblems}
+                        >
+                            <div
+                                className="personal-problem-quota-fill"
+                                style={{
+                                    width: `${Math.min(
+                                        problemCount /
+                                        maxProblems * 100,
+                                        100
+                                    )}%`,
+                                }}
+                            />
+                        </div>
                     )}
-                    aria-valuemin={0}
-                    aria-valuemax={MAX_PERSONAL_PROBLEMS}
-                >
-                    <div
-                        className="personal-problem-quota-fill"
-                        style={{
-                            width: `${Math.min(
-                                (problemCount / MAX_PERSONAL_PROBLEMS) * 100,
-                                100
-                            )}%`,
-                        }}
-                    />
-                </div>
 
                 <p>
                     {listLoading
-                        ? "저장된 문제 개수를 확인하고 있습니다."
-                        : listError
-                            ? listError
-                            : limitReached
-                                ? "저장 공간이 가득 찼습니다. 내 문제 탭에서 문제를 정리해 주세요."
-                                : `새로운 AI 문제를 ${remainingCount}개 더 생성할 수 있습니다.`}
+                        ? "저장 공간 확인 중..."
+                        : storageError
+                            ? storageError
+                            : unlimited
+                                ? "관리자 계정은 제한 없이 AI 문제를 생성할 수 있습니다."
+                                : limitReached
+                                    ? "저장 공간이 가득 찼습니다."
+                                    : `새로운 AI 문제를 ${remainingCount}개 더 생성할 수 있습니다.`}
                 </p>
             </div>
 
@@ -255,7 +331,9 @@ export default function PersonalizedProblem({
                         className={
                             mode === "AUTO" ? "active" : ""
                         }
-                        onClick={() => handleModeChange("AUTO")}
+                        onClick={() =>
+                            handleModeChange("AUTO")
+                        }
                         disabled={loading}
                     >
                         <BrainCircuit size={18} />
@@ -267,7 +345,9 @@ export default function PersonalizedProblem({
                         className={
                             mode === "MANUAL" ? "active" : ""
                         }
-                        onClick={() => handleModeChange("MANUAL")}
+                        onClick={() =>
+                            handleModeChange("MANUAL")
+                        }
                         disabled={loading}
                     >
                         <BookOpen size={18} />
@@ -278,7 +358,6 @@ export default function PersonalizedProblem({
 
             {mode === "MANUAL" && (
                 <div className="personal-problem-settings">
-
                     <div>
                         <label htmlFor="personal-level">
                             난이도
@@ -293,9 +372,17 @@ export default function PersonalizedProblem({
                                 setResult(null);
                             }}
                         >
-                            <option value="EASY">쉬움</option>
-                            <option value="MEDIUM">보통</option>
-                            <option value="HARD">어려움</option>
+                            <option value="EASY">
+                                쉬움
+                            </option>
+
+                            <option value="MEDIUM">
+                                보통
+                            </option>
+
+                            <option value="HARD">
+                                어려움
+                            </option>
                         </select>
                     </div>
 
@@ -309,12 +396,17 @@ export default function PersonalizedProblem({
                             value={category}
                             disabled={loading}
                             onChange={(event) => {
-                                setCategory(event.target.value);
+                                setCategory(
+                                    event.target.value
+                                );
                                 setResult(null);
                             }}
                         >
                             {CATEGORIES.map((item) => (
-                                <option key={item} value={item}>
+                                <option
+                                    key={item}
+                                    value={item}
+                                >
                                     {item}
                                 </option>
                             ))}
@@ -372,7 +464,6 @@ export default function PersonalizedProblem({
 
             {problem && savedProblem && (
                 <div className="personal-problem-result">
-
                     <div className="personal-problem-success">
                         <CheckCircle2 size={19} />
                         생성 및 DB 저장 완료
@@ -383,6 +474,7 @@ export default function PersonalizedProblem({
                             {LEVEL_LABELS[problem.level] ||
                                 problem.level}
                         </span>
+
                         <span>{problem.category}</span>
                         <span>약 {problem.time}분</span>
                     </div>
@@ -406,8 +498,10 @@ export default function PersonalizedProblem({
                     <div className="personal-problem-examples">
                         <div>
                             <h4>예제 입력</h4>
+
                             <pre>
-                                {problem.input || "(입력 없음)"}
+                                {problem.input ||
+                                    "(입력 없음)"}
                             </pre>
                         </div>
 
@@ -419,8 +513,10 @@ export default function PersonalizedProblem({
 
                     <details className="personal-problem-hint">
                         <summary>힌트 보기</summary>
+
                         <p>
-                            {problem.hint || "힌트가 없습니다."}
+                            {problem.hint ||
+                                "힌트가 없습니다."}
                         </p>
                     </details>
 
@@ -452,7 +548,8 @@ export default function PersonalizedProblem({
                 disabled={
                     loading ||
                     listLoading ||
-                    limitReached
+                    limitReached ||
+                    Boolean(storageError)
                 }
             >
                 {loading ? (
@@ -468,19 +565,22 @@ export default function PersonalizedProblem({
                     ? "생성 · 검증 · 저장 중..."
                     : listLoading
                         ? "저장 공간 확인 중..."
-                        : limitReached
-                            ? "AI 문제 저장 공간 부족"
-                            : result
-                                ? "새로운 문제 다시 생성하기"
-                                : "AI 문제 생성하기"}
+                        : storageError
+                            ? "저장 공간 확인 실패"
+                            : limitReached
+                                ? "AI 문제 저장 공간 부족"
+                                : result
+                                    ? "새로운 문제 다시 생성하기"
+                                    : "AI 문제 생성하기"}
             </button>
 
             {showManager && (
                 <PersonalProblemManager
-                    refreshKey={savedProblem?.problemId ?? 0}
+                    refreshKey={
+                        savedProblem?.problemId ?? 0
+                    }
                 />
             )}
-
         </section>
     );
 }

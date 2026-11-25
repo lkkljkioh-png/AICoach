@@ -1,4 +1,3 @@
-
 package com.aicoach.backend.controller;
 
 import com.aicoach.backend.service.AIProblemGenerationService;
@@ -72,6 +71,27 @@ public class PersonalizedProblemController {
                         AIProblemStorageService.SaveResponse savedProblem) {
         }
 
+        // 개인 문제 저장 한도 응답
+        public record QuotaResponse(
+                        boolean unlimited,
+                        Integer maxProblems) {
+        }
+
+        // 개인 문제 저장 한도 조회
+        @GetMapping("/quota")
+        public QuotaResponse getQuota(HttpServletRequest request) {
+
+                Long userId = requireUser(request);
+
+                boolean admin = personalizedService.isAdmin(userId);
+
+                return new QuotaResponse(
+                                admin,
+                                admin
+                                                ? null
+                                                : PersonalizedProblemService.MAX_PERSONAL_PROBLEMS);
+        }
+
         // AI 문제 생성, Docker 검증 및 DB 자동 저장
         @PostMapping("/generate")
         public PersonalizedProblemResponse generate(
@@ -79,6 +99,7 @@ public class PersonalizedProblemController {
                         HttpServletRequest request) {
 
                 Long userId = requireUser(request);
+
                 // Gemini 호출 전에 개인 문제 보관 한도 확인
                 personalizedService.checkProblemLimit(userId);
 
@@ -87,6 +108,7 @@ public class PersonalizedProblemController {
                                 : options.mode();
 
                 if (!mode.equals("AUTO") && !mode.equals("MANUAL")) {
+
                         throw new ResponseStatusException(
                                         HttpStatus.BAD_REQUEST,
                                         "올바른 생성 모드를 선택해 주세요.");
@@ -100,6 +122,7 @@ public class PersonalizedProblemController {
                 if (mode.equals("MANUAL")) {
 
                         if (options == null
+                                        || options.level() == null
                                         || !LEVELS.contains(options.level())) {
 
                                 throw new ResponseStatusException(
@@ -134,7 +157,7 @@ public class PersonalizedProblemController {
                         level = analysis.recommendedLevel();
                         category = analysis.weakCategory();
 
-                        if (!LEVELS.contains(level)) {
+                        if (level == null || !LEVELS.contains(level)) {
                                 level = "EASY";
                         }
 
@@ -152,6 +175,7 @@ public class PersonalizedProblemController {
                 List<String> previousTitles = new ArrayList<>();
 
                 for (var previous : previousProblems) {
+
                         if (previous.title() != null) {
                                 previousTitles.add(previous.title());
                         }
@@ -163,6 +187,7 @@ public class PersonalizedProblemController {
                                 category);
 
                 AIProblemGenerationService.GeneratedProblem problem = null;
+
                 AIProblemStorageService.SaveResponse saved = null;
 
                 String lastFailure = "문제 검증에 실패했습니다.";
@@ -190,6 +215,7 @@ public class PersonalizedProblemController {
                                                                 + newTitle);
 
                                 lastFailure = "기존 문제와 제목이 중복되었습니다.";
+
                                 continue;
                         }
 
@@ -286,7 +312,9 @@ public class PersonalizedProblemController {
 
                 Long userId = requireUser(request);
 
-                personalizedService.archiveProblem(userId, problemId);
+                personalizedService.archiveProblem(
+                                userId,
+                                problemId);
         }
 
         // 보관한 개인 문제 복원
@@ -298,7 +326,9 @@ public class PersonalizedProblemController {
 
                 Long userId = requireUser(request);
 
-                personalizedService.restoreProblem(userId, problemId);
+                personalizedService.restoreProblem(
+                                userId,
+                                problemId);
         }
 
         // 인증 오류
