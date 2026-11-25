@@ -528,3 +528,15 @@
         padding: 12px;
     }
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.activity-section {background:var(--surface);color:var(--text-primary);border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);min-width:0;}
+.activity-heading {color:var(--text-primary);border-color:var(--border);}
+.activity-heading h2,.activity-heading h3 {letter-spacing:-.025em;color:var(--text-primary);}
+.activity-heading p {color:var(--text-secondary);}
+.activity-summary-card, .activity-chart-card, .activity-ai-detail {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.activity-controls, .activity-mode-switch, .activity-period-navigation {gap:8px;}
+.activity-summary{gap:10px;} .activity-summary-card{padding:16px;} .activity-summary-card strong{font-variant-numeric:tabular-nums;} .activity-chart-scroll{max-width:100%;} .activity-mode-switch button,.activity-period-navigation button{border-radius:7px;} .activity-stat-note{color:var(--text-secondary);}
+.activity-section{padding:24px;border-radius:10px}.activity-heading{padding-bottom:16px;border-bottom:1px solid var(--border)}.activity-summary{gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden}.activity-summary-card{border:0;border-right:1px solid var(--border);border-radius:0;background:#f8fafd;padding:18px}.activity-summary-card:last-child{border-right:0}.activity-chart-card{padding:20px;border-radius:8px}.activity-submission-bar,.activity-dot-total{background:var(--primary)}.activity-ai-bar,.activity-dot-ai{background:#0c9b84}.activity-chart-scroll{overflow-x:auto}.activity-mode-switch{padding:4px;border-radius:7px;background:#e7ecf4}.activity-mode-switch button{border-radius:5px}
+@media(max-width:560px){.activity-section,.activity-chart-card{padding:14px}.activity-summary-card{padding:12px}}
+/* AICOACH_PRODUCT_V3_END */

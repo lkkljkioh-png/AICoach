@@ -269,3 +269,13 @@
     }
 
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.dashboard-panel {background:var(--surface);color:var(--text-primary);border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);min-width:0;}
+.dashboard-title {color:var(--text-primary);border-color:var(--border);}
+.dashboard-title h2,.dashboard-title h3 {letter-spacing:-.025em;color:var(--text-primary);}
+.dashboard-title p {color:var(--text-secondary);}
+.dashboard-stat, .dashboard-chart, .dashboard-language {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.dashboard-summary{gap:12px;} .dashboard-stat strong{font-variant-numeric:tabular-nums;} .dashboard-description,.dashboard-legend{color:var(--text-secondary);}
+.dashboard-container,.dashboard-panel{border-radius:10px}.dashboard-summary{gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden}.dashboard-stat{background:#f8fafd;border:0;border-right:1px solid var(--border);border-radius:0;padding:18px}.dashboard-stat:last-child{border:0}.dashboard-bar-total,.dashboard-legend-total{background:#9db5ff}.dashboard-bar-accepted,.dashboard-legend-accepted{background:#147a50}.dashboard-language{background:white;border-radius:6px}.dashboard-progress>div{background:var(--primary)}
+/* AICOACH_PRODUCT_V3_END */

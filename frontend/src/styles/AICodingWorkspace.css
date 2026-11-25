@@ -136,3 +136,15 @@
         flex: 1;
     }
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.ai-workspace {background:var(--surface);color:var(--text-primary);border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);min-width:0;}
+.ai-workspace-heading {color:var(--text-primary);border-color:var(--border);}
+.ai-workspace-heading h2,.ai-workspace-heading h3 {letter-spacing:-.025em;color:var(--text-primary);}
+.ai-workspace-heading p {color:var(--text-secondary);}
+.ai-workspace-section, .ai-workspace-review {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.ai-workspace-actions {gap:8px;}
+.ai-workspace-code {border-radius:8px;overflow:auto;}
+.ai-workspace-section textarea{border-color:var(--border);border-radius:8px;} .ai-workspace-explanation,.ai-workspace-info{color:var(--text-secondary);} .ai-workspace-actions button{border-radius:8px;} .ai-workspace-error{color:var(--danger);}
+.ai-workspace{border-radius:8px;padding:16px;box-shadow:none}.ai-workspace-heading{background:#eef2ff;padding:12px 14px;border-radius:7px;margin-bottom:14px}.ai-workspace-section{padding:12px;background:#f8fafd;border:1px solid var(--border)}.ai-workspace-section textarea{min-height:100px;width:100%;background:white}.ai-workspace-actions button{min-height:36px;padding:8px 12px;border-radius:6px}.ai-workspace-code{background:#111c30;color:#e2e8f0;padding:14px}.ai-workspace-review{background:#fff;padding:14px}.ai-workspace-info{font-size:12px}
+/* AICOACH_PRODUCT_V3_END */

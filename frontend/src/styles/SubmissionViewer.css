@@ -158,3 +158,15 @@
         margin: 0 14px 16px;
     }
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.submission-modal {background:var(--surface);color:var(--text-primary);border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);min-width:0;}
+.submission-modal-header {color:var(--text-primary);border-color:var(--border);}
+.submission-modal-header h2,.submission-modal-header h3 {letter-spacing:-.025em;color:var(--text-primary);}
+.submission-modal-header p {color:var(--text-secondary);}
+.submission-modal-meta {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.submission-modal-actions {gap:8px;}
+.submission-code {border-radius:8px;overflow:auto;}
+.submission-overlay{background:#17203380;backdrop-filter:blur(2px);} .submission-modal{max-width:min(900px,calc(100vw - 28px));box-shadow:0 20px 60px #17203333;} .submission-copy,.submission-retry{border-radius:8px;} .submission-close{border-radius:6px;}
+.submission-overlay{background:#111c30a6;z-index:1000}.submission-modal{max-height:90vh;overflow:auto;border-radius:12px}.submission-modal-header{background:#f0f3f8;padding:16px 20px}.submission-modal-meta{padding:14px 20px}.submission-code{background:#111c30;color:#dce6f8;padding:16px}.submission-modal-actions{padding:14px 20px;background:#f8fafd}.submission-retry{background:var(--primary);color:white;border-radius:6px}
+/* AICOACH_PRODUCT_V3_END */

@@ -1,50 +1,11 @@
-:root {
-  font-family:
-    "Pretendard",
-    "Noto Sans KR",
-    "Segoe UI",
-    sans-serif;
+:root{font-family:Pretendard,Inter,"Noto Sans KR","Segoe UI","Malgun Gothic",sans-serif;color:#172335;background:#f5f7fa;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;--primary:#2854e6;--primary-hover:#2045c2;--primary-light:#edf1ff;--text-primary:#172335;--text-secondary:#536176;--text-muted:#738197;--background:#f5f7fa;--surface:#fff;--border:#dfe5ed;--success:#147a50;--warning:#a35d0b;--danger:#b92d3f;--radius-sm:5px;--radius-md:8px;--radius-lg:12px;--header-height:64px;--ac-sidebar:232px;--ac-rail:72px;--ac-shadow:0 2px 6px #17233506;--ac-focus:#2854e6}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;scroll-padding-top:80px}body{min-width:320px;line-height:1.55;font-size:14px}#root{width:100%;min-height:100vh}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed}img{max-width:100%}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--ac-focus);outline-offset:3px}::selection{background:#dce6ff;color:#203b90}.ui-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:9px 15px;border:1px solid var(--border);border-radius:8px;background:white;color:var(--text-primary);font-weight:600}.ui-button-primary{background:var(--primary);color:white;border-color:var(--primary)}.ui-button-primary:hover:not(:disabled){background:var(--primary-hover)}.ui-input{width:100%;min-height:42px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text-primary)}.ui-panel{background:#fff;border:1px solid var(--border);border-radius:12px}.ui-tag{display:inline-flex;padding:4px 8px;background:var(--primary-light);color:var(--primary);border-radius:5px;font-size:12px}
+@media(min-width:1001px){#root>.ac-app-header:not(.ac-compact)~main{margin-left:var(--ac-sidebar);width:calc(100% - var(--ac-sidebar));min-height:100vh}#root>.ac-app-header.ac-compact~main{margin-left:var(--ac-rail);width:calc(100% - var(--ac-rail));min-height:100vh}#root>.ac-app-header~main.admin-problems{max-width:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-  color: #102448;
-  background: #ffffff;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  background: #ffffff;
-}
-
-#root {
-  width: 100%;
-  min-height: 100vh;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font: inherit;
-  cursor: pointer;
-}
-
-img {
-  max-width: 100%;
-}
+/* Product design tokens and layout */
+:root{--primary:#2556d8;--primary-hover:#1945bd;--primary-light:#edf3ff;--text-primary:#18253a;--text-secondary:#53647c;--text-muted:#65758b;--background:#f4f6f9;--border:#dce3ec;--ac-sidebar:224px;--ac-rail:76px;--ac-shadow:0 1px 2px #18253a08;--radius-md:8px;--radius-lg:12px;--ac-focus:#2556d8;--ac-page-pad:clamp(24px,3vw,40px);--ac-sidebar-bg:#142238}
+body{background:var(--background);font-size:14px;line-height:1.6}#root{min-width:0}button,input,select,textarea{max-width:100%}button:disabled{opacity:.62}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ac-focus);outline-offset:2px}img{vertical-align:middle}
+@media(min-width:1001px){#root:has(>.ac-app-header:not(.ac-compact))>main{margin:0 0 0 var(--ac-sidebar);width:calc(100% - var(--ac-sidebar));max-width:none;min-width:0;min-height:100dvh}#root:has(>.ac-app-header.ac-compact)>main{margin:0 0 0 var(--ac-rail);width:calc(100% - var(--ac-rail));max-width:none;min-width:0;min-height:100dvh}}
+@media(max-width:1000px){#root:has(>.ac-app-header)>main{margin:0;width:100%;max-width:none;min-width:0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important}}

@@ -888,3 +888,217 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.solve-page {min-height:calc(100vh - var(--header-height));padding:24px 24px 60px;background:#eef2f7;color:var(--text-primary);}
+.solve-container {max-width:1680px;margin:auto;}
+.solve-back {margin-bottom:12px;color:var(--text-secondary);font-size:13px;}
+.solve-heading {margin-bottom:18px;}
+.solve-heading h1 {font-size:clamp(24px,2.4vw,32px);margin:6px 0 10px;letter-spacing:-.035em;}
+.solve-eyebrow {font-size:10px;color:var(--primary);letter-spacing:.09em;}
+.solve-tags span {padding:4px 8px;background:#fff;border:1px solid var(--border);color:var(--text-secondary);border-radius:6px;}
+.solve-learning-mode {padding:16px;margin-bottom:14px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:none;}
+.solve-learning-mode-header {margin-bottom:12px;}
+.solve-learning-mode-header h2 {font-size:15px;}
+.solve-learning-mode-header p,.solve-mode-content p,.solve-mode-description {color:var(--text-secondary);font-size:12px;}
+.solve-learning-mode-options {gap:10px;}
+.solve-mode-card {padding:12px;border:1px solid var(--border);border-radius:8px;background:white;box-shadow:none;}
+.solve-mode-card.active {border-color:var(--primary);background:var(--primary-light);box-shadow:none;}
+.solve-mode-card:hover {transform:none;}
+.solve-mode-icon {background:#edf3ff;color:var(--primary);border-radius:8px;}
+.solve-mode-content strong {font-size:14px;}
+.solve-layout {grid-template-columns:minmax(0,.76fr) minmax(0,1.24fr);gap:14px;align-items:start;}
+.solve-right-column {min-width:0;gap:14px;}
+.solve-card {border:1px solid var(--border);border-radius:10px;background:#fff;box-shadow:none;}
+.solve-card-header,.solve-editor-header {padding:13px 16px;border-color:var(--border);gap:10px;flex-wrap:wrap;}
+.solve-card h2 {font-size:15px;}
+.solve-card-body {padding:18px;}
+.solve-description {color:var(--text-primary);font-size:14px;line-height:1.85;margin-bottom:20px;overflow-wrap:anywhere;}
+.solve-card-body h3 {margin:18px 0 8px;}
+.solve-example {padding:12px;background:#f6f8fb;border:1px solid var(--border);border-radius:8px;}
+.solve-hint {background:var(--primary-light);color:#25457f;border-radius:8px;}
+.solve-editor-header select {border-color:var(--border);border-radius:7px;padding:7px 10px;}
+.solve-code-area {padding:0;background:#1e1e1e;}
+.solve-editor-footer {padding:12px 16px;flex-wrap:wrap;}
+.solve-action-buttons {display:flex;flex-wrap:wrap;gap:8px;}
+.solve-editor-footer button {padding:9px 13px;border-radius:7px;font-size:13px;}
+.solve-reset {background:#fff;border:1px solid var(--border);color:var(--text-secondary);}
+.solve-run {background:var(--primary-light);border:1px solid #c9d9fa;color:var(--primary);}
+.solve-submit {background:var(--primary);border:1px solid var(--primary);color:#fff;}
+.solve-submit:hover {background:var(--primary-hover);}
+.solve-result-panel,.solve-judge-panel {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.solve-result-header {border-color:var(--border);}
+.solve-message {background:var(--primary-light);color:#25457f;border-radius:8px;}
+@media(max-width:1000px){.solve-layout{grid-template-columns:1fr;}.solve-page{padding:20px 16px 50px;}}
+@media(max-width:600px){.solve-page{padding:16px 10px 44px;}.solve-card-body{padding:14px;}.solve-learning-mode{padding:12px;}.solve-learning-mode-options{grid-template-columns:1fr;}.solve-editor-header,.solve-editor-footer{padding:12px;}.solve-code-area{padding:0;}}
+/* Compact IDE layout */
+.solve-page{background:#edf1f6;padding:18px 20px 48px}.solve-container{max-width:none}.solve-back{margin-bottom:10px}.solve-heading{margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}.solve-heading h1{font-size:25px;letter-spacing:-.035em;margin:5px 0 8px}.solve-tags span{border:1px solid #d6deea;background:#fff}.solve-learning-mode{display:grid;grid-template-columns:180px minmax(0,1fr);align-items:center;gap:10px;padding:10px 14px;background:#fff;margin-bottom:12px;border-radius:8px}.solve-learning-mode-header{margin:0}.solve-learning-mode-header h2{font-size:13px}.solve-learning-mode-header p{font-size:11px;line-height:1.5}.solve-learning-mode-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.solve-mode-card{padding:9px 11px;min-height:62px;gap:9px;border-radius:6px}.solve-mode-card.active{background:var(--primary-light);border-color:var(--primary)}.solve-mode-icon{width:32px;height:32px;flex-shrink:0;border-radius:6px}.solve-mode-icon svg{width:17px;height:17px}.solve-mode-content strong{font-size:13px}.solve-mode-content p{font-size:11px;line-height:1.45}.solve-mode-description{grid-column:1/-1;margin:0;padding:4px 0 0;border:0;background:transparent;font-size:11px}.solve-layout{display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr);gap:10px;align-items:start}.solve-card{border-radius:8px;border:1px solid #ccd6e4;box-shadow:none}.solve-layout>.solve-card{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}.solve-card-header,.solve-editor-header{background:#f1f4f8;padding:11px 14px;border-color:#d8e0eb}.solve-card h2{font-size:14px}.solve-card-body{padding:18px}.solve-description{font-size:14px;line-height:1.85}.solve-example{background:#f2f5f9;border-radius:6px;padding:12px}.solve-right-column{gap:10px;min-width:0}.solve-code-area{padding:0;background:#1e1e1e}.solve-editor-footer{background:#f8fafd;padding:11px 14px;border-top:1px solid var(--border)}.solve-editor-footer button{min-height:36px;padding:8px 13px;border-radius:6px}.solve-submit{background:#147a50;border-color:#147a50}.solve-submit:hover{background:#106441}.solve-run{background:#fff;border:1px solid #c4cedd;color:#172335}.solve-run:hover:not(:disabled){background:#e6edf7}.solve-result-panel,.solve-judge-panel{border-radius:7px;margin:12px 14px}.solve-result-header{background:#f2f5f9}.solve-result-output{overflow:auto}.solve-judge-status.accepted{color:#147a50}.solve-judge-progress>div{background:#147a50}
+@media(max-width:1000px){.solve-layout{grid-template-columns:1fr}.solve-layout>.solve-card{position:static;max-height:none;overflow:visible}.solve-page{padding:16px 14px 40px}.solve-learning-mode{grid-template-columns:1fr}}@media(max-width:560px){.solve-learning-mode-options{grid-template-columns:1fr}.solve-card-body{padding:14px}.solve-editor-header{flex-wrap:wrap}.solve-editor-footer{flex-wrap:wrap}}
+
+.solve-page{background:var(--background);padding:22px 24px 48px}.solve-heading{gap:12px;flex-wrap:wrap}.solve-heading h1{font-size:clamp(24px,2.4vw,30px);line-height:1.3}.solve-learning-mode{grid-template-columns:160px minmax(0,1fr);padding:14px 16px;border-radius:10px}.solve-mode-card{min-width:0;min-height:66px}.solve-mode-card.active{background:var(--primary-light);border-color:var(--primary)}.solve-layout{grid-template-columns:minmax(250px,.82fr) minmax(0,1.18fr);gap:14px}.solve-card{border-color:var(--border);border-radius:10px}.solve-card-header,.solve-editor-header{background:#f8fafc;border-color:var(--border);min-height:50px}.solve-layout>.solve-card{top:16px;max-height:calc(100dvh - 32px);scrollbar-width:thin}.solve-right-column,.solve-code-area{min-width:0}.solve-editor-footer{background:white;gap:10px}.solve-editor-footer button{min-height:40px}.solve-result-output{max-width:100%;overflow:auto}.solve-example{white-space:pre-wrap;overflow-wrap:anywhere}.solve-mode-description{color:var(--text-secondary)}
+@media(max-width:1100px){.solve-layout{grid-template-columns:1fr}.solve-layout>.solve-card{position:static;max-height:none;overflow:visible}.solve-learning-mode{grid-template-columns:1fr}}
+@media(max-width:600px){.solve-page{padding:16px 12px 40px}.solve-learning-mode{padding:12px}.solve-learning-mode-options{grid-template-columns:1fr}.solve-editor-footer{align-items:stretch}.solve-action-buttons{flex-wrap:wrap}.solve-editor-footer button{min-height:42px}}
+/* AICOACH_PRODUCT_V3_END */
+
+/* AICOACH_STUDIO_POLISH_V1_BEGIN */
+.solve-page {
+  padding: clamp(18px, 2.6vw, 28px) clamp(14px, 2.8vw, 26px) 64px;
+  background: #eef2f7;
+}
+
+.solve-container {
+  max-width: 1560px;
+}
+
+.solve-back {
+  margin-bottom: 16px;
+}
+
+.solve-heading {
+  margin-bottom: 20px;
+}
+
+.solve-heading h1 {
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.18;
+  margin: 8px 0 12px;
+}
+
+.solve-tags {
+  gap: 10px;
+}
+
+.solve-tags span {
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 999px;
+}
+
+.solve-learning-mode {
+  padding: 18px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.solve-learning-mode-options {
+  gap: 12px;
+}
+
+.solve-mode-card {
+  padding: 14px;
+  border-radius: 14px;
+}
+
+.solve-layout {
+  gap: 18px;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+}
+
+.solve-right-column {
+  gap: 18px;
+}
+
+.solve-card {
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.045);
+}
+
+.solve-card-header,
+.solve-editor-header {
+  padding: 18px 20px;
+}
+
+.solve-card h2 {
+  font-size: 17px;
+}
+
+.solve-card-body {
+  padding: 20px;
+}
+
+.solve-description {
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.solve-example {
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.solve-code-area {
+  border-radius: 0;
+}
+
+.solve-code-area textarea {
+  min-height: 460px;
+  padding: 20px;
+}
+
+.solve-editor-footer {
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px 18px;
+}
+
+.solve-action-buttons {
+  gap: 10px;
+}
+
+.solve-editor-footer button,
+.solve-reset,
+.solve-run,
+.solve-submit {
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.solve-message {
+  margin: 0 20px 20px;
+  padding: 14px 16px;
+  border-radius: 12px;
+}
+
+.solve-result-panel {
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 980px) {
+  .solve-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .solve-page {
+    padding: 18px 12px 44px;
+  }
+
+  .solve-learning-mode,
+  .solve-card-body,
+  .solve-card-header,
+  .solve-editor-header,
+  .solve-editor-footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .solve-code-area textarea {
+    min-height: 360px;
+    padding: 16px;
+  }
+
+  .solve-action-buttons,
+  .solve-editor-footer {
+    width: 100%;
+  }
+
+  .solve-action-buttons button,
+  .solve-editor-footer button {
+    width: 100%;
+  }
+}
+/* AICOACH_STUDIO_POLISH_V1_END */

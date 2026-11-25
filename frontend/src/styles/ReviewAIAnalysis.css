@@ -140,3 +140,14 @@
         padding: 16px;
     }
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.review-ai-modal {background:var(--surface);color:var(--text-primary);border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);min-width:0;}
+.review-ai-header {color:var(--text-primary);border-color:var(--border);}
+.review-ai-header h2,.review-ai-header h3 {letter-spacing:-.025em;color:var(--text-primary);}
+.review-ai-header p {color:var(--text-secondary);}
+.review-ai-info {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.review-ai-code {border-radius:8px;overflow:auto;}
+.review-ai-overlay{background:#17203380;backdrop-filter:blur(2px);} .review-ai-modal{max-width:min(900px,calc(100vw - 28px));box-shadow:0 20px 60px #17203333;} .review-ai-retry{border-radius:8px;} .review-ai-notice{color:var(--text-secondary);}
+.review-ai-overlay{background:#111c30a6;z-index:1000}.review-ai-modal{border-radius:12px;max-height:90vh;overflow:auto}.review-ai-header{background:#f0f3f8;padding:16px 20px}.review-ai-body{padding:20px}.review-ai-code{background:#111c30;color:#dce6f8;padding:14px}.review-ai-info{background:#eef2ff;padding:14px}.review-ai-retry{background:var(--primary);color:white;border-radius:6px}
+/* AICOACH_PRODUCT_V3_END */

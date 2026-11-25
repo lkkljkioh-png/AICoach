@@ -275,3 +275,13 @@
         align-self: flex-start;
     }
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.independent-practice {background:var(--surface);color:var(--text-primary);border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);min-width:0;}
+.independent-heading {color:var(--text-primary);border-color:var(--border);}
+.independent-heading h2,.independent-heading h3 {letter-spacing:-.025em;color:var(--text-primary);}
+.independent-heading p {color:var(--text-secondary);}
+.independent-summary-card, .independent-list-panel, .independent-card {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.independent-start{background:var(--primary);color:white;border-radius:8px;} .independent-note,.independent-history{color:var(--text-secondary);}
+.independent-practice{padding:24px;border-radius:10px}.independent-heading{padding-bottom:16px;border-bottom:1px solid var(--border)}.independent-summary-card{background:#eef2ff;padding:16px}.independent-list{gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden}.independent-card{border:0;border-bottom:1px solid var(--border);border-radius:0;padding:16px}.independent-card:last-child{border-bottom:0}.independent-start{border-radius:6px}
+/* AICOACH_PRODUCT_V3_END */

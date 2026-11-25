@@ -205,3 +205,13 @@
         width: 100%;
     }
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.ai-coach-panel {background:var(--surface);color:var(--text-primary);border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);min-width:0;}
+.ai-coach-header {color:var(--text-primary);border-color:var(--border);}
+.ai-coach-header h2,.ai-coach-header h3 {letter-spacing:-.025em;color:var(--text-primary);}
+.ai-coach-header p {color:var(--text-secondary);}
+.ai-coach-result, .ai-coach-intro {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.ai-coach-button{background:var(--primary);color:white;border-radius:8px;} .ai-coach-markdown{line-height:1.8;} .ai-coach-model{color:var(--text-secondary);}
+.ai-coach-panel{padding:24px;border-radius:10px}.ai-coach-header{padding-bottom:16px;border-bottom:1px solid var(--border)}.ai-coach-intro{background:#eef2ff;padding:18px}.ai-coach-result{background:#fff;border:1px solid var(--border);padding:20px}.ai-coach-markdown pre{background:#111c30;color:#dce6f8;border-radius:7px;padding:14px;overflow:auto}.ai-coach-button{min-height:40px;border-radius:6px}.ai-coach-notice{font-size:12px;color:var(--text-secondary)}
+/* AICOACH_PRODUCT_V3_END */

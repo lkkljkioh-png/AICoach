@@ -147,3 +147,13 @@
         padding: 20px;
     }
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.mode-comparison {background:var(--surface);color:var(--text-primary);border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);min-width:0;}
+.mode-comparison-heading {color:var(--text-primary);border-color:var(--border);}
+.mode-comparison-heading h2,.mode-comparison-heading h3 {letter-spacing:-.025em;color:var(--text-primary);}
+.mode-comparison-heading p {color:var(--text-secondary);}
+.mode-comparison-card {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.mode-comparison-grid{gap:12px;} .mode-comparison-primary{font-variant-numeric:tabular-nums;} .mode-comparison-note{color:var(--text-secondary);}
+.mode-comparison{padding:24px;border-radius:10px}.mode-comparison-heading{padding-bottom:16px;border-bottom:1px solid var(--border)}.mode-comparison-card{padding:18px;background:#f8fafd;border-radius:8px}.mode-comparison-card.direct{border-top:3px solid var(--primary)}.mode-comparison-card.ai{border-top:3px solid #0c9b84}.mode-comparison-primary{font-size:28px}.mode-comparison-note{padding:12px;background:#eef2ff;border-radius:6px}
+/* AICOACH_PRODUCT_V3_END */

@@ -242,3 +242,29 @@
         font-size: 25px;
     }
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.auth-page {min-height:calc(100vh - var(--header-height));padding:56px 20px 70px;background:linear-gradient(180deg,#fff 0%,#f6f8fb 72%);color:var(--text-primary);font-family:inherit;}
+.auth-container {max-width:440px;}
+.auth-intro {margin-bottom:24px;}
+.auth-eyebrow {color:var(--primary);font-size:11px;letter-spacing:.1em;}
+.auth-intro h1 {font-size:30px;letter-spacing:-.04em;color:var(--text-primary);}
+.auth-intro p,.auth-card-heading p,.auth-footer-text {color:var(--text-secondary);}
+.auth-card {padding:30px;border:1px solid var(--border);border-radius:12px;box-shadow:0 5px 24px #17203308;}
+.auth-card-heading {margin-bottom:22px;}
+.auth-card-heading h2 {font-size:21px;color:var(--text-primary);}
+.auth-field {margin-bottom:16px;}
+.auth-input-wrapper {border-color:var(--border);border-radius:8px;min-height:46px;}
+.auth-input-wrapper input {height:44px;}
+.auth-input-wrapper:focus-within {border-color:var(--primary);box-shadow:0 0 0 3px #2457d614;}
+.auth-input-wrapper input:focus-visible {outline:none;}
+.auth-submit {background:var(--primary);border-radius:8px;min-height:44px;}
+.auth-submit:hover:not(:disabled) {background:var(--primary-hover);}
+.auth-bottom {border-color:var(--border);margin-top:22px;padding-top:18px;}
+.auth-bottom a {color:var(--primary);}
+@media(max-width:600px){.auth-page{padding:36px 16px 50px;}.auth-card{padding:22px;}}
+.auth-page{min-height:calc(100vh - 72px);display:grid;place-items:center;padding:48px 32px;background:#f4f6fa}.auth-container{max-width:1040px;width:100%;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);grid-template-rows:1fr auto;background:white;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 15px 45px #1723350c}.auth-intro{grid-row:1/3;display:flex;flex-direction:column;justify-content:center;text-align:left;background:radial-gradient(ellipse at top right,#2d4580,transparent 65%),#14223d;color:#fff;padding:44px;margin:0;min-height:420px}.auth-eyebrow{color:#a9bcff;font-size:11px}.auth-intro h1{font-size:clamp(28px,3vw,40px);color:#fff;line-height:1.3;word-break:keep-all}.auth-intro p{color:#c0cce2;line-height:1.8}.auth-card{border:0;border-radius:0;box-shadow:none;padding:44px 48px;background:white}.auth-card-heading h2{font-size:25px;color:#172335}.auth-input-wrapper{min-height:45px;border-radius:7px}.auth-input-wrapper input{height:43px}.auth-submit{min-height:46px;border-radius:7px;background:var(--primary)}.auth-submit:hover:not(:disabled){background:var(--primary-hover)}.auth-footer-text{grid-column:2;padding:0 24px 24px;margin:0;color:#536176}.auth-bottom{margin-top:20px;padding-top:18px}
+@media(max-width:760px){.auth-page{padding:24px 16px}.auth-container{display:block;max-width:480px}.auth-intro{min-height:0;padding:26px}.auth-intro h1{font-size:27px}.auth-card{padding:28px 24px}.auth-footer-text{padding:0 20px 20px}}
+
+.auth-page{background:var(--background)}.auth-container{border-radius:12px;box-shadow:0 8px 24px #18253a0a}.auth-intro{background:#142238}.auth-intro p{color:#d2dced}.auth-submit{background:var(--primary)}.auth-submit:hover:not(:disabled){background:var(--primary-hover)}.auth-card{min-width:0}.auth-input-wrapper{border-color:var(--border)}
+/* AICOACH_PRODUCT_V3_END */

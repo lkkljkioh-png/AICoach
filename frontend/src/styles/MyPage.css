@@ -402,3 +402,154 @@
         font-size: 21px;
     }
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.my-page {min-height:calc(100vh - var(--header-height));background:var(--background);color:var(--text-primary);padding:36px 32px 72px;}
+.my-container {max-width:1440px;}
+.my-heading {margin-bottom:20px;}
+.my-eyebrow {font-size:11px;letter-spacing:.08em;color:var(--primary);}
+.my-heading h1 {font-size:32px;letter-spacing:-.04em;}
+.my-heading p {color:var(--text-secondary);font-size:14px;}
+.my-tab-nav {background:transparent;border:0;border-bottom:1px solid var(--border);border-radius:0;padding:0;gap:6px;margin-bottom:22px;box-shadow:none;}
+.my-tab-button {border:0;border-radius:8px 8px 0 0;background:transparent;color:var(--text-secondary);padding:12px 16px;font-weight:600;}
+.my-tab-button.active {background:var(--primary-light);color:var(--primary);box-shadow:inset 0 -2px var(--primary);}
+.my-tab-button:hover {background:#edf1f6;}
+.my-section-heading h2 {font-size:22px;letter-spacing:-.03em;}
+.my-stat-grid {gap:12px;margin-bottom:18px;}
+.my-stat-card,.my-panel,.my-empty {background:white;border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);}
+.my-stat-card {padding:18px;gap:8px;}
+.my-stat-icon {width:36px;height:36px;border-radius:8px;background:var(--primary-light);color:var(--primary);}
+.my-stat-card>span,.my-panel-title p,.my-stat-note {color:var(--text-secondary);}
+.my-stat-card strong {font-size:30px;letter-spacing:-.04em;font-variant-numeric:tabular-nums;}
+.my-content-grid {grid-template-columns:minmax(0,2.4fr) minmax(240px,1fr);gap:14px;}
+.my-panel {padding:18px;}
+.my-panel-title {margin-bottom:16px;}
+.my-panel-title h2 {font-size:16px;color:var(--text-primary);}
+.my-table th {background:#f6f8fb;border-color:var(--border);color:var(--text-secondary);padding:10px 8px;}
+.my-table td {padding:12px 8px;border-color:var(--border);color:var(--text-primary);}
+.my-table td a {color:var(--primary);}
+.my-table tr:hover td {background:#fafbfd;}
+.my-code-view-btn {border:1px solid var(--border);border-radius:6px;box-shadow:none;}
+.my-primary-link,.my-empty button {background:var(--primary);border-radius:8px;}
+@media(max-width:960px){.my-content-grid{grid-template-columns:1fr;}}
+@media(max-width:600px){.my-page{padding:24px 14px 50px;}.my-stat-card,.my-panel{padding:14px;}.my-stat-card strong{font-size:25px;}.my-tab-nav{flex-wrap:wrap;}.my-tab-button{padding:10px;}}
+.my-page{padding:38px 38px 72px;background:var(--background);min-height:100vh}.my-container{max-width:1500px}.my-heading{padding-bottom:22px;border-bottom:1px solid var(--border);margin-bottom:18px}.my-heading h1{font-size:36px;letter-spacing:-.045em}.my-tab-nav{padding:5px;background:#e7ecf4;border:1px solid #dbe2ec;border-radius:9px;display:flex;gap:4px;width:fit-content;max-width:100%}.my-tab-button{padding:10px 22px;border-radius:6px;box-shadow:none;background:transparent;color:#536176}.my-tab-button.active{background:white;color:var(--primary);box-shadow:0 2px 6px #17233512}.my-stat-grid{gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#fff}.my-stat-card{border:0;border-right:1px solid var(--border);border-radius:0;padding:22px;box-shadow:none}.my-stat-card:last-child{border-right:0}.my-stat-icon{background:var(--primary-light);color:var(--primary);border-radius:6px}.my-stat-card strong{font-size:32px;font-weight:750}.my-content-grid{gap:16px}.my-panel{border-radius:10px;padding:20px}.my-table th{background:#eef2f7}.my-table td{padding:14px 10px}.my-table tbody tr:nth-child(even){background:#fafbfd}.my-progress>div{background:var(--primary)}.my-panel-title h2{font-size:17px}.my-primary-link{background:var(--primary)}
+@media(max-width:1000px){.my-page{padding:25px 20px 50px}.my-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.my-stat-card{border-bottom:1px solid var(--border)}.my-stat-card:nth-child(even){border-right:0}}@media(max-width:560px){.my-page{padding:20px 14px 44px}.my-stat-card{padding:14px}.my-stat-card strong{font-size:26px}.my-heading h1{font-size:28px}}
+
+.my-page{padding:var(--ac-page-pad) var(--ac-page-pad) 64px;background:var(--background)}.my-container{max-width:1360px;margin:auto}.my-heading h1{font-size:clamp(27px,2.7vw,34px);line-height:1.25}.my-tab-nav{border-color:var(--border);background:#e9eef5}.my-tab-button.active{color:var(--primary);background:white}.my-stat-grid{gap:12px;border:0;overflow:visible;background:transparent}.my-stat-card,.my-stat-card:last-child{border:1px solid var(--border);border-radius:10px;background:white;box-shadow:none;min-width:0;padding:18px}.my-stat-icon{color:var(--primary);background:var(--primary-light)}.my-stat-card strong{font-size:30px;font-variant-numeric:tabular-nums}.my-panel{min-width:0;box-shadow:none}.my-table{max-width:100%}.my-table th{background:#f8fafc}.my-primary-link{background:var(--primary)}.my-progress>div{background:var(--primary)}
+@media(max-width:1200px){.my-content-grid{grid-template-columns:1fr}.my-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.my-page{padding:22px 14px 48px}.my-stat-card,.my-stat-card:last-child{padding:12px}.my-stat-card strong{font-size:24px}.my-tab-button{padding:9px 12px}.my-panel{overflow-x:auto;padding:14px}}
+/* AICOACH_PRODUCT_V3_END */
+
+/* AICOACH_STUDIO_POLISH_V1_BEGIN */
+.my-page {
+  padding: clamp(24px, 3vw, 40px) clamp(18px, 3vw, 40px) 72px;
+}
+
+.my-container {
+  max-width: 1360px;
+}
+
+.my-heading {
+  margin-bottom: 24px;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.my-heading h1 {
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.18;
+}
+
+.my-heading p {
+  margin-top: 8px;
+  max-width: 740px;
+  line-height: 1.7;
+}
+
+.my-tab-nav {
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.my-tab-button {
+  min-height: 42px;
+  border-radius: 12px;
+  padding: 0 16px;
+}
+
+.my-tab-button.active {
+  box-shadow: none;
+}
+
+.my-stat-grid {
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.my-stat-card {
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04);
+}
+
+.my-stat-card strong {
+  line-height: 1.05;
+}
+
+.my-content-grid {
+  gap: 18px;
+}
+
+.my-panel,
+.my-empty {
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04);
+}
+
+.my-panel-title {
+  margin-bottom: 18px;
+}
+
+.my-panel-title h2 {
+  font-size: 18px;
+}
+
+.my-table th,
+.my-table td {
+  padding: 14px 12px;
+}
+
+.my-primary-link,
+.my-empty button,
+.my-code-view-btn {
+  min-height: 42px;
+  padding: 0 14px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .my-page {
+    padding: 22px 14px 50px;
+  }
+
+  .my-panel,
+  .my-empty,
+  .my-stat-card {
+    padding: 16px;
+  }
+
+  .my-tab-nav {
+    flex-wrap: wrap;
+  }
+
+  .my-tab-button {
+    flex: 1 1 calc(50% - 4px);
+  }
+}
+/* AICOACH_STUDIO_POLISH_V1_END */

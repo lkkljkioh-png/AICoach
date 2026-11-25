@@ -258,3 +258,13 @@
         align-self: flex-start;
     }
 }
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.ai-progress-section {background:var(--surface);color:var(--text-primary);border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);min-width:0;}
+.ai-progress-heading {color:var(--text-primary);border-color:var(--border);}
+.ai-progress-heading h2,.ai-progress-heading h3 {letter-spacing:-.025em;color:var(--text-primary);}
+.ai-progress-heading p {color:var(--text-secondary);}
+.ai-progress-stat, .ai-progress-panel, .ai-progress-item {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.ai-progress-stats{gap:12px;} .ai-progress-link{color:var(--primary);} .ai-progress-meta,.ai-progress-note{color:var(--text-secondary);}
+.ai-progress-section{padding:24px;border-radius:10px}.ai-progress-heading{padding-bottom:16px;border-bottom:1px solid var(--border)}.ai-progress-stats{gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden}.ai-progress-stat{border:0;border-right:1px solid var(--border);border-radius:0;background:#f8fafd;padding:16px}.ai-progress-stat:last-child{border-right:0}.ai-progress-list{gap:0}.ai-progress-item{border:0;border-bottom:1px solid var(--border);border-radius:0;padding:14px}.ai-progress-item:last-child{border-bottom:0}
+/* AICOACH_PRODUCT_V3_END */
