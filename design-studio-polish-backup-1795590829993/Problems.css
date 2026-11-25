@@ -1,0 +1,634 @@
+/* ========================================
+   AICOACH PROBLEMS PAGE
+======================================== */
+
+.problems-page {
+    min-height: calc(100vh - 80px);
+    padding: 64px 24px 100px;
+    background: #f8faff;
+    color: #142b50;
+}
+
+.problems-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* PAGE HEADING */
+
+.problems-eyebrow {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+}
+
+.problems-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 13px 0 32px;
+}
+
+.problems-heading h1 {
+    margin-bottom: 12px;
+    font-size: clamp(30px, 3vw, 42px);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.055em;
+}
+
+.problems-heading p {
+    color: #718096;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.problems-stat {
+    flex-shrink: 0;
+    padding: 17px 24px;
+    background: #ffffff;
+    border: 1px solid #e3eaf3;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.problems-stat strong {
+    display: block;
+    color: #2563eb;
+    font-size: 25px;
+}
+
+.problems-stat span {
+    color: #718096;
+    font-size: 12px;
+}
+
+/* SEARCH AND FILTER */
+
+.problems-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.problems-search {
+    flex: 1 1 270px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    min-height: 48px;
+    padding: 0 16px;
+
+    background: #ffffff;
+    border: 1px solid #dfe7f1;
+    border-radius: 11px;
+    color: #8897ad;
+}
+
+.problems-search:focus-within {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px #2563eb12;
+}
+
+.problems-search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #172c56;
+    font: inherit;
+    font-size: 14px;
+}
+
+.problems-select {
+    min-width: 145px;
+    min-height: 48px;
+    padding: 0 14px;
+
+    background: #ffffff;
+    color: #203654;
+    border: 1px solid #dfe7f1;
+    border-radius: 11px;
+
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* PROBLEMS LIST */
+
+.problems-panel {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e3eaf3;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px #142b5009;
+}
+
+.problems-panel-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    padding: 22px 26px;
+    border-bottom: 1px solid #ecf0f6;
+}
+
+.problems-panel-title h2 {
+    font-size: 17px;
+    letter-spacing: -0.03em;
+}
+
+.problems-panel-title span {
+    color: #8492a8;
+    font-size: 12px;
+}
+
+.problem-item {
+    border-bottom: 1px solid #edf1f6;
+}
+
+.problem-item:last-child {
+    border-bottom: 0;
+}
+
+.problem-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 26px;
+}
+
+.problem-index {
+    min-width: 25px;
+    color: #9eacc0;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.problem-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.problem-content h3 {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 750;
+    letter-spacing: -0.03em;
+}
+
+.problem-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    color: #8695aa;
+    font-size: 12px;
+}
+
+.problem-tags span:not(:last-child)::after {
+    content: "·";
+    margin-left: 8px;
+    color: #bbc5d3;
+}
+
+/* DIFFICULTY BADGES */
+
+.problem-level {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 50px;
+    padding: 6px 9px;
+
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.problem-level.입문 {
+    background: #eaf6ee;
+    color: #21844a;
+}
+
+.problem-level.초급 {
+    background: #eaf1ff;
+    color: #2563eb;
+}
+
+.problem-level.중급 {
+    background: #fff5df;
+    color: #b36a0a;
+}
+
+.problem-level.고급 {
+    background: #ffe9eb;
+    color: #c44050;
+}
+
+/* PREVIEW BUTTON */
+
+.problem-preview-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    min-width: 105px;
+    padding: 10px 13px;
+
+    color: #2563eb;
+    background: #f2f6ff;
+    border: 1px solid #dce9ff;
+    border-radius: 9px;
+
+    font-size: 12px;
+    font-weight: 750;
+    white-space: nowrap;
+    transition: background 0.18s ease;
+}
+
+.problem-preview-btn:hover {
+    background: #e7f0ff;
+}
+
+.problem-preview-btn[aria-expanded="true"] {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+}
+
+/* EXPANDED PROBLEM */
+
+.problem-details {
+    padding: 22px 26px 24px 70px;
+    background: #fbfcff;
+    border-top: 1px solid #edf1f6;
+}
+
+.problem-details h4 {
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.problem-details p {
+    margin-bottom: 18px;
+    color: #596c86;
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+.problem-example {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.problem-example>div {
+    min-width: 0;
+}
+
+.problem-example small {
+    display: block;
+    margin-bottom: 7px;
+    color: #78899f;
+}
+
+.problem-example pre {
+    padding: 14px;
+    overflow-x: auto;
+
+    background: #14233b;
+    color: #dbeafe;
+    border-radius: 9px;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.problem-hint {
+    color: #607fae;
+    font-size: 12px;
+}
+
+/* EMPTY STATE */
+
+.problems-empty {
+    padding: 68px 24px;
+    color: #718096;
+    text-align: center;
+}
+
+.problems-empty svg {
+    margin: 0 auto;
+}
+
+.problems-empty h3 {
+    margin: 12px 0 8px;
+    color: #203654;
+    font-size: 17px;
+}
+
+.problems-empty p {
+    font-size: 13px;
+}
+
+.problems-note {
+    margin-top: 18px;
+    color: #8b99ac;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+    .problems-page {
+        padding: 40px 18px 75px;
+    }
+
+    .problems-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .problems-stat {
+        display: none;
+    }
+
+    .problems-select {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .problems-panel-title {
+        padding: 18px;
+    }
+
+    .problem-row {
+        flex-wrap: wrap;
+        gap: 11px;
+        padding: 18px 15px;
+    }
+
+    .problem-index {
+        min-width: 18px;
+    }
+
+    .problem-content {
+        flex-basis: calc(100% - 90px);
+    }
+
+    .problem-preview-btn {
+        margin-left: 29px;
+    }
+
+    .problem-details {
+        padding: 20px 17px;
+    }
+
+    .problem-example {
+        grid-template-columns: 1fr;
+    }
+}
+
+.problem-solve-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 22px;
+    padding: 12px 20px;
+    background: #2563eb;
+    border-radius: 9px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.2s ease;
+}
+
+.problem-solve-link:hover {
+    background: #1d4ed8;
+}
+
+/* 문제 제목 클릭 시 풀이 페이지 이동 */
+
+.problem-title-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.problem-title-link:hover {
+    color: #2563eb;
+}
+
+
+/* ========================================
+   AICOACH PROBLEMS - FILTER UPDATE
+======================================== */
+
+/* 검색 결과 및 정렬 영역 */
+.problems-filter-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.problems-filter-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.problems-filter-info strong {
+    color: #2563eb;
+    font-weight: 800;
+}
+
+.problems-reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.problems-reset-btn:hover {
+    color: #2563eb;
+    background: #edf4ff;
+}
+
+/* 정렬 선택 */
+.problems-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 12px;
+    border: 1px solid #dfe7f1;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #64748b;
+}
+
+.problems-sort select {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #203654;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* 실제 DB 난이도 */
+.problem-level.EASY {
+    background: #eaf6ee;
+    color: #21844a;
+}
+
+.problem-level.MEDIUM {
+    background: #fff5df;
+    color: #b36a0a;
+}
+
+.problem-level.HARD {
+    background: #ffe9eb;
+    color: #c44050;
+}
+
+/* 검색 결과 없음 - 초기화 버튼 */
+.problems-empty-reset {
+    margin-top: 18px;
+    padding: 10px 18px;
+    border: 1px solid #dce9ff;
+    border-radius: 9px;
+    background: #f2f6ff;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.problems-empty-reset:hover {
+    background: #e7f0ff;
+}
+
+/* 키보드 접근성 */
+.problem-title-link:focus-visible,
+.problems-reset-btn:focus-visible,
+.problems-empty-reset:focus-visible,
+.problem-preview-btn:focus-visible,
+.problems-sort select:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+}
+
+/* 반응형 */
+@media (max-width: 700px) {
+    .problems-filter-bottom {
+        align-items: stretch;
+    }
+
+    .problems-filter-info {
+        flex: 1 1 100%;
+        justify-content: space-between;
+    }
+
+    .problems-sort {
+        width: 100%;
+    }
+
+    .problems-sort select {
+        flex: 1;
+    }
+}
+
+.problem-personal-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #eef4ff;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.problems-page {min-height:calc(100vh - var(--header-height));padding:36px 32px 70px;background:var(--background);color:var(--text-primary);}
+.problems-container {max-width:1440px;margin:auto;}
+.problems-eyebrow {color:var(--primary);font-size:11px;letter-spacing:.08em;}
+.problems-heading {margin:8px 0 24px;align-items:center;}
+.problems-heading h1 {font-size:32px;letter-spacing:-.04em;font-weight:750;margin-bottom:6px;}
+.problems-heading p {color:var(--text-secondary);font-size:14px;}
+.problems-stat,.problems-panel,.problems-progress {background:white;border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);}
+.problems-stat {padding:12px 20px;}
+.problems-stat strong {font-size:26px;color:var(--text-primary);}
+.problems-stat span,.problems-panel-title span {color:var(--text-secondary);}
+.problems-toolbar {gap:8px;margin-bottom:14px;}
+.problems-search,.problems-select,.problems-sort {background:white;border:1px solid var(--border);border-radius:8px;min-height:42px;}
+.problems-search {padding:0 12px;flex:1 1 220px;}
+.problems-select {min-width:120px;padding:0 10px;}
+.problems-search input,.problems-select,.problems-sort select {color:var(--text-primary);}
+.problems-filter-bottom {margin-bottom:12px;}
+.problems-panel-title {padding:16px 20px;border-color:var(--border);}
+.problems-panel-title h2 {font-size:15px;}
+.problem-row {padding:16px 20px;gap:16px;}
+.problem-item {border-color:var(--border);}
+.problem-item:hover {background:#fafbfd;}
+.problem-index,.problem-tags {color:var(--text-secondary);}
+.problem-content h3 {font-size:15px;letter-spacing:-.02em;margin-bottom:5px;}
+.problem-title-link:hover {color:var(--primary);}
+.problem-preview-btn,.problems-empty-reset {border:1px solid var(--border);background:white;color:var(--text-primary);border-radius:8px;padding:8px 12px;}
+.problem-preview-btn:hover,.problems-empty-reset:hover {background:var(--primary-light);color:var(--primary);}
+.problem-preview-btn[aria-expanded="true"],.problem-solve-link {background:var(--primary);color:white;border-color:var(--primary);}
+.problem-details {background:#f8fafc;border-color:var(--border);padding:20px 24px 22px 62px;}
+.problem-example pre {background:#172033;color:#e2e8f0;border-radius:8px;}
+.problem-details p,.problem-hint,.problems-note {color:var(--text-secondary);}
+.problem-personal-badge {background:var(--primary-light);color:var(--primary);}
+.problems-progress {padding:20px;margin-bottom:20px;}
+.problems-progress-heading {display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;}
+.problems-progress-heading h2 {font-size:16px;}
+.problems-progress-heading p {font-size:13px;color:var(--text-secondary);}
+.problems-progress-heading>strong {font-size:28px;color:var(--primary);}
+.problems-progress-track {height:8px;background:#e4eaf2;border-radius:20px;overflow:hidden;}
+.problems-progress-fill {height:100%;background:var(--primary);border-radius:20px;transition:width .25s;}
+.problems-progress-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px;}
+.progress-item {display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px;border-radius:8px;background:var(--background);font-size:13px;}
+.progress-item strong {margin-left:auto;font-size:17px;}
+.progress-item.solved,.problem-solve-status.SOLVED {color:#13794b;background:#eaf7ef;}
+.progress-item.attempted,.problem-solve-status.ATTEMPTED {color:#a6530b;background:#fff4e4;}
+.progress-item.unsolved,.problem-solve-status.UNSOLVED {color:#526176;background:#edf1f5;}
+.problem-solve-status {display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:6px;font-size:12px;font-weight:650;white-space:nowrap;}
+.problems-status-notice {margin-bottom:14px;color:var(--warning);}
+@media(max-width:700px){.problems-page{padding:24px 14px 50px;}.problems-heading{align-items:flex-start;}.problems-select{min-width:0;flex:1 1 110px;}.problem-row{gap:10px;padding:14px;}.problem-details{padding:16px;}.problems-progress{padding:14px;}.progress-item{flex-direction:column;align-items:center;text-align:center;padding:9px 4px;}.progress-item strong{margin-left:0;}.problem-preview-btn{margin-left:0;}}
+/* Product workspace layout */
+.problems-page{background:var(--background);padding:38px 38px 72px;min-height:100vh}.problems-container{max-width:1500px}.problems-eyebrow{display:block;color:var(--primary);font-size:11px;letter-spacing:.12em}.problems-heading{align-items:center;margin:10px 0 24px;padding-bottom:24px;border-bottom:1px solid var(--border)}.problems-heading h1{font-size:clamp(26px,3vw,38px);font-weight:750}.problems-stat{background:#14223d;color:white;border:0;min-width:150px;border-radius:9px}.problems-stat strong,.problems-stat span{color:white}.problems-stat span{opacity:.8}.problems-toolbar{background:white;border:1px solid var(--border);padding:12px;border-radius:10px;gap:9px}.problems-search,.problems-select{min-height:40px;border-radius:6px}.problems-panel{border-radius:10px;box-shadow:none}.problems-panel-title{background:#f0f3f8;padding:15px 22px}.problem-row{padding:17px 22px;gap:18px;min-height:76px}.problem-item:nth-child(even){background:#fafbfd}.problem-row:hover{background:#edf2ff}.problem-content h3{font-size:15px;margin-bottom:5px}.problem-index{font-variant-numeric:tabular-nums;font-weight:500}.problem-level{border-radius:5px}.problem-preview-btn{background:white;color:var(--text-secondary);border:1px solid var(--border)}.problem-preview-btn:hover{background:var(--primary-light);color:var(--primary)}.problem-details{border-top:1px solid var(--border);background:#f8fafd}.problem-solve-link{background:var(--primary);color:white;border-radius:7px}.problems-progress{border:1px solid var(--border);border-radius:10px;background:white;padding:20px;margin-bottom:22px}.problems-progress-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.progress-item{border:1px solid var(--border);border-radius:7px;padding:12px;display:flex;align-items:center;gap:8px}.progress-item strong{margin-left:auto}.progress-item.solved{color:var(--success)}.progress-item.attempted{color:var(--warning)}.progress-item.unsolved{color:var(--text-secondary)}
+@media(max-width:700px){.problems-page{padding:24px 14px 50px}.problems-heading{align-items:flex-start}.problems-stat{min-width:100px}.problem-row{gap:10px;padding:14px}.problems-progress-grid{grid-template-columns:1fr}}
+
+.problems-page{padding:var(--ac-page-pad) var(--ac-page-pad) 64px;background:var(--background)}.problems-container{max-width:1360px}.problems-heading{gap:20px;margin:8px 0 24px;padding-bottom:22px;flex-wrap:wrap}.problems-heading h1{font-size:clamp(27px,2.7vw,34px);font-weight:750;line-height:1.25}.problems-eyebrow{color:var(--primary);font-size:11px}.problems-stat{background:#fff;color:var(--text-primary);border:1px solid var(--border);min-width:142px;padding:12px 18px;box-shadow:none}.problems-stat strong{color:var(--text-primary);font-variant-numeric:tabular-nums}.problems-stat span{color:var(--text-secondary);opacity:1}.problems-toolbar{display:flex;flex-wrap:wrap;align-items:center;padding:10px;gap:8px;background:white;border:1px solid var(--border);border-radius:10px}.problems-search{min-width:0;flex:2 1 260px}.problems-select{min-width:0;flex:1 1 112px;max-width:180px}.problems-search,.problems-select,.problems-sort{min-height:42px;border-color:var(--border);border-radius:7px}.problems-panel-title{background:#f8fafc;padding:14px 20px}.problem-row{padding:16px 20px;min-height:68px;gap:14px}.problem-content{overflow-wrap:anywhere}.problem-preview-btn{min-width:92px}.problem-level.EASY{background:#e9f5ed;color:#17663d}.problem-level.MEDIUM{background:#fff2dc;color:#94560a}.problem-level.HARD{background:#fce9ec;color:#a52b42}.problem-title-link{color:var(--text-primary)}.problem-solve-link{background:var(--primary);color:#fff}.problems-status-notice{color:#94560a}.problems-filter-bottom{flex-wrap:wrap;gap:10px}.problem-example pre{max-width:100%;overflow:auto}.problems-note{line-height:1.7}
+@media(max-width:700px){.problems-page{padding:22px 14px 48px}.problems-stat{min-width:110px}.problems-select{max-width:none;flex:1 1 120px}.problems-search{flex-basis:100%}.problem-row{flex-wrap:wrap;gap:9px;padding:14px}.problem-content{flex:1 1 65%}.problem-preview-btn{min-width:0}.problem-details{padding:14px}.problem-example{grid-template-columns:1fr}.problems-panel-title{padding:12px 14px}}
+/* AICOACH_PRODUCT_V3_END */

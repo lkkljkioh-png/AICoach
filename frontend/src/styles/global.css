@@ -9,3 +9,18 @@ body{background:var(--background);font-size:14px;line-height:1.6}#root{min-width
 @media(min-width:1001px){#root:has(>.ac-app-header:not(.ac-compact))>main{margin:0 0 0 var(--ac-sidebar);width:calc(100% - var(--ac-sidebar));max-width:none;min-width:0;min-height:100dvh}#root:has(>.ac-app-header.ac-compact)>main{margin:0 0 0 var(--ac-rail);width:calc(100% - var(--ac-rail));max-width:none;min-width:0;min-height:100dvh}}
 @media(max-width:1000px){#root:has(>.ac-app-header)>main{margin:0;width:100%;max-width:none;min-width:0}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* AICO_FINISH_BEGIN */
+:root {
+  --primary: #6255d9;
+  --primary-hover: #5144c4;
+  --primary-light: #efedff;
+  --ac-focus: #6255d9;
+  --background: #f0eff5;
+  --border: #dedce8;
+  --text-primary: #25243a;
+  --text-secondary: #56566d;
+  --text-muted: #6c6b81;
+  --ac-sidebar-bg: #151722;
+}
+/* AICO_FINISH_END */

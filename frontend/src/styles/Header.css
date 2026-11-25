@@ -1046,3 +1046,13 @@
         height: auto;
     }
 }
+
+/* AICO_FINISH_BEGIN */
+.ac-app-header .ac-side-top { background: #151722; }
+.ac-public-header .ac-brand img, .ac-app-header .ac-side-top .ac-brand img { filter: none !important; background: transparent !important; }
+.ac-app-header .ac-community-caption { margin-top: 8px; }
+.ac-app-header .ac-nav-caption { padding-top: 10px; }
+.ac-app-header .ac-side-nav { gap: 4px; }
+.ac-app-header .ac-avatar { background: #312c4e; color: #c8bfff; }
+@media(min-width:1001px){.ac-app-header:not(.ac-compact) .ac-side-top{height:76px}.ac-app-header:not(.ac-compact) .ac-side-nav a{min-height:42px}}
+/* AICO_FINISH_END */

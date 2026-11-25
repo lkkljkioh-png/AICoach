@@ -1,0 +1,941 @@
+.solve-page {
+    min-height: 100vh;
+    background: #f8faff;
+    padding: 42px 24px 90px;
+    color: #142b50;
+}
+
+.solve-container {
+    max-width: 1320px;
+    margin: 0 auto;
+}
+
+.solve-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 32px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.solve-back:hover {
+    color: #2563eb;
+}
+
+.solve-heading {
+    margin-bottom: 30px;
+}
+
+.solve-eyebrow {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.solve-heading h1 {
+    margin: 10px 0 16px;
+    font-size: clamp(27px, 3vw, 36px);
+    letter-spacing: -0.045em;
+}
+
+.solve-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.solve-tags span {
+    padding: 7px 11px;
+    background: #eaf1ff;
+    color: #416491;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.solve-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.solve-card {
+    min-width: 0;
+    overflow: hidden;
+    background: white;
+    border: 1px solid #e3eaf3;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(20, 43, 80, 0.04);
+}
+
+.solve-card-header,
+.solve-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #edf1f6;
+}
+
+.solve-card h2 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 750;
+}
+
+.solve-card-body {
+    padding: 25px;
+}
+
+.solve-description {
+    color: #475569;
+    font-size: 15px;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    margin-bottom: 30px;
+}
+
+.solve-card-body h3 {
+    margin: 25px 0 12px;
+    font-size: 14px;
+}
+
+.solve-example {
+    margin: 0;
+    padding: 17px;
+    background: #f3f6fb;
+    border: 1px solid #e8edf5;
+    border-radius: 10px;
+    color: #334155;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+.solve-hint-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 25px;
+    border: 0;
+    background: transparent;
+    color: #2563eb;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.solve-hint {
+    margin-top: 14px;
+    padding: 17px;
+    background: #eff6ff;
+    border-radius: 10px;
+    color: #42648f;
+    line-height: 1.7;
+    font-size: 13px;
+}
+
+.solve-editor-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.solve-editor-title svg {
+    color: #2563eb;
+}
+
+.solve-editor-header select {
+    padding: 9px 13px;
+    border: 1px solid #dce5f1;
+    border-radius: 8px;
+    background: #fff;
+    color: #243b5a;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.solve-code-area {
+    padding: 16px;
+    background: #101b30;
+}
+
+.solve-code-area textarea {
+    width: 100%;
+    min-height: 430px;
+    padding: 16px;
+    resize: vertical;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #e2e8f0;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    tab-size: 4;
+    box-sizing: border-box;
+}
+
+.solve-editor-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 22px;
+}
+
+.solve-editor-footer button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 19px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.solve-reset {
+    border: 1px solid #e0e7f0;
+    background: #fff;
+    color: #64748b;
+}
+
+.solve-submit {
+    border: 1px solid #2563eb;
+    background: #2563eb;
+    color: white;
+}
+
+.solve-submit:hover {
+    background: #1d4ed8;
+}
+
+.solve-message {
+    margin: 0 22px 20px;
+    padding: 14px 16px;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #315b96;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.solve-not-found {
+    padding: 100px 24px;
+    text-align: center;
+}
+
+.solve-not-found a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #2563eb;
+}
+
+@media (max-width: 900px) {
+    .solve-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .solve-page {
+        padding: 28px 15px 60px;
+    }
+
+    .solve-card-body {
+        padding: 19px;
+    }
+
+    .solve-editor-header {
+        padding: 16px;
+    }
+
+    .solve-code-area {
+        padding: 12px;
+        background: #1e1e1e;
+        overflow: hidden;
+    }
+}
+
+
+/* 실행 및 제출 버튼 */
+
+.solve-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.solve-run {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+}
+
+.solve-run:hover {
+    background: #f1f5f9;
+}
+
+.solve-run:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 실행 결과 패널 */
+
+.solve-result-panel {
+    border-top: 1px solid #e3eaf3;
+}
+
+.solve-result-header {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 16px 22px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e3eaf3;
+}
+
+.solve-result-header h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.solve-result-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #94a3b8;
+}
+
+.solve-result-body {
+    min-height: 110px;
+    padding: 18px 22px;
+    background: #ffffff;
+}
+
+.solve-result-output {
+    margin: 0;
+    font-family: Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.solve-result-output.error {
+    color: #dc2626;
+}
+
+.solve-result-output.info {
+    color: #64748b;
+}
+
+.solve-result-output.success {
+    color: #16a34a;
+}
+
+.solve-result-placeholder {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .solve-action-buttons {
+        gap: 7px;
+    }
+
+    .solve-editor-footer button {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================
+   AICOACH - EXECUTION RESULT REDESIGN
+========================================= */
+
+.solve-result-panel {
+    margin: 0 20px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.035);
+}
+
+/* 결과 제목 영역 */
+.solve-result-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.solve-result-header h3 {
+    margin: 0;
+    color: #1e293b;
+    font-family: "Pretendard", "Noto Sans KR",
+        "Malgun Gothic", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.solve-result-dot {
+    width: 8px;
+    height: 8px;
+    background: #3b82f6;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px #dbeafe;
+}
+
+/* 코드 실행 출력 */
+.solve-result-body {
+    min-height: 100px;
+    padding: 20px;
+    background: #111827;
+}
+
+.solve-result-output {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+
+    font-family: "Cascadia Code",
+        "Consolas",
+        "D2Coding",
+        monospace;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.85;
+    letter-spacing: 0;
+
+    color: #f1f5f9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    tab-size: 4;
+}
+
+/* 상태별 색상 */
+.solve-result-output.success {
+    color: #86efac;
+}
+
+.solve-result-output.error {
+    color: #fda4af;
+}
+
+.solve-result-output.info {
+    color: #cbd5e1;
+}
+
+.solve-result-placeholder {
+    margin: 0;
+    color: #94a3b8;
+    font-family: "Pretendard", "Malgun Gothic",
+        sans-serif;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* 채점 결과 안내 */
+.solve-message {
+    margin: 0 20px 20px;
+    padding: 18px 20px;
+
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-left: 4px solid #3b82f6;
+    border-radius: 10px;
+
+    font-family: "Pretendard", "Noto Sans KR",
+        "Malgun Gothic", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.85;
+    letter-spacing: -0.3px;
+
+    color: #1e40af;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* 실행 버튼 */
+.solve-run,
+.solve-submit,
+.solve-reset {
+    font-family: "Pretendard", "Noto Sans KR",
+        "Malgun Gothic", sans-serif;
+    letter-spacing: -0.2px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+
+    .solve-result-panel,
+    .solve-message {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .solve-result-body {
+        padding: 16px;
+    }
+
+    .solve-result-output {
+        font-size: 13px;
+    }
+}
+
+
+/* ==================================
+   AICOACH JUDGE RESULT
+================================== */
+
+.solve-judge-panel {
+    margin: 0 20px 20px;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.solve-judge-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.solve-judge-status {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+}
+
+.solve-judge-status.accepted {
+    color: #16a34a;
+}
+
+.solve-judge-status.rejected {
+    color: #dc2626;
+}
+
+.solve-judge-count {
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.solve-judge-progress {
+    height: 9px;
+    overflow: hidden;
+    background: #e2e8f0;
+    border-radius: 100px;
+}
+
+.solve-judge-progress>div {
+    height: 100%;
+    background: #22c55e;
+    border-radius: inherit;
+    transition: width 0.25s ease;
+}
+
+.solve-judge-description {
+    margin: 18px 0 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.solve-editor-footer button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .solve-judge-panel {
+        margin: 0 12px 16px;
+        padding: 16px;
+    }
+}
+
+/* ==================================
+   AI LEARNING EXTENSION
+================================== */
+
+.solve-ai-learning-panel {
+    margin: 20px;
+    padding: 22px;
+    background: #f8fbff;
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+}
+
+.solve-ai-learning-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #2563eb;
+}
+
+.solve-ai-learning-heading>svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.solve-ai-learning-heading h3 {
+    margin: 0 0 8px;
+    color: #142b50;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.solve-ai-learning-heading p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.solve-ai-learning-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.solve-ai-learning-features span {
+    padding: 7px 11px;
+    border-radius: 7px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.solve-ai-learning-notice {
+    margin: 17px 0 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+@media (max-width: 700px) {
+    .solve-ai-learning-panel {
+        margin: 12px;
+        padding: 16px;
+    }
+}
+
+
+/* ==========================================
+   AICOACH LEARNING MODE SELECTOR
+========================================== */
+
+.solve-learning-mode {
+    margin-bottom: 28px;
+    padding: 26px;
+    background: #ffffff;
+    border: 1px solid #e3eaf3;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(20, 43, 80, 0.04);
+}
+
+.solve-learning-mode-header h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #142b50;
+}
+
+.solve-learning-mode-header p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #64748b;
+}
+
+.solve-learning-mode-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 22px;
+}
+
+/* 학습 모드 카드 */
+
+.solve-mode-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    padding: 22px;
+    text-align: left;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    color: #142b50;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.solve-mode-card:hover {
+    border-color: #93c5fd;
+    background: #f8fbff;
+    transform: translateY(-2px);
+}
+
+/* 선택된 모드 */
+
+.solve-mode-card.active {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.solve-mode-card:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+/* 아이콘 */
+
+.solve-mode-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    color: #2563eb;
+    background: #eff6ff;
+    border-radius: 12px;
+}
+
+.solve-mode-card.active .solve-mode-icon {
+    background: #dbeafe;
+}
+
+/* 카드 텍스트 */
+
+.solve-mode-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.solve-mode-content strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #142b50;
+}
+
+.solve-mode-content p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #64748b;
+}
+
+/* 선택 체크 아이콘 */
+
+.solve-mode-card>svg {
+    flex-shrink: 0;
+    color: #2563eb;
+}
+
+/* 현재 모드 설명 */
+
+.solve-mode-description {
+    margin-top: 18px;
+    padding: 14px 17px;
+    background: #f1f5f9;
+    border-radius: 9px;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   AI LEARNING EXTENSION PANEL
+========================================== */
+
+.solve-ai-learning-panel {
+    margin: 20px;
+    padding: 22px;
+    background: #f8fbff;
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+}
+
+.solve-ai-learning-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #2563eb;
+}
+
+.solve-ai-learning-heading>svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.solve-ai-learning-heading h3 {
+    margin: 0 0 8px;
+    color: #142b50;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.solve-ai-learning-heading p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.solve-ai-learning-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.solve-ai-learning-features span {
+    padding: 7px 11px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.solve-ai-learning-notice {
+    margin: 17px 0 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 700px) {
+    .solve-learning-mode {
+        padding: 18px;
+    }
+
+    .solve-learning-mode-options {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .solve-mode-card {
+        padding: 16px;
+    }
+
+    .solve-mode-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .solve-ai-learning-panel {
+        margin: 12px;
+        padding: 16px;
+    }
+}
+
+.solve-right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+.solve-right-column>.solve-card {
+    width: 100%;
+}
+
+.solve-right-column .ai-workspace {
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* AICOACH_PRODUCT_V3_BEGIN */
+.solve-page {min-height:calc(100vh - var(--header-height));padding:24px 24px 60px;background:#eef2f7;color:var(--text-primary);}
+.solve-container {max-width:1680px;margin:auto;}
+.solve-back {margin-bottom:12px;color:var(--text-secondary);font-size:13px;}
+.solve-heading {margin-bottom:18px;}
+.solve-heading h1 {font-size:clamp(24px,2.4vw,32px);margin:6px 0 10px;letter-spacing:-.035em;}
+.solve-eyebrow {font-size:10px;color:var(--primary);letter-spacing:.09em;}
+.solve-tags span {padding:4px 8px;background:#fff;border:1px solid var(--border);color:var(--text-secondary);border-radius:6px;}
+.solve-learning-mode {padding:16px;margin-bottom:14px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:none;}
+.solve-learning-mode-header {margin-bottom:12px;}
+.solve-learning-mode-header h2 {font-size:15px;}
+.solve-learning-mode-header p,.solve-mode-content p,.solve-mode-description {color:var(--text-secondary);font-size:12px;}
+.solve-learning-mode-options {gap:10px;}
+.solve-mode-card {padding:12px;border:1px solid var(--border);border-radius:8px;background:white;box-shadow:none;}
+.solve-mode-card.active {border-color:var(--primary);background:var(--primary-light);box-shadow:none;}
+.solve-mode-card:hover {transform:none;}
+.solve-mode-icon {background:#edf3ff;color:var(--primary);border-radius:8px;}
+.solve-mode-content strong {font-size:14px;}
+.solve-layout {grid-template-columns:minmax(0,.76fr) minmax(0,1.24fr);gap:14px;align-items:start;}
+.solve-right-column {min-width:0;gap:14px;}
+.solve-card {border:1px solid var(--border);border-radius:10px;background:#fff;box-shadow:none;}
+.solve-card-header,.solve-editor-header {padding:13px 16px;border-color:var(--border);gap:10px;flex-wrap:wrap;}
+.solve-card h2 {font-size:15px;}
+.solve-card-body {padding:18px;}
+.solve-description {color:var(--text-primary);font-size:14px;line-height:1.85;margin-bottom:20px;overflow-wrap:anywhere;}
+.solve-card-body h3 {margin:18px 0 8px;}
+.solve-example {padding:12px;background:#f6f8fb;border:1px solid var(--border);border-radius:8px;}
+.solve-hint {background:var(--primary-light);color:#25457f;border-radius:8px;}
+.solve-editor-header select {border-color:var(--border);border-radius:7px;padding:7px 10px;}
+.solve-code-area {padding:0;background:#1e1e1e;}
+.solve-editor-footer {padding:12px 16px;flex-wrap:wrap;}
+.solve-action-buttons {display:flex;flex-wrap:wrap;gap:8px;}
+.solve-editor-footer button {padding:9px 13px;border-radius:7px;font-size:13px;}
+.solve-reset {background:#fff;border:1px solid var(--border);color:var(--text-secondary);}
+.solve-run {background:var(--primary-light);border:1px solid #c9d9fa;color:var(--primary);}
+.solve-submit {background:var(--primary);border:1px solid var(--primary);color:#fff;}
+.solve-submit:hover {background:var(--primary-hover);}
+.solve-result-panel,.solve-judge-panel {border-color:var(--border);border-radius:8px;box-shadow:none;}
+.solve-result-header {border-color:var(--border);}
+.solve-message {background:var(--primary-light);color:#25457f;border-radius:8px;}
+@media(max-width:1000px){.solve-layout{grid-template-columns:1fr;}.solve-page{padding:20px 16px 50px;}}
+@media(max-width:600px){.solve-page{padding:16px 10px 44px;}.solve-card-body{padding:14px;}.solve-learning-mode{padding:12px;}.solve-learning-mode-options{grid-template-columns:1fr;}.solve-editor-header,.solve-editor-footer{padding:12px;}.solve-code-area{padding:0;}}
+/* Compact IDE layout */
+.solve-page{background:#edf1f6;padding:18px 20px 48px}.solve-container{max-width:none}.solve-back{margin-bottom:10px}.solve-heading{margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}.solve-heading h1{font-size:25px;letter-spacing:-.035em;margin:5px 0 8px}.solve-tags span{border:1px solid #d6deea;background:#fff}.solve-learning-mode{display:grid;grid-template-columns:180px minmax(0,1fr);align-items:center;gap:10px;padding:10px 14px;background:#fff;margin-bottom:12px;border-radius:8px}.solve-learning-mode-header{margin:0}.solve-learning-mode-header h2{font-size:13px}.solve-learning-mode-header p{font-size:11px;line-height:1.5}.solve-learning-mode-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.solve-mode-card{padding:9px 11px;min-height:62px;gap:9px;border-radius:6px}.solve-mode-card.active{background:var(--primary-light);border-color:var(--primary)}.solve-mode-icon{width:32px;height:32px;flex-shrink:0;border-radius:6px}.solve-mode-icon svg{width:17px;height:17px}.solve-mode-content strong{font-size:13px}.solve-mode-content p{font-size:11px;line-height:1.45}.solve-mode-description{grid-column:1/-1;margin:0;padding:4px 0 0;border:0;background:transparent;font-size:11px}.solve-layout{display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr);gap:10px;align-items:start}.solve-card{border-radius:8px;border:1px solid #ccd6e4;box-shadow:none}.solve-layout>.solve-card{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}.solve-card-header,.solve-editor-header{background:#f1f4f8;padding:11px 14px;border-color:#d8e0eb}.solve-card h2{font-size:14px}.solve-card-body{padding:18px}.solve-description{font-size:14px;line-height:1.85}.solve-example{background:#f2f5f9;border-radius:6px;padding:12px}.solve-right-column{gap:10px;min-width:0}.solve-code-area{padding:0;background:#1e1e1e}.solve-editor-footer{background:#f8fafd;padding:11px 14px;border-top:1px solid var(--border)}.solve-editor-footer button{min-height:36px;padding:8px 13px;border-radius:6px}.solve-submit{background:#147a50;border-color:#147a50}.solve-submit:hover{background:#106441}.solve-run{background:#fff;border:1px solid #c4cedd;color:#172335}.solve-run:hover:not(:disabled){background:#e6edf7}.solve-result-panel,.solve-judge-panel{border-radius:7px;margin:12px 14px}.solve-result-header{background:#f2f5f9}.solve-result-output{overflow:auto}.solve-judge-status.accepted{color:#147a50}.solve-judge-progress>div{background:#147a50}
+@media(max-width:1000px){.solve-layout{grid-template-columns:1fr}.solve-layout>.solve-card{position:static;max-height:none;overflow:visible}.solve-page{padding:16px 14px 40px}.solve-learning-mode{grid-template-columns:1fr}}@media(max-width:560px){.solve-learning-mode-options{grid-template-columns:1fr}.solve-card-body{padding:14px}.solve-editor-header{flex-wrap:wrap}.solve-editor-footer{flex-wrap:wrap}}
+
+.solve-page{background:var(--background);padding:22px 24px 48px}.solve-heading{gap:12px;flex-wrap:wrap}.solve-heading h1{font-size:clamp(24px,2.4vw,30px);line-height:1.3}.solve-learning-mode{grid-template-columns:160px minmax(0,1fr);padding:14px 16px;border-radius:10px}.solve-mode-card{min-width:0;min-height:66px}.solve-mode-card.active{background:var(--primary-light);border-color:var(--primary)}.solve-layout{grid-template-columns:minmax(250px,.82fr) minmax(0,1.18fr);gap:14px}.solve-card{border-color:var(--border);border-radius:10px}.solve-card-header,.solve-editor-header{background:#f8fafc;border-color:var(--border);min-height:50px}.solve-layout>.solve-card{top:16px;max-height:calc(100dvh - 32px);scrollbar-width:thin}.solve-right-column,.solve-code-area{min-width:0}.solve-editor-footer{background:white;gap:10px}.solve-editor-footer button{min-height:40px}.solve-result-output{max-width:100%;overflow:auto}.solve-example{white-space:pre-wrap;overflow-wrap:anywhere}.solve-mode-description{color:var(--text-secondary)}
+@media(max-width:1100px){.solve-layout{grid-template-columns:1fr}.solve-layout>.solve-card{position:static;max-height:none;overflow:visible}.solve-learning-mode{grid-template-columns:1fr}}
+@media(max-width:600px){.solve-page{padding:16px 12px 40px}.solve-learning-mode{padding:12px}.solve-learning-mode-options{grid-template-columns:1fr}.solve-editor-footer{align-items:stretch}.solve-action-buttons{flex-wrap:wrap}.solve-editor-footer button{min-height:42px}}
+/* AICOACH_PRODUCT_V3_END */

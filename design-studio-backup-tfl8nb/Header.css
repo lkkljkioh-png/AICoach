@@ -1,0 +1,947 @@
+.ac-public-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid var(--border)
+}
+
+.ac-public-inner {
+    max-width: 1520px;
+    margin: auto;
+    height: 72px;
+    padding: 0 36px;
+    display: flex;
+    align-items: center;
+    gap: 34px
+}
+
+.ac-brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0
+}
+
+.ac-brand img {
+    width: 138px;
+    height: auto;
+    display: block
+}
+
+.ac-public-nav {
+    display: flex;
+    align-items: center;
+    gap: 23px;
+    flex: 1
+}
+
+.ac-public-nav a {
+    font-size: 13px;
+    color: #536176;
+    font-weight: 600;
+    white-space: nowrap
+}
+
+.ac-public-nav a:hover {
+    color: var(--primary)
+}
+
+.ac-public-nav svg {
+    display: none
+}
+
+.ac-public-actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 12px
+}
+
+.ac-auth-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap
+}
+
+.ac-primary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--primary);
+    color: white;
+    border-radius: 7px;
+    padding: 10px 16px
+}
+
+.ac-primary-link:hover {
+    background: var(--primary-hover)
+}
+
+.ac-profile {
+    position: relative;
+    min-width: 0
+}
+
+.ac-profile-trigger {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    max-width: 100%;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    padding: 6px;
+    border-radius: 8px
+}
+
+.ac-profile-trigger:hover {
+    background: #eef2f8
+}
+
+.ac-avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #e7edff;
+    color: #2854e6
+}
+
+.ac-account-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column
+}
+
+.ac-account-copy strong {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 115px
+}
+
+.ac-account-copy small {
+    font-size: 11px;
+    color: #718096
+}
+
+.ac-profile-menu {
+    position: absolute;
+    z-index: 150;
+    right: 0;
+    top: calc(100% + 8px);
+    background: white;
+    color: var(--text-primary);
+    width: 240px;
+    max-width: calc(100vw - 24px);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px;
+    box-shadow: 0 12px 36px #10182722
+}
+
+.ac-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
+    overflow-wrap: anywhere;
+    border-bottom: 1px solid var(--border)
+}
+
+.ac-profile-info small {
+    color: var(--text-secondary)
+}
+
+.ac-profile-menu a,
+.ac-profile-menu button {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    border: 0;
+    background: white;
+    color: var(--text-primary);
+    padding: 10px 12px;
+    border-radius: 6px;
+    text-align: left
+}
+
+.ac-profile-menu a:hover,
+.ac-profile-menu button:hover {
+    background: var(--background)
+}
+
+.ac-mobile-toggle,
+.ac-mobile-nav {
+    display: none
+}
+
+.ac-app-header {
+    position: fixed;
+    z-index: 100;
+    inset: 0 auto 0 0;
+    width: var(--ac-sidebar);
+    background: #111c30;
+    color: #d0d9e9;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #26334a
+}
+
+.ac-side-top {
+    height: 84px;
+    display: flex;
+    align-items: center;
+    padding: 0 21px;
+    flex-shrink: 0
+}
+
+.ac-side-top .ac-brand {
+    background: #fff;
+    padding: 7px 10px;
+    border-radius: 8px
+}
+
+.ac-side-top .ac-brand img {
+    width: 126px
+}
+
+.ac-side-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    padding: 10px 13px 14px
+}
+
+.ac-side-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow: auto
+}
+
+.ac-nav-caption {
+    font-size: 10px;
+    letter-spacing: .12em;
+    color: #92a2bb;
+    font-weight: 700;
+    padding: 13px 12px 6px
+}
+
+.ac-community-caption {
+    margin-top: 15px
+}
+
+.ac-side-nav a,
+.ac-home-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-weight: 550;
+    color: #c1cde1;
+    white-space: nowrap
+}
+
+.ac-side-nav a svg,
+.ac-home-link svg {
+    flex-shrink: 0;
+    color: #9bacca
+}
+
+.ac-side-nav a:hover,
+.ac-home-link:hover {
+    background: #22314b;
+    color: white
+}
+
+.ac-side-nav a.is-active {
+    background: #2854e6;
+    color: #fff;
+    box-shadow: 0 3px 12px #0a122933
+}
+
+.ac-side-nav a.is-active svg {
+    color: #fff
+}
+
+.ac-side-bottom {
+    margin-top: auto;
+    padding-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.ac-side-bottom .ac-profile {
+    border-top: 1px solid #30405a;
+    padding-top: 12px
+}
+
+.ac-side-bottom .ac-profile-trigger {
+    width: 100%;
+    color: white
+}
+
+.ac-side-bottom .ac-profile-trigger:hover {
+    background: #22314b
+}
+
+.ac-side-bottom .ac-account-copy small {
+    color: #a8b7d0
+}
+
+.ac-side-bottom .ac-profile-menu {
+    top: auto;
+    bottom: calc(100% + 4px);
+    left: 0;
+    right: auto
+}
+
+.ac-side-bottom .ac-auth-links {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    border-top: 1px solid #30405a;
+    padding-top: 14px
+}
+
+.ac-compact {
+    width: var(--ac-rail)
+}
+
+.ac-compact .ac-side-top {
+    padding: 12px 7px;
+    height: 72px
+}
+
+.ac-compact .ac-side-top .ac-brand {
+    padding: 6px
+}
+
+.ac-compact .ac-side-top img {
+    width: 46px
+}
+
+.ac-compact .ac-side-content {
+    padding: 5px 8px 12px
+}
+
+.ac-compact .ac-side-nav a,
+.ac-compact .ac-home-link {
+    justify-content: center;
+    padding: 12px 0
+}
+
+.ac-compact .ac-side-nav a span,
+.ac-compact .ac-home-link span,
+.ac-compact .ac-nav-caption,
+.ac-compact .ac-account-copy,
+.ac-compact .ac-profile-chevron {
+    display: none
+}
+
+.ac-compact .ac-side-nav a:nth-of-type(5) {
+    margin-top: 12px
+}
+
+.ac-compact .ac-profile-trigger {
+    justify-content: center;
+    padding: 7px 0
+}
+
+.ac-compact .ac-primary-link {
+    padding: 8px 2px;
+    font-size: 11px
+}
+
+.ac-compact .ac-primary-link svg {
+    display: none
+}
+
+.ac-compact .ac-auth-links {
+    font-size: 11px
+}
+
+@media(max-width:1250px) {
+    .ac-public-inner {
+        gap: 20px;
+        padding: 0 24px
+    }
+
+    .ac-public-nav {
+        gap: 13px
+    }
+
+    .ac-public-nav a {
+        font-size: 12px
+    }
+
+    .ac-public-nav a:nth-child(2) {
+        display: none
+    }
+}
+
+@media(max-width:1000px) {
+    .ac-public-inner {
+        height: 64px;
+        padding: 0 18px;
+        gap: 12px
+    }
+
+    .ac-public-nav {
+        display: none
+    }
+
+    .ac-mobile-toggle {
+        display: grid;
+        place-items: center;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        padding: 8px
+    }
+
+    .ac-mobile-nav {
+        display: flex;
+        flex-direction: column;
+        padding: 8px 18px 16px;
+        gap: 4px;
+        border-top: 1px solid var(--border)
+    }
+
+    .ac-mobile-nav a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border-radius: 7px
+    }
+
+    .ac-mobile-nav a.is-active {
+        background: var(--primary-light);
+        color: var(--primary)
+    }
+
+    .ac-app-header,
+    .ac-app-header.ac-compact {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: auto;
+        inset: 0 auto auto 0
+    }
+
+    .ac-app-header .ac-side-top {
+        padding: 0 18px;
+        height: 64px;
+        justify-content: space-between
+    }
+
+    .ac-app-header .ac-side-top .ac-brand img {
+        width: 110px
+    }
+
+    .ac-app-header .ac-side-content {
+        display: none;
+        padding: 8px 16px 15px
+    }
+
+    .ac-app-header .ac-side-content.is-open {
+        display: flex
+    }
+
+    .ac-app-header .ac-side-nav a,
+    .ac-app-header .ac-home-link {
+        justify-content: flex-start;
+        padding: 10px 12px
+    }
+
+    .ac-app-header .ac-side-nav a span,
+    .ac-app-header .ac-home-link span,
+    .ac-app-header .ac-nav-caption,
+    .ac-app-header .ac-account-copy,
+    .ac-app-header .ac-profile-chevron {
+        display: revert
+    }
+
+    .ac-app-header .ac-account-copy {
+        display: flex
+    }
+
+    .ac-app-header .ac-side-bottom {
+        margin-top: 12px
+    }
+
+    .ac-app-header .ac-profile-trigger {
+        justify-content: flex-start
+    }
+
+    .ac-app-header .ac-profile-menu {
+        bottom: auto;
+        top: 100%
+    }
+
+    .ac-app-header .ac-side-bottom .ac-auth-links {
+        flex-direction: row;
+        align-items: center
+    }
+
+    .ac-compact .ac-primary-link {
+        font-size: 13px;
+        padding: 10px 16px
+    }
+}
+
+@media(max-width:420px) {
+    .ac-public-inner .ac-brand img {
+        width: 105px
+    }
+
+    .ac-public-actions .ac-account-copy,
+    .ac-public-actions .ac-profile-chevron {
+        display: none
+    }
+
+    .ac-auth-links {
+        gap: 8px
+    }
+
+    .ac-primary-link {
+        padding: 8px 10px
+    }
+
+    .ac-primary-link svg {
+        display: none
+    }
+}
+
+/* Navigation shell: original full-color artwork on an integrated light brand band. */
+.ac-app-header {
+    background: var(--ac-sidebar-bg);
+    border-right: 1px solid #23334a;
+    color: #dce5f2;
+    min-height: 0;
+    height: 100dvh
+}
+
+.ac-side-top {
+    height: 76px;
+    padding: 0 20px;
+    background: #fff;
+    border-bottom: 1px solid #dce3ec
+}
+
+.ac-side-top .ac-brand {
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    max-width: 100%;
+    height: 100%
+}
+
+.ac-brand img,
+.ac-side-top .ac-brand img,
+.product-footer img {
+    filter: none !important;
+    opacity: 1 !important;
+    mix-blend-mode: normal !important;
+    object-fit: contain;
+    object-position: center;
+    width: 142px;
+    height: 52px;
+    max-height: 52px;
+    background: transparent;
+    border: 0;
+    box-shadow: none
+}
+
+.ac-brand-fallback {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -.05em;
+    color: #18253a
+}
+
+.ac-side-content {
+    padding: 15px 12px 16px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #43536b transparent
+}
+
+.ac-side-nav {
+    overflow: visible;
+    gap: 4px
+}
+
+.ac-nav-caption {
+    font-size: 10px;
+    letter-spacing: .1em;
+    color: #a4b4ca;
+    padding: 11px 11px 5px
+}
+
+.ac-community-caption {
+    margin-top: 20px
+}
+
+.ac-side-nav a,
+.ac-home-link,
+.ac-nav-pending {
+    min-height: 43px;
+    padding: 10px 11px;
+    gap: 11px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 7px
+}
+
+.ac-side-nav a.is-active {
+    background: #294b80;
+    box-shadow: inset 3px 0 #75a5ff;
+    color: #fff
+}
+
+.ac-side-nav a.is-active svg {
+    color: #b7d1ff
+}
+
+.ac-nav-pending {
+    display: flex;
+    align-items: center;
+    color: #a4b4ca;
+    white-space: nowrap
+}
+
+.ac-nav-pending svg {
+    flex-shrink: 0
+}
+
+.ac-pending-label {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 500;
+    color: #a4b4ca
+}
+
+.ac-side-bottom {
+    padding-top: 20px;
+    gap: 8px
+}
+
+.ac-side-bottom .ac-auth-links {
+    gap: 9px
+}
+
+.ac-side-bottom .ac-auth-links>a:first-child {
+    padding: 8px;
+    border-radius: 7px
+}
+
+.ac-side-bottom .ac-auth-links>a:first-child:hover {
+    background: #22354f
+}
+
+.ac-side-bottom .ac-primary-link {
+    background: #2556d8;
+    min-height: 40px
+}
+
+.ac-side-bottom .ac-profile-menu {
+    position: static;
+    width: 100%;
+    margin-top: 7px;
+    box-shadow: none
+}
+
+.ac-compact .ac-profile-menu {
+    position: fixed;
+    left: calc(var(--ac-rail) + 6px);
+    bottom: 12px;
+    top: auto;
+    width: 232px
+}
+
+.ac-compact .ac-side-top {
+    justify-content: center;
+    padding: 0 8px;
+    height: 76px
+}
+
+.ac-compact .ac-side-top .ac-brand img {
+    width: 58px;
+    height: 48px;
+    max-width: 100%
+}
+
+.ac-compact .ac-nav-pending {
+    justify-content: center;
+    padding: 10px 0
+}
+
+.ac-compact .ac-nav-pending span {
+    display: none
+}
+
+.ac-compact .ac-side-content {
+    padding: 12px 8px
+}
+
+.ac-public-inner {
+    height: 72px;
+    gap: 26px
+}
+
+.ac-public-nav {
+    gap: 20px
+}
+
+.ac-public-nav .ac-nav-pending {
+    padding: 0;
+    min-height: 0;
+    color: #65758b;
+    gap: 4px;
+    font-size: 12px
+}
+
+.ac-public-nav .ac-pending-label {
+    color: #65758b
+}
+
+.ac-public-nav .ac-nav-pending svg {
+    display: none
+}
+
+.ac-public-nav a.is-active {
+    color: var(--primary)
+}
+
+.ac-public-header .ac-brand img {
+    width: 132px;
+    height: 48px
+}
+
+.ac-mobile-nav .ac-nav-pending {
+    color: #65758b
+}
+
+.ac-mobile-nav .ac-pending-label {
+    color: #65758b
+}
+
+@media(max-width:1250px) {
+    .ac-public-inner {
+        gap: 16px
+    }
+
+    .ac-public-nav {
+        gap: 12px
+    }
+
+    .ac-public-nav .ac-pending-label {
+        display: none
+    }
+}
+
+@media(max-width:1000px) {
+
+    .ac-app-header,
+    .ac-app-header.ac-compact {
+        height: auto;
+        min-height: 0
+    }
+
+    .ac-app-header .ac-side-top {
+        height: 64px;
+        background: #fff;
+        color: #18253a;
+        padding: 0 16px
+    }
+
+    .ac-app-header .ac-side-top .ac-brand img {
+        width: 124px;
+        height: 46px
+    }
+
+    .ac-app-header .ac-side-content {
+        max-height: calc(100dvh - 64px);
+        overflow: auto
+    }
+
+    .ac-app-header .ac-side-content.is-open {
+        display: flex
+    }
+
+    .ac-app-header .ac-side-bottom .ac-profile-menu {
+        position: static;
+        width: 100%;
+        margin-top: 8px
+    }
+
+    .ac-app-header .ac-nav-pending {
+        justify-content: flex-start;
+        padding: 10px 11px
+    }
+
+    .ac-app-header .ac-nav-pending span {
+        display: revert
+    }
+
+    .ac-app-header .ac-side-nav a:nth-of-type(5) {
+        margin-top: 0
+    }
+
+    .ac-mobile-nav {
+        max-height: calc(100dvh - 64px);
+        overflow: auto
+    }
+}
+
+@media(max-width:420px) {
+    .ac-public-header .ac-brand img {
+        width: 104px
+    }
+
+    .ac-public-inner {
+        padding: 0 12px;
+        gap: 8px
+    }
+
+    .ac-public-actions {
+        gap: 4px
+    }
+
+    .ac-public-actions .ac-auth-links {
+        gap: 7px;
+        font-size: 12px
+    }
+
+    .ac-public-actions .ac-primary-link {
+        padding: 8px
+    }
+
+    .ac-mobile-toggle {
+        padding: 6px
+    }
+}
+
+/* 상단 메뉴바 디자인 */
+.ac-public-header {
+    background: #142238;
+    color: #e2e8f0;
+    border-bottom: 1px solid #293b54;
+    box-shadow: none;
+}
+
+/* 로고 배경 제거 */
+.ac-public-header .ac-brand,
+.ac-side-top .ac-brand {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+.ac-brand img {
+    background: transparent !important;
+    filter: none !important;
+    opacity: 1 !important;
+    mix-blend-mode: normal !important;
+}
+
+/* 사이드바 상단 흰색 영역 제거 */
+.ac-side-top {
+    background: transparent;
+    border-bottom: 1px solid #293b54;
+}
+
+.ac-brand-fallback {
+    color: #ffffff;
+}
+
+/* 상단 메뉴 글자 */
+.ac-public-nav a {
+    color: #b9c6d9;
+    font-weight: 600;
+    transition: color 0.18s ease;
+}
+
+.ac-public-nav a:hover,
+.ac-public-nav a.is-active {
+    color: #ffffff;
+}
+
+.ac-public-nav .ac-nav-pending,
+.ac-public-nav .ac-pending-label {
+    color: #94a3b8;
+}
+
+/* 로그인 및 회원가입 */
+.ac-public-actions .ac-auth-links>a:first-child {
+    color: #dce5f2;
+}
+
+.ac-public-actions .ac-primary-link {
+    background: #2556d8;
+    color: #ffffff;
+}
+
+.ac-public-actions .ac-primary-link:hover {
+    background: #3465e8;
+}
+
+/* 사용자 프로필 */
+.ac-public-actions .ac-profile-trigger {
+    color: #e2e8f0;
+}
+
+.ac-public-actions .ac-profile-trigger:hover {
+    background: #24354d;
+}
+
+.ac-public-actions .ac-account-copy small {
+    color: #94a3b8;
+}
+
+/* 모바일 메뉴 */
+.ac-public-header .ac-mobile-nav {
+    background: #142238;
+    border-top: 1px solid #293b54;
+    color: #dce5f2;
+}
+
+.ac-public-header .ac-mobile-nav a.is-active {
+    background: #294b80;
+    color: #ffffff;
+}
+
+.ac-public-header .ac-mobile-nav .ac-nav-pending,
+.ac-public-header .ac-mobile-nav .ac-pending-label {
+    color: #94a3b8;
+}
+
+.ac-mobile-toggle {
+    color: #e2e8f0;
+}
+
+@media (max-width: 1000px) {
+    .ac-app-header .ac-side-top {
+        background: #142238;
+        color: #e2e8f0;
+    }
+}
