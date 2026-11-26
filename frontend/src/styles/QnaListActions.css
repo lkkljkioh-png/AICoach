@@ -1,0 +1,354 @@
+.qla-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--border, #e5eaf3);
+    min-width: 0;
+}
+
+.qla-row:last-child {
+    border-bottom: 0;
+}
+
+.qla-row:hover {
+    background: #f8faff;
+}
+
+.qla-row>.qna-item,
+.qla-row>.my-qna-item {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+}
+
+.qla-row>.qna-item:hover,
+.qla-row>.my-qna-item:hover {
+    background: transparent;
+}
+
+.qla-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 7px;
+    padding-right: 16px;
+}
+
+.qla-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 34px;
+    padding: 7px 11px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.15s ease;
+}
+
+.qla-edit {
+    border: 1px solid #dbe3ee;
+    background: #ffffff;
+    color: #475569;
+}
+
+.qla-edit:hover {
+    background: #eef4ff;
+    border-color: #b9ccef;
+    color: var(--primary, #2563eb);
+}
+
+.qla-delete {
+    border: 1px solid #f3d1d1;
+    background: #ffffff;
+    color: #dc2626;
+}
+
+.qla-delete:hover {
+    background: #fef2f2;
+    border-color: #fca5a5;
+}
+
+.qla-actions button:disabled,
+.qla-modal button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.qla-modal {
+    position: fixed;
+    inset: 0;
+    width: min(760px, calc(100vw - 40px));
+    max-height: 90vh;
+    margin: auto;
+    padding: 0;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 24px 80px rgba(15, 23, 42, 0.24);
+    color: var(--text-primary, #18233b);
+}
+
+.qla-modal::backdrop {
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(3px);
+}
+
+.qla-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 25px 28px;
+    border-bottom: 1px solid #e5eaf3;
+}
+
+.qla-eyebrow {
+    color: var(--primary, #2563eb);
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 1px;
+}
+
+.qla-modal-header h2 {
+    margin: 8px 0;
+    font-size: 24px;
+    letter-spacing: -0.7px;
+}
+
+.qla-modal-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.qla-close {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 9px;
+    background: #f1f5f9;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.qla-close:hover {
+    background: #e2e8f0;
+}
+
+.qla-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 26px 28px;
+}
+
+.qla-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    font-size: 14px;
+    font-weight: 650;
+}
+
+.qla-form input,
+.qla-form textarea,
+.qla-form select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #dbe3ee;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #1e293b;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    outline: none;
+}
+
+.qla-form input:focus,
+.qla-form textarea:focus,
+.qla-form select:focus {
+    border-color: var(--primary, #2563eb);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.qla-form textarea {
+    resize: vertical;
+    line-height: 1.7;
+}
+
+.qla-form small {
+    align-self: flex-end;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.qla-form textarea.qla-code {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: Consolas, monospace;
+    border-color: #1e293b;
+}
+
+.qla-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid #e5eaf3;
+}
+
+.qla-cancel,
+.qla-save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 43px;
+    padding: 0 18px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.qla-cancel {
+    background: #ffffff;
+    border: 1px solid #dbe3ee;
+    color: #475569;
+}
+
+.qla-save {
+    border: 1px solid var(--primary, #2563eb);
+    background: var(--primary, #2563eb);
+    color: #ffffff;
+}
+
+.qla-save:hover {
+    opacity: 0.88;
+}
+
+.qla-error {
+    padding: 13px 16px;
+    border: 1px solid #fecaca;
+    border-radius: 9px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: 13px;
+}
+
+.qla-loading {
+    padding: 65px 25px;
+    text-align: center;
+    color: #64748b;
+}
+
+@media (max-width: 700px) {
+    .qla-row {
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    .qla-row>.qna-item,
+    .qla-row>.my-qna-item {
+        flex-basis: 100%;
+    }
+
+    .qla-actions {
+        width: 100%;
+        justify-content: flex-end;
+        padding: 0 16px 14px;
+    }
+
+    .qla-modal {
+        width: calc(100vw - 24px);
+        max-height: 92vh;
+        border-radius: 14px;
+    }
+
+    .qla-modal-header {
+        padding: 20px;
+    }
+
+    .qla-form {
+        padding: 20px;
+        gap: 17px;
+    }
+}
+
+.qla-row {
+    position: relative;
+    display: block;
+    min-width: 0;
+}
+
+.qla-row>.qna-item,
+.qla-row>.my-qna-item {
+    width: 100%;
+    box-sizing: border-box;
+    align-items: flex-end;
+}
+
+.qla-row:has(> .qla-actions)>.qna-item,
+.qla-row:has(> .qla-actions)>.my-qna-item {
+    padding-top: 24px;
+    min-height: 120px;
+}
+
+.qla-row:has(> .qla-actions) .qna-tags,
+.qla-row:has(> .qla-actions) .my-qna-tags {
+    padding-right: 160px;
+}
+
+.qla-row>.qla-actions {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    display: flex;
+    width: auto;
+    padding: 0;
+    gap: 6px;
+    z-index: 1;
+}
+
+.qla-actions button {
+    min-height: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 7px;
+}
+
+.qla-row .qna-item-counts {
+    align-self: flex-end;
+}
+
+.qla-row .my-qna-arrow {
+    align-self: flex-end;
+}
+
+@media (max-width: 700px) {
+    .qla-row>.qla-actions {
+        top: 10px;
+        right: 12px;
+    }
+
+    .qla-row:has(> .qla-actions)>.qna-item,
+    .qla-row:has(> .qla-actions)>.my-qna-item {
+        padding-top: 52px;
+    }
+
+    .qla-row:has(> .qla-actions) .qna-tags,
+    .qla-row:has(> .qla-actions) .my-qna-tags {
+        padding-right: 0;
+    }
+}

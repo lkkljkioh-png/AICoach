@@ -17,6 +17,7 @@ import {
 
 import Header from "../components/Header.jsx";
 import QnaAnswers from "../components/QnaAnswers.jsx";
+import QnaListActions from "../components/QnaListActions.jsx";
 import { getCurrentUser } from "../api/authApi.js";
 import {
     getQuestions,
@@ -458,60 +459,72 @@ export default function QnaPage() {
                                 ) : (
                                     <div className="qna-list">
                                         {filtered.map((item) => (
-                                            <button
-                                                type="button"
-                                                className="qna-item"
+                                            <div
+                                                className="qla-row"
                                                 key={item.id}
-                                                onClick={() =>
-                                                    openQuestion(item.id)
-                                                }
                                             >
-                                                <div className="qna-item-info">
-                                                    <div className="qna-tags">
-                                                        <span className="qna-tag">
-                                                            {LANGUAGES[item.language]
-                                                                || item.language}
-                                                        </span>
+                                                <button
+                                                    type="button"
+                                                    className="qna-item"
+                                                    onClick={() =>
+                                                        openQuestion(item.id)
+                                                    }
+                                                >
+                                                    <div className="qna-item-info">
+                                                        <div className="qna-tags">
+                                                            <span className="qna-tag">
+                                                                {LANGUAGES[item.language]
+                                                                    || item.language}
+                                                            </span>
 
-                                                        <span
-                                                            className={
-                                                                isSolved(item.solved)
-                                                                    ? "qna-status solved"
-                                                                    : "qna-status pending"
-                                                            }
-                                                        >
-                                                            {isSolved(item.solved)
-                                                                ? "해결 완료"
-                                                                : "미해결"}
-                                                        </span>
+                                                            <span
+                                                                className={
+                                                                    isSolved(item.solved)
+                                                                        ? "qna-status solved"
+                                                                        : "qna-status pending"
+                                                                }
+                                                            >
+                                                                {isSolved(item.solved)
+                                                                    ? "해결 완료"
+                                                                    : "미해결"}
+                                                            </span>
+                                                        </div>
+
+                                                        <h3>{item.title}</h3>
+
+                                                        <div className="qna-meta">
+                                                            <span>{item.nickname}</span>
+
+                                                            <span>
+                                                                {formatDate(item.created_at)}
+                                                            </span>
+                                                        </div>
                                                     </div>
 
-                                                    <h3>{item.title}</h3>
+                                                    <div className="qna-item-counts">
+                                                        <span>
+                                                            <Eye size={16} />
+                                                            {item.view_count}
+                                                        </span>
 
-                                                    <div className="qna-meta">
                                                         <span>
-                                                            {item.nickname}
+                                                            <MessageSquare size={16} />
+                                                            {item.answer_count}
                                                         </span>
-                                                        <span>
-                                                            {formatDate(item.created_at)}
-                                                        </span>
+
+                                                        <ChevronRight size={19} />
                                                     </div>
-                                                </div>
+                                                </button>
 
-                                                <div className="qna-item-counts">
-                                                    <span>
-                                                        <Eye size={16} />
-                                                        {item.view_count}
-                                                    </span>
-
-                                                    <span>
-                                                        <MessageSquare size={16} />
-                                                        {item.answer_count}
-                                                    </span>
-
-                                                    <ChevronRight size={19} />
-                                                </div>
-                                            </button>
+                                                {user &&
+                                                    String(user.id) === String(item.user_id) && (
+                                                        <QnaListActions
+                                                            type="question"
+                                                            questionId={item.id}
+                                                            onChanged={loadQuestions}
+                                                        />
+                                                    )}
+                                            </div>
                                         ))}
                                     </div>
                                 )}

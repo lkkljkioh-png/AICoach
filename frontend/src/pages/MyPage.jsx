@@ -1,5 +1,5 @@
-
 import { useEffect, useMemo, useState } from "react";
+
 import {
     ArrowRight,
     BookOpen,
@@ -10,6 +10,7 @@ import {
     ChartNoAxesCombined,
     UserRound,
     BookOpenCheck,
+    MessagesSquare,
 } from "lucide-react";
 
 import Header from "../components/Header.jsx";
@@ -17,13 +18,13 @@ import SubmissionViewer from "../components/SubmissionViewer.jsx";
 import LearningActivity from "../components/LearningActivity.jsx";
 import LearningModeComparison from "../components/LearningModeComparison.jsx";
 import LearningPlanner from "../components/LearningPlanner.jsx";
-
-
+import LearningWeaknessAnalysis from "../components/LearningWeaknessAnalysis.jsx";
+import MyQnaActivity from "../components/MyQnaActivity.jsx";
 
 import { getCurrentUser } from "../api/authApi.js";
 import { getProblems } from "../api/problemsApi.js";
 import { getMySubmissions } from "../api/submissionsApi.js";
-import LearningWeaknessAnalysis from "../components/LearningWeaknessAnalysis.jsx";
+
 import "../styles/MyPage.css";
 
 const STATUS_LABELS = {
@@ -81,6 +82,7 @@ export default function MyPage() {
                 if (!active) return;
 
                 setUser(currentUser);
+
                 setSubmissions(
                     Array.isArray(records) ? records : []
                 );
@@ -95,7 +97,8 @@ export default function MyPage() {
                     setNotLoggedIn(true);
                 } else {
                     setError(
-                        err.message || "학습 기록을 불러오지 못했습니다."
+                        err.message ||
+                        "학습 기록을 불러오지 못했습니다."
                     );
                 }
             } finally {
@@ -181,7 +184,10 @@ export default function MyPage() {
                     </div>
 
                     {loading ? (
-                        <section className="my-empty" role="status">
+                        <section
+                            className="my-empty"
+                            role="status"
+                        >
                             학습 정보를 불러오는 중입니다...
                         </section>
                     ) : notLoggedIn ? (
@@ -189,8 +195,8 @@ export default function MyPage() {
                             <h2>로그인이 필요합니다</h2>
 
                             <p>
-                                로그인하면 학습 분석과 목표 관리를
-                                이용할 수 있어요.
+                                로그인하면 학습 분석과 목표 관리,
+                                Q&A 활동을 이용할 수 있어요.
                             </p>
 
                             <a
@@ -206,12 +212,17 @@ export default function MyPage() {
                             className="my-empty"
                             role="alert"
                         >
-                            <h2>학습 정보를 불러오지 못했어요</h2>
+                            <h2>
+                                학습 정보를 불러오지 못했어요
+                            </h2>
+
                             <p>{error}</p>
 
                             <button
                                 type="button"
-                                onClick={() => window.location.reload()}
+                                onClick={() =>
+                                    window.location.reload()
+                                }
                             >
                                 다시 시도
                             </button>
@@ -224,12 +235,16 @@ export default function MyPage() {
                             >
                                 <button
                                     type="button"
-                                    className={`my-tab-button ${activeTab === "analysis" ? "active" : ""
+                                    className={`my-tab-button ${activeTab === "analysis"
+                                            ? "active"
+                                            : ""
                                         }`}
                                     onClick={() =>
                                         setActiveTab("analysis")
                                     }
-                                    aria-pressed={activeTab === "analysis"}
+                                    aria-pressed={
+                                        activeTab === "analysis"
+                                    }
                                 >
                                     <ChartNoAxesCombined size={19} />
                                     학습 분석
@@ -237,10 +252,16 @@ export default function MyPage() {
 
                                 <button
                                     type="button"
-                                    className={`my-tab-button ${activeTab === "goals" ? "active" : ""
+                                    className={`my-tab-button ${activeTab === "goals"
+                                            ? "active"
+                                            : ""
                                         }`}
-                                    onClick={() => setActiveTab("goals")}
-                                    aria-pressed={activeTab === "goals"}
+                                    onClick={() =>
+                                        setActiveTab("goals")
+                                    }
+                                    aria-pressed={
+                                        activeTab === "goals"
+                                    }
                                 >
                                     <Target size={19} />
                                     학습 목표
@@ -260,12 +281,30 @@ export default function MyPage() {
                                     <BookOpenCheck size={19} />
                                     오답 복습
                                 </a>
+
+                                <button
+                                    type="button"
+                                    className={`my-tab-button ${activeTab === "qna"
+                                            ? "active"
+                                            : ""
+                                        }`}
+                                    onClick={() =>
+                                        setActiveTab("qna")
+                                    }
+                                    aria-pressed={
+                                        activeTab === "qna"
+                                    }
+                                >
+                                    <MessagesSquare size={19} />
+                                    Q&A 활동
+                                </button>
                             </nav>
 
                             {activeTab === "analysis" && (
                                 <div className="my-tab-content">
                                     <div className="my-section-heading">
                                         <h2>나의 학습 분석</h2>
+
                                         <p>
                                             문제 풀이 기록과 AI 활용 학습
                                             성과를 확인하세요.
@@ -279,6 +318,7 @@ export default function MyPage() {
                                             </div>
 
                                             <span>총 제출 횟수</span>
+
                                             <strong>
                                                 {stats.total}
                                                 <small>회</small>
@@ -291,6 +331,7 @@ export default function MyPage() {
                                             </div>
 
                                             <span>정답 제출</span>
+
                                             <strong>
                                                 {stats.accepted}
                                                 <small>회</small>
@@ -303,6 +344,7 @@ export default function MyPage() {
                                             </div>
 
                                             <span>해결한 문제</span>
+
                                             <strong>
                                                 {stats.solved}
                                                 <small>개</small>
@@ -315,6 +357,7 @@ export default function MyPage() {
                                             </div>
 
                                             <span>제출 정답률</span>
+
                                             <strong>
                                                 {stats.rate}
                                                 <small>%</small>
@@ -339,10 +382,14 @@ export default function MyPage() {
                                         <section className="my-panel">
                                             <div className="my-panel-title">
                                                 <div>
-                                                    <h2>최근 제출 기록</h2>
+                                                    <h2>
+                                                        최근 제출 기록
+                                                    </h2>
+
                                                     <p>
-                                                        제출 결과를 최신순으로 확인할
-                                                        수 있어요.
+                                                        제출 결과를
+                                                        최신순으로
+                                                        확인할 수 있어요.
                                                     </p>
                                                 </div>
 
@@ -352,12 +399,15 @@ export default function MyPage() {
                                             {submissions.length === 0 ? (
                                                 <div className="my-panel-empty">
                                                     <p>
-                                                        아직 제출한 코드가 없어요.
+                                                        아직 제출한 코드가
+                                                        없어요.
                                                     </p>
 
                                                     <a href="/problems">
                                                         첫 문제 풀러 가기
-                                                        <ArrowRight size={15} />
+                                                        <ArrowRight
+                                                            size={15}
+                                                        />
                                                     </a>
                                                 </div>
                                             ) : (
@@ -379,7 +429,9 @@ export default function MyPage() {
                                                             {submissions
                                                                 .slice(0, 20)
                                                                 .map((item) => (
-                                                                    <tr key={item.id}>
+                                                                    <tr
+                                                                        key={item.id}
+                                                                    >
                                                                         <td>
                                                                             <a
                                                                                 href={`/problems/${item.problemId}`}
@@ -406,13 +458,14 @@ export default function MyPage() {
                                                                         <td>
                                                                             <span
                                                                                 className={`my-result ${item.status === "ACCEPTED"
-                                                                                    ? "my-result-ok"
-                                                                                    : "my-result-fail"
+                                                                                        ? "my-result-ok"
+                                                                                        : "my-result-fail"
                                                                                     }`}
                                                                             >
                                                                                 {STATUS_LABELS[
                                                                                     item.status
-                                                                                ] || item.status}
+                                                                                ] ||
+                                                                                    item.status}
                                                                             </span>
                                                                         </td>
 
@@ -451,7 +504,10 @@ export default function MyPage() {
                                         <section className="my-panel my-language-panel">
                                             <div className="my-panel-title">
                                                 <div>
-                                                    <h2>언어별 제출</h2>
+                                                    <h2>
+                                                        언어별 제출
+                                                    </h2>
+
                                                     <p>
                                                         사용한 프로그래밍 언어
                                                     </p>
@@ -461,7 +517,8 @@ export default function MyPage() {
                                             {stats.languages.length === 0 ? (
                                                 <div className="my-panel-empty">
                                                     <p>
-                                                        아직 언어별 기록이 없어요.
+                                                        아직 언어별 기록이
+                                                        없어요.
                                                     </p>
                                                 </div>
                                             ) : (
@@ -475,6 +532,7 @@ export default function MyPage() {
                                                                 <strong>
                                                                     {language}
                                                                 </strong>
+
                                                                 <span>
                                                                     {count}회
                                                                 </span>
@@ -483,10 +541,10 @@ export default function MyPage() {
                                                             <div className="my-progress">
                                                                 <div
                                                                     style={{
-                                                                        width: `${(count /
-                                                                            stats.total) *
-                                                                            100
-                                                                            }%`,
+                                                                        width: `${(
+                                                                            count /
+                                                                            stats.total
+                                                                        ) * 100}%`,
                                                                     }}
                                                                 />
                                                             </div>
@@ -496,9 +554,10 @@ export default function MyPage() {
                                             )}
 
                                             <p className="my-stat-note">
-                                                정답률은 정답 제출 수를 전체
-                                                제출 수로 나눈 값입니다.
-                                                해결한 문제는 중복을 제외합니다.
+                                                정답률은 정답 제출 수를
+                                                전체 제출 수로 나눈 값입니다.
+                                                해결한 문제는 중복을
+                                                제외합니다.
                                             </p>
                                         </section>
                                     </div>
@@ -509,14 +568,21 @@ export default function MyPage() {
                                 <div className="my-tab-content">
                                     <div className="my-section-heading">
                                         <h2>나의 학습 목표</h2>
+
                                         <p>
                                             오늘의 학습 목표를 설정하고
                                             달성 현황을 확인하세요.
                                         </p>
                                     </div>
 
-                                    <LearningPlanner submissions={submissions} />
+                                    <LearningPlanner
+                                        submissions={submissions}
+                                    />
                                 </div>
+                            )}
+
+                            {activeTab === "qna" && (
+                                <MyQnaActivity />
                             )}
                         </>
                     )}
