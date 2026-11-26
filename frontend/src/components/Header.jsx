@@ -46,13 +46,20 @@ export default function Header() {
         catch (error) { alert(error.message || "로그아웃에 실패했습니다."); setLoggingOut(false); }
     };
 
-    const navLinks = (items) => items.map(({ href, label, Icon }) => href === "/qna" ? (
-        <span key={href} className="ac-nav-pending" title="Q&A 준비 중" aria-disabled="true"><Icon size={19} strokeWidth={1.75}/><span>{label}</span><span className="ac-pending-label">준비 중</span></span>
-    ) : (
-        <a key={href} href={href} title={label} aria-label={label} aria-current={active(href) ? "page" : undefined} className={active(href) ? "is-active" : ""}>
-            <Icon size={19} strokeWidth={1.75} /><span>{label}</span>
-        </a>
-    ));
+    const navLinks = (items) =>
+        items.map(({ href, label, Icon }) => (
+            <a
+                key={href}
+                href={href}
+                title={label}
+                aria-label={label}
+                aria-current={active(href) ? "page" : undefined}
+                className={active(href) ? "is-active" : ""}
+            >
+                <Icon size={19} strokeWidth={1.75} />
+                <span>{label}</span>
+            </a>
+        ));
     const logo = <a className="ac-brand" href="/" aria-label="AICoach 홈">{logoError ? <span className="ac-brand-fallback">AICO</span> : <img src="/aicoach-logo.png" alt="AICoach" onError={() => setLogoError(true)} />}</a>;
     const account = !checking && (user ? (
         <div className="ac-profile">
@@ -62,19 +69,19 @@ export default function Header() {
             </button>
             {profileOpen && <div className="ac-profile-menu"><div className="ac-profile-info"><strong>{user.nickname}</strong><small>{user.email}</small></div><a href="/mypage"><UserRound size={16} /> 마이페이지</a><button type="button" disabled={loggingOut} onClick={handleLogout}><LogOut size={16} />{loggingOut ? "로그아웃 중..." : "로그아웃"}</button></div>}
         </div>
-    ) : <div className="ac-auth-links"><a href="/login">로그인</a><a className="ac-primary-link" href="/signup">시작하기 <ArrowUpRight size={15}/></a></div>);
+    ) : <div className="ac-auth-links"><a href="/login">로그인</a><a className="ac-primary-link" href="/signup">시작하기 <ArrowUpRight size={15} /></a></div>);
 
     return publicPage ? (
         <header className="ac-public-header">
-            <div className="ac-public-inner">{logo}<nav className="ac-public-nav" aria-label="주 메뉴"><a href="/#features">주요 기능</a><a href="/#how-it-works">학습 과정</a>{navLinks(NAV)}</nav><div className="ac-public-actions">{account}<button className="ac-mobile-toggle" type="button" aria-label="메뉴" aria-expanded={mobileOpen} onClick={() => setMobileOpen(v => !v)}>{mobileOpen ? <X/> : <Menu/>}</button></div></div>
+            <div className="ac-public-inner">{logo}<nav className="ac-public-nav" aria-label="주 메뉴"><a href="/#features">주요 기능</a><a href="/#how-it-works">학습 과정</a>{navLinks(NAV)}</nav><div className="ac-public-actions">{account}<button className="ac-mobile-toggle" type="button" aria-label="메뉴" aria-expanded={mobileOpen} onClick={() => setMobileOpen(v => !v)}>{mobileOpen ? <X /> : <Menu />}</button></div></div>
             {mobileOpen && <nav className="ac-mobile-nav" aria-label="모바일 메뉴">{navLinks(NAV)}<a href="/#features">주요 기능</a><a href="/#how-it-works">학습 과정</a></nav>}
         </header>
     ) : (
         <header className={`ac-app-header ${compact ? "ac-compact" : ""}`}>
-            <div className="ac-side-top">{logo}<button className="ac-mobile-toggle" type="button" aria-label="메뉴" aria-expanded={mobileOpen} onClick={() => setMobileOpen(v => !v)}>{mobileOpen ? <X/> : <Menu/>}</button></div>
+            <div className="ac-side-top">{logo}<button className="ac-mobile-toggle" type="button" aria-label="메뉴" aria-expanded={mobileOpen} onClick={() => setMobileOpen(v => !v)}>{mobileOpen ? <X /> : <Menu />}</button></div>
             <div className={`ac-side-content ${mobileOpen ? "is-open" : ""}`}>
                 <nav className="ac-side-nav" aria-label="학습 메뉴"><div className="ac-nav-caption">WORKSPACE</div>{navLinks(NAV.slice(0, 4))}<div className="ac-nav-caption ac-community-caption">COMMUNITY</div>{navLinks(NAV.slice(4))}</nav>
-                <div className="ac-side-bottom"><a className="ac-home-link" href="/" title="홈" aria-label="홈"><Home size={19}/><span>홈으로</span></a>{account}</div>
+                <div className="ac-side-bottom"><a className="ac-home-link" href="/" title="홈" aria-label="홈"><Home size={19} /><span>홈으로</span></a>{account}</div>
             </div>
         </header>
     );

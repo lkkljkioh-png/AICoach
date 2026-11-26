@@ -1,4 +1,3 @@
-
 import Home from "./pages/Home.jsx";
 import Problems from "./pages/Problems.jsx";
 import ProblemSolve from "./pages/ProblemSolve.jsx";
@@ -7,6 +6,7 @@ import MyPage from "./pages/MyPage.jsx";
 import Learning from "./pages/Learning.jsx";
 import AdminProblems from "./pages/AdminProblems.jsx";
 import ReviewPage from "./pages/ReviewPage.jsx";
+import QnaPage from "./pages/QnaPage.jsx";
 
 function App() {
   const path =
@@ -44,6 +44,9 @@ function App() {
     return <MyPage />;
   }
 
+  if (path === "/qna" || path.startsWith("/qna/")) {
+    return <QnaPage />;
+  }
   return <Home />;
 }
 
