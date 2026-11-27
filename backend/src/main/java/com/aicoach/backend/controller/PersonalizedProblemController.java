@@ -1,3 +1,4 @@
+
 package com.aicoach.backend.controller;
 
 import com.aicoach.backend.service.AIProblemGenerationService;
@@ -24,7 +25,9 @@ public class PersonalizedProblemController {
         private static final Set<String> LEVELS = Set.of("EASY", "MEDIUM", "HARD");
 
         private final LearningService learningService;
+
         private final AIProblemGenerationService generationService;
+
         private final PersonalizedProblemService personalizedService;
 
         public PersonalizedProblemController(
@@ -55,19 +58,31 @@ public class PersonalizedProblemController {
                 return id;
         }
 
-        // 문제 생성 옵션
+        // 문제 생성 요청 옵션
         public record GenerateOptions(
                         String mode,
                         String level,
                         String category) {
         }
 
-        // 문제 생성 및 저장 결과
+        // 사용자에게 공개 가능한 문제 정보
+        public record PersonalProblemPreview(
+                        String title,
+                        String level,
+                        String category,
+                        int time,
+                        String description,
+                        String input,
+                        String output,
+                        String hint) {
+        }
+
+        // 문제 생성 및 저장 응답
         public record PersonalizedProblemResponse(
                         String recommendedLevel,
                         String weakCategory,
                         String insight,
-                        AIProblemGenerationService.GeneratedProblem problem,
+                        PersonalProblemPreview problem,
                         AIProblemStorageService.SaveResponse savedProblem) {
         }
 
@@ -79,7 +94,8 @@ public class PersonalizedProblemController {
 
         // 개인 문제 저장 한도 조회
         @GetMapping("/quota")
-        public QuotaResponse getQuota(HttpServletRequest request) {
+        public QuotaResponse getQuota(
+                        HttpServletRequest request) {
 
                 Long userId = requireUser(request);
 
@@ -92,7 +108,7 @@ public class PersonalizedProblemController {
                                                 : PersonalizedProblemService.MAX_PERSONAL_PROBLEMS);
         }
 
-        // AI 문제 생성, Docker 검증 및 DB 자동 저장
+        // AI 문제 생성 및 Docker 검증 후 자동 저장
         @PostMapping("/generate")
         public PersonalizedProblemResponse generate(
                         @RequestBody(required = false) GenerateOptions options,
@@ -100,14 +116,15 @@ public class PersonalizedProblemController {
 
                 Long userId = requireUser(request);
 
-                // Gemini 호출 전에 개인 문제 보관 한도 확인
+                // AI 호출 전에 개인 문제 저장 한도 확인
                 personalizedService.checkProblemLimit(userId);
 
                 String mode = options == null || options.mode() == null
                                 ? "AUTO"
                                 : options.mode();
 
-                if (!mode.equals("AUTO") && !mode.equals("MANUAL")) {
+                if (!"AUTO".equals(mode) &&
+                                !"MANUAL".equals(mode)) {
 
                         throw new ResponseStatusException(
                                         HttpStatus.BAD_REQUEST,
@@ -118,12 +135,12 @@ public class PersonalizedProblemController {
                 String category;
                 String insight;
 
-                // 직접 설정 모드
-                if (mode.equals("MANUAL")) {
+                // 사용자가 난이도와 유형을 직접 선택한 경우
+                if ("MANUAL".equals(mode)) {
 
-                        if (options == null
-                                        || options.level() == null
-                                        || !LEVELS.contains(options.level())) {
+                        if (options == null ||
+                                        options.level() == null ||
+                                        !LEVELS.contains(options.level())) {
 
                                 throw new ResponseStatusException(
                                                 HttpStatus.BAD_REQUEST,
@@ -136,10 +153,10 @@ public class PersonalizedProblemController {
                                         ? ""
                                         : options.category().trim();
 
-                        if (category.length() < 2
-                                        || category.length() > 40
-                                        || category.contains("\n")
-                                        || category.contains("\r")) {
+                        if (category.length() < 2 ||
+                                        category.length() > 40 ||
+                                        category.contains("\n") ||
+                                        category.contains("\r")) {
 
                                 throw new ResponseStatusException(
                                                 HttpStatus.BAD_REQUEST,
@@ -151,24 +168,38 @@ public class PersonalizedProblemController {
 
                 } else {
 
-                        // AI 자동 추천 모드
+                        // 학습 기록을 기반으로 AI 문제 자동 추천
                         LearningService.LearningResponse analysis = learningService.getRecommendations(userId);
 
                         level = analysis.recommendedLevel();
                         category = analysis.weakCategory();
 
-                        if (level == null || !LEVELS.contains(level)) {
+                        if (level == null ||
+                                        !LEVELS.contains(level)) {
+
                                 level = "EASY";
                         }
 
-                        if (category == null || category.isBlank()) {
+                        if (category == null ||
+                                        category.isBlank()) {
+
+                                category = "구현";
+                        }
+
+                        category = category.trim();
+
+                        if (category.length() < 2 ||
+                                        category.length() > 40 ||
+                                        category.contains("\n") ||
+                                        category.contains("\r")) {
+
                                 category = "구현";
                         }
 
                         insight = analysis.insight();
                 }
 
-                // 기존 개인 문제 제목 조회
+                // 기존 개인 문제 목록 조회
                 List<PersonalizedProblemService.PersonalProblemResponse> previousProblems = personalizedService
                                 .getMyProblems(userId);
 
@@ -176,12 +207,14 @@ public class PersonalizedProblemController {
 
                 for (var previous : previousProblems) {
 
-                        if (previous.title() != null) {
+                        if (previous.title() != null &&
+                                        !previous.title().isBlank()) {
+
                                 previousTitles.add(previous.title());
                         }
                 }
 
-                // Gemini 문제 생성 조건
+                // AI 문제 생성 요청 구성
                 AIProblemGenerationService.GenerateRequest generateRequest = new AIProblemGenerationService.GenerateRequest(
                                 level,
                                 category);
@@ -192,39 +225,45 @@ public class PersonalizedProblemController {
 
                 String lastFailure = "문제 검증에 실패했습니다.";
 
-                // 생성 및 Docker 검증 최대 3회
+                // 문제 생성 및 다국어 Docker 검증 최대 3회
                 for (int attempt = 1; attempt <= 3; attempt++) {
 
                         System.out.println(
-                                        "[AI PROBLEM] 생성 및 검증 시도: " + attempt);
-
-                        problem = generationService.generate(
-                                        generateRequest,
-                                        previousTitles);
-
-                        String newTitle = problem.title().trim();
-
-                        // 기존 문제와 제목 중복 확인
-                        boolean duplicate = previousTitles.stream()
-                                        .anyMatch(title -> title.trim().equalsIgnoreCase(newTitle));
-
-                        if (duplicate) {
-
-                                System.out.println(
-                                                "[AI PROBLEM] 중복 문제 제목 감지: "
-                                                                + newTitle);
-
-                                lastFailure = "기존 문제와 제목이 중복되었습니다.";
-
-                                continue;
-                        }
-
-                        // 재생성 시 이전에 실패한 문제도 제외
-                        previousTitles.add(newTitle);
+                                        "[AI PROBLEM] 생성 및 검증 시도: "
+                                                        + attempt
+                                                        + "/3");
 
                         try {
 
-                                // Docker 정답 검증 및 DB 저장
+                                // 하나의 문제와 5개 언어 정답 코드 생성
+                                problem = generationService.generate(
+                                                generateRequest,
+                                                previousTitles);
+
+                                String newTitle = problem.title().trim();
+
+                                // 기존 문제와 제목 중복 확인
+                                boolean duplicate = previousTitles.stream()
+                                                .anyMatch(
+                                                                title -> title.trim()
+                                                                                .equalsIgnoreCase(
+                                                                                                newTitle));
+
+                                if (duplicate) {
+
+                                        System.out.println(
+                                                        "[AI PROBLEM] 중복 문제 제목 감지: "
+                                                                        + newTitle);
+
+                                        lastFailure = "기존 문제와 제목이 중복되었습니다.";
+
+                                        continue;
+                                }
+
+                                // 재생성 시 실패한 문제도 제외
+                                previousTitles.add(newTitle);
+
+                                // 5개 언어 정답 코드 검증 후 개인 문제 저장
                                 saved = personalizedService.save(
                                                 userId,
                                                 problem);
@@ -233,12 +272,20 @@ public class PersonalizedProblemController {
                                                 "[AI PROBLEM] DB 저장 성공: "
                                                                 + saved.problemId());
 
+                                System.out.println(
+                                                "[AI PROBLEM] 전체 언어 검증 결과: "
+                                                                + saved.passed()
+                                                                + "/"
+                                                                + saved.total());
+
                                 break;
 
                         } catch (ResponseStatusException e) {
 
-                                // Docker 검증 실패 422만 재시도
-                                if (e.getStatusCode().value() != 422) {
+                                int status = e.getStatusCode().value();
+
+                                // Docker 정답 검증 실패만 문제 재생성
+                                if (status != 422) {
                                         throw e;
                                 }
 
@@ -252,24 +299,37 @@ public class PersonalizedProblemController {
                         }
                 }
 
-                // 모든 생성 또는 검증 실패
-                if (saved == null) {
+                // 모든 문제 생성 또는 검증 실패
+                if (problem == null ||
+                                saved == null) {
 
                         throw new ResponseStatusException(
                                         HttpStatus.UNPROCESSABLE_ENTITY,
-                                        "3회 생성 및 검증 실패: " + lastFailure);
+                                        "3회 생성 및 검증 실패: "
+                                                        + lastFailure);
                 }
 
-                // 문제 생성 및 저장 결과 반환
+                // 사용자에게 공개할 문제 정보만 구성
+                PersonalProblemPreview preview = new PersonalProblemPreview(
+                                problem.title(),
+                                problem.level(),
+                                problem.category(),
+                                problem.time(),
+                                problem.description(),
+                                problem.input(),
+                                problem.output(),
+                                problem.hint());
+
+                // 정답 코드와 숨겨진 테스트케이스는 반환하지 않음
                 return new PersonalizedProblemResponse(
                                 level,
                                 category,
                                 insight,
-                                problem,
+                                preview,
                                 saved);
         }
 
-        // 기존 저장 API 호환 유지
+        // 기존 개인 문제 저장 API
         @PostMapping("/save")
         public AIProblemStorageService.SaveResponse save(
                         @RequestBody AIProblemGenerationService.GeneratedProblem problem,
@@ -277,16 +337,20 @@ public class PersonalizedProblemController {
 
                 Long userId = requireUser(request);
 
-                return personalizedService.save(userId, problem);
+                return personalizedService.save(
+                                userId,
+                                problem);
         }
 
         // 사용자 개인 문제 목록 조회
         @GetMapping("/me")
-        public List<PersonalizedProblemService.PersonalProblemResponse> myProblems(HttpServletRequest request) {
+        public List<PersonalizedProblemService.PersonalProblemResponse> myProblems(
+                        HttpServletRequest request) {
 
                 Long userId = requireUser(request);
 
-                return personalizedService.getMyProblems(userId);
+                return personalizedService.getMyProblems(
+                                userId);
         }
 
         // 내가 생성한 개인 문제 삭제
@@ -317,7 +381,7 @@ public class PersonalizedProblemController {
                                 problemId);
         }
 
-        // 보관한 개인 문제 복원
+        // 보관한 문제 복원
         @PatchMapping("/{problemId}/restore")
         @ResponseStatus(HttpStatus.NO_CONTENT)
         public void restoreProblem(
@@ -331,7 +395,7 @@ public class PersonalizedProblemController {
                                 problemId);
         }
 
-        // 인증 오류
+        // 사용자 인증 오류
         private ResponseStatusException unauthorized() {
 
                 return new ResponseStatusException(

@@ -263,21 +263,234 @@
 }
 
 /* AICOACH_PRODUCT_V3_BEGIN */
-.admin-problems {max-width:1280px;padding:36px 32px 70px;color:var(--text-primary);}
-.admin-back {margin-bottom:16px;color:var(--text-secondary);}
-.admin-heading {margin-bottom:22px;}
-.admin-heading h1 {font-size:30px;letter-spacing:-.04em;}
-.admin-panel {padding:22px;margin-bottom:18px;background:white;border:1px solid var(--border);border-radius:12px;box-shadow:var(--ac-shadow);}
-.admin-panel h2 {font-size:18px;margin-bottom:18px;}
-.admin-panel h3 {font-size:20px;}
-.admin-fields select,.admin-fields input {height:42px;border-color:var(--border);border-radius:8px;}
-.admin-primary {background:var(--primary);border-radius:8px;padding:10px 15px;}
-.admin-primary:hover:not(:disabled) {background:var(--primary-hover);}
-.admin-panel pre {background:var(--background);border-color:var(--border);border-radius:8px;}
-.admin-level {border-radius:6px;background:var(--primary-light);color:var(--primary);}
-@media(max-width:700px){.admin-problems{padding:24px 14px 50px;}.admin-panel{padding:16px;}}
-.admin-problems{background:var(--background);min-height:100vh;padding:38px 38px 72px}.admin-heading{padding:24px 26px;background:#14223d;color:white;border-radius:10px}.admin-heading>svg{color:#a9bcff}.admin-heading p{color:#c0cce2}.admin-heading h1{color:white}.admin-panel{max-width:1200px;border-radius:10px;padding:24px;margin-bottom:16px}.admin-panel h2{border-bottom:1px solid var(--border);padding-bottom:15px;font-size:18px}.admin-panel .admin-preview-heading h2{border:0;padding:0}.admin-fields select,.admin-fields input{border-radius:6px;height:42px}.admin-primary{background:var(--primary);border-radius:6px;padding:10px 16px}.admin-level{border-radius:5px}
-@media(max-width:1000px){.admin-problems{padding:25px 20px 50px}}@media(max-width:560px){.admin-problems{padding:20px 14px 44px}.admin-heading,.admin-panel{padding:16px}.admin-heading h1{font-size:24px}}
+.admin-problems {
+    max-width: 1280px;
+    padding: 36px 32px 70px;
+    color: var(--text-primary);
+}
 
-.admin-problems{background:var(--background);padding:var(--ac-page-pad);min-width:0}.admin-panel{border:1px solid var(--border);border-radius:10px;box-shadow:none;min-width:0}.admin-heading h1{font-size:clamp(27px,2.7vw,34px)}.admin-primary{background:var(--primary);color:white}@media(max-width:650px){.admin-problems{padding:22px 14px}.admin-fields{grid-template-columns:1fr}}
-/* AICOACH_PRODUCT_V3_END */
+.admin-back {
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+}
+
+.admin-heading {
+    margin-bottom: 22px;
+}
+
+.admin-heading h1 {
+    font-size: 30px;
+    letter-spacing: -.04em;
+}
+
+.admin-panel {
+    padding: 22px;
+    margin-bottom: 18px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--ac-shadow);
+}
+
+.admin-panel h2 {
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+
+.admin-panel h3 {
+    font-size: 20px;
+}
+
+.admin-fields select,
+.admin-fields input {
+    height: 42px;
+    border-color: var(--border);
+    border-radius: 8px;
+}
+
+.admin-primary {
+    background: var(--primary);
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.admin-primary:hover:not(:disabled) {
+    background: var(--primary-hover);
+}
+
+.admin-panel pre {
+    background: var(--background);
+    border-color: var(--border);
+    border-radius: 8px;
+}
+
+.admin-level {
+    border-radius: 6px;
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+@media(max-width:700px) {
+    .admin-problems {
+        padding: 24px 14px 50px;
+    }
+
+    .admin-panel {
+        padding: 16px;
+    }
+}
+
+.admin-problems {
+    background: var(--background);
+    min-height: 100vh;
+    padding: 38px 38px 72px
+}
+
+.admin-heading {
+    padding: 24px 26px;
+    background: #14223d;
+    color: white;
+    border-radius: 10px
+}
+
+.admin-heading>svg {
+    color: #a9bcff
+}
+
+.admin-heading p {
+    color: #c0cce2
+}
+
+.admin-heading h1 {
+    color: white
+}
+
+.admin-panel {
+    max-width: 1200px;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 16px
+}
+
+.admin-panel h2 {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 15px;
+    font-size: 18px
+}
+
+.admin-panel .admin-preview-heading h2 {
+    border: 0;
+    padding: 0
+}
+
+.admin-fields select,
+.admin-fields input {
+    border-radius: 6px;
+    height: 42px
+}
+
+.admin-primary {
+    background: var(--primary);
+    border-radius: 6px;
+    padding: 10px 16px
+}
+
+.admin-level {
+    border-radius: 5px
+}
+
+@media(max-width:1000px) {
+    .admin-problems {
+        padding: 25px 20px 50px
+    }
+}
+
+@media(max-width:560px) {
+    .admin-problems {
+        padding: 20px 14px 44px
+    }
+
+    .admin-heading,
+    .admin-panel {
+        padding: 16px
+    }
+
+    .admin-heading h1 {
+        font-size: 24px
+    }
+}
+
+.admin-problems {
+    background: var(--background);
+    padding: var(--ac-page-pad);
+    min-width: 0
+}
+
+.admin-panel {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: none;
+    min-width: 0
+}
+
+.admin-heading h1 {
+    font-size: clamp(27px, 2.7vw, 34px)
+}
+
+.admin-primary {
+    background: var(--primary);
+    color: white
+}
+
+@media(max-width:650px) {
+    .admin-problems {
+        padding: 22px 14px
+    }
+
+    .admin-fields {
+        grid-template-columns: 1fr
+    }
+}
+
+
+.admin-reference-solutions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+    width: 100%;
+}
+
+.admin-reference-item {
+    min-width: 0;
+    border: 1px solid #dce4ef;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.admin-reference-item summary {
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 650;
+    cursor: pointer;
+    background: #f5f7fb;
+    color: #334155;
+}
+
+.admin-reference-item summary:hover {
+    background: #edf2ff;
+}
+
+.admin-reference-item pre {
+    margin: 0;
+    padding: 20px;
+    max-width: 100%;
+    max-height: 420px;
+    overflow: auto;
+    background: #111c30;
+    color: #e2e8f0;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre;
+}

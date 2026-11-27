@@ -187,14 +187,24 @@ public class JudgeService {
         }
 
         // AI가 생성한 정답 코드를 테스트케이스에 실행하여 검증
+
         public JudgeResult validateGeneratedPython(
                         String code,
                         List<AIProblemGenerationService.TestCase> cases) {
 
-                validate("Python", code);
+                return validateGeneratedSolution(
+                                "Python", code, cases);
+        }
 
-                if (cases == null ||
-                                cases.size() != 5) {
+        // AI가 생성한 언어별 정답 코드 검증
+        public JudgeResult validateGeneratedSolution(
+                        String language,
+                        String code,
+                        List<AIProblemGenerationService.TestCase> cases) {
+
+                validate(language, code);
+
+                if (cases == null || cases.size() != 5) {
                         throw new ResponseStatusException(
                                         HttpStatus.BAD_REQUEST,
                                         "테스트케이스는 정확히 5개여야 합니다.");
@@ -219,14 +229,16 @@ public class JudgeService {
                         }
 
                         ExecutionResult result = executeCode(
-                                        "Python",
+                                        language,
                                         code,
                                         test.input());
 
                         if (!"SUCCESS".equals(result.status())) {
+
                                 return new JudgeResult(
                                                 result.status(),
-                                                (i + 1) + "번 테스트 실행 실패: "
+                                                language + " / 테스트 " + (i + 1)
+                                                                + "번 실행 실패: "
                                                                 + result.output(),
                                                 passed,
                                                 total);
@@ -238,10 +250,11 @@ public class JudgeService {
                                         test.expectedOutput());
 
                         if (!actual.equals(expected)) {
+
                                 return new JudgeResult(
                                                 "WRONG_ANSWER",
-                                                (i + 1)
-                                                                + "번 테스트에서 예상 출력과 실제 출력이 다릅니다.",
+                                                language + " / 테스트 " + (i + 1)
+                                                                + "번에서 오답입니다.",
                                                 passed,
                                                 total);
                         }
@@ -251,7 +264,7 @@ public class JudgeService {
 
                 return new JudgeResult(
                                 "ACCEPTED",
-                                "AI 정답 코드가 모든 테스트케이스를 통과했습니다.",
+                                language + " 정답 코드 검증 완료",
                                 passed,
                                 total);
         }

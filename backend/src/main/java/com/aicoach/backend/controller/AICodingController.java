@@ -3,6 +3,9 @@ package com.aicoach.backend.controller;
 
 import com.aicoach.backend.service.AICodingService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,7 +31,20 @@ public class AICodingController {
     @PostMapping("/{id}/ai-code")
     public AICodingService.AICodeResult generateCode(
             @PathVariable Long id,
-            @RequestBody AICodeRequest request) {
+            @RequestBody AICodeRequest request,
+            HttpServletRequest servletRequest) {
+
+        HttpSession session = servletRequest.getSession(false);
+
+        Long userId = null;
+
+        if (session != null) {
+            Object value = session.getAttribute("USER_ID");
+
+            if (value instanceof Long idValue) {
+                userId = idValue;
+            }
+        }
 
         return aiCodingService.generate(
                 id,
@@ -36,6 +52,7 @@ public class AICodingController {
                 request.instruction(),
                 request.currentCode(),
                 request.judgeOutput(),
-                request.action());
+                request.action(),
+                userId);
     }
 }

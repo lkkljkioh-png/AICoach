@@ -344,7 +344,26 @@ function AdminProblems() {
 
                         <details className="admin-details">
                             <summary>Python 정답 코드 확인</summary>
-                            <pre>{problem.referenceSolution}</pre>
+
+                            <div className="admin-reference-solutions">
+                                {Object.entries(
+                                    problem.referenceSolutions ?? {
+                                        Python: problem.referenceSolution
+                                    }
+                                ).map(([language, code]) => (
+                                    <details
+                                        key={language}
+                                        className="admin-reference-item"
+                                    >
+                                        <summary>
+                                            {language} 정답 코드
+                                        </summary>
+
+                                        <pre>{code}</pre>
+                                    </details>
+                                ))}
+                            </div>
+
                         </details>
 
                         <details className="admin-details">

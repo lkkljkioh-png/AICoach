@@ -56,7 +56,8 @@ public class AICodingService {
             String instruction,
             String currentCode,
             String judgeOutput,
-            String action) {
+            String action,
+            Long userId) {
 
         // =====================================
         // 요청 검증
@@ -103,8 +104,10 @@ public class AICodingService {
                     "Gemini API 키가 설정되지 않았습니다.");
         }
 
-        // DB에 저장된 공개 문제 조회
-        ProblemEntity problem = problemService.getProblem(problemId);
+        // 공개 문제 또는 본인 소유 개인 문제 조회
+        ProblemEntity problem = problemService.getProblem(
+                problemId,
+                userId);
 
         // =====================================
         // 학습 목적에 따른 Gemini 지시문
